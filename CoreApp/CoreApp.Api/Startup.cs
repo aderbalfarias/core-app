@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
+using System.IO;
 
 namespace CoreApp.Api
 {
@@ -54,7 +55,7 @@ namespace CoreApp.Api
             services.Configure<ConfigKeys>(Configuration.GetSection("ConfigKeys"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+            
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -81,8 +82,8 @@ namespace CoreApp.Api
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Core App v1");
-                c.RoutePrefix = string.Empty;
+                c.SwaggerEndpoint("swagger/v1/swagger.json", "Core App v1");
+                //c.RoutePrefix = string.Empty;
             });
 
             if (env.IsDevelopment())

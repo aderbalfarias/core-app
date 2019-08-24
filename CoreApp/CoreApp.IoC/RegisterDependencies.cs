@@ -29,8 +29,8 @@ namespace CoreApp.IoC
         {
             // Add configuration for DbContext
             // Use connection string from appsettings.json file
-            services.AddDbContext<PrimaryContext>(options => options.UseSqlServer(connectionString));
-            services.AddScoped<ILogger, Logger<PrimaryContext>>();
+            //services.AddDbContext<PrimaryContext>(options => options.UseSqlServer(connectionString));
+            //services.AddScoped<ILogger, Logger<PrimaryContext>>();
 
             return services;
         }
