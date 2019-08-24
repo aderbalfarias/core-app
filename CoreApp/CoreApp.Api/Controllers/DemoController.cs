@@ -44,7 +44,7 @@ namespace CoreApp.Api.Controllers
         // POST api/demo/save
         [HttpPost]
         [EnableCors]
-        [Route("save)}")]
+        [Route("save")]
         public IActionResult Save(DemoModel model)
         {
             if (model == null)
