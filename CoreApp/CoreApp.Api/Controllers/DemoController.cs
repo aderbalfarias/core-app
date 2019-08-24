@@ -1,0 +1,45 @@
+﻿using CoreApp.Api.Models;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+
+namespace CoreApp.Api.Controllers
+{
+    //[Route("api/[controller]")]
+    [Route("api/demo")]
+    [ApiController]
+    public class DemoController : ControllerBase
+    {
+        //[Route("api/[controller]")]
+        
+        public class TestController : ControllerBase
+        {
+            private readonly ITestService _testService;
+            private readonly ILogger _logger;
+
+            public TestController(ITestService testService, ILogger<TestController> logger)
+            {
+                _testService = testService;
+                _logger = logger;
+            }
+
+            // GET api/demo/getall
+            [HttpGet]
+            [EnableCors]
+            [Route("getall")]
+            public IActionResult GetAll() => Ok(_testService.GetAll());
+
+            // GET api/demo/getbyid/{id}
+            [HttpGet]
+            [EnableCors]
+            [Route("getbyid/{id:int:min(1)}")]
+            public IActionResult GetById(int id) => Ok(_testService.GetById(id));
+
+            // POST api/demo/save
+            [HttpPost]
+            [EnableCors]
+            [Route("save)}")]
+            public IActionResult Save(DemoModel model) => Ok(_testService.Save(model));
+        }
+    }
+}

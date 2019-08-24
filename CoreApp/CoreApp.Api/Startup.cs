@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
+using System;
 
 namespace CoreApp.Api
 {
@@ -55,17 +57,17 @@ namespace CoreApp.Api
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info
+                c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Api test",
-                    Description = "Api to test",
-                    TermsOfService = "",
-                    Contact = new Contact
+                    Title = "Core App",
+                    Description = "Api to be template",
+                    TermsOfService = new Uri("https://aderbalfarias.com"),
+                    Contact = new OpenApiContact
                     {
-                        Name = "Test",
-                        Email = "test@test.com",
-                        Url = ""
+                        Name = "Aderbal Farias",
+                        Email = "aderbalfarias@hotmail.com",
+                        Url = new Uri("https://aderbalfarias.com")
                     }
                 });
             });
@@ -79,7 +81,8 @@ namespace CoreApp.Api
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Test v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Core App v1");
+                c.RoutePrefix = string.Empty;
             });
 
             if (env.IsDevelopment())
