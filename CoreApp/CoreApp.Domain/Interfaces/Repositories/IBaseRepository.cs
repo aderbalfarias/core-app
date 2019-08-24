@@ -1,6 +1,6 @@
 ﻿namespace CoreApp.Domain.Interfaces.Repositories
 {
-    interface IBaseRepository
+    public interface IBaseRepository
     {
     }
 }

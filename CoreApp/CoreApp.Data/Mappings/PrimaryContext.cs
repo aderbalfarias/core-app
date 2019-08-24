@@ -2,7 +2,7 @@
 
 namespace CoreApp.Data.Mappings
 {
-    class PrimaryContext : DbContext
+    public class PrimaryContext : DbContext
     {
     }
 }

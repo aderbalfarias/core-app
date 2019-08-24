@@ -1,7 +1,9 @@
 ﻿using CoreApp.Api.Models;
+using CoreApp.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace CoreApp.Api.Controllers
 {
@@ -39,8 +41,8 @@ namespace CoreApp.Api.Controllers
             [HttpGet]
             [EnableCors]
             [Route("getdetails/{id:int:min(1)}/{id:int:min(1)}")]
-            public IActionResult GetDetails(int id, int modelId) 
-                => Ok(_testService.GetById(id, modelId));
+            public async Task<IActionResult> GetDetails(int id, int modelId) 
+                => Ok(await _testService.GetDetails(id, modelId));
 
             // POST api/demo/save
             [HttpPost]
