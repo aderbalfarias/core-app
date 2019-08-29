@@ -21,6 +21,9 @@ namespace CoreApp.Data.Repositories
         public IQueryable<TEntity> Get<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
             => _context.Set<TEntity>().Where(predicate);
 
+        public IQueryable<TEntity> Get<TEntity>(Expression<Func<TEntity, bool>> predicate, string include) where TEntity : class
+            => _context.Set<TEntity>().Include(include).Where(predicate);        
+
         public async Task<IEnumerable<TEntity>> GetAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
             => await _context.Set<TEntity>().Where(predicate).ToListAsync();
         
