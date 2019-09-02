@@ -34,7 +34,7 @@ namespace CoreApp.Api.Controllers
         [Route("getbyid/{id:int:min(1)}")]
         public IActionResult GetById(int id) => Ok(_testService.GetById(id));
 
-        // GET api/demo/getdetails/{id}
+        // GET api/demo/getdetails/{id}/{modelId}
         [HttpGet]
         [EnableCors]
         [Route("getdetails/{id:int:min(1)}/{modelId:int:min(1)}")]
