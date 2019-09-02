@@ -34,15 +34,7 @@ namespace CoreApp.Api
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("domain.com", "http://localhost:4200");
-                    });
-
-                // Just in case it needs a different policy to update the data
-                options.AddPolicy("Policy2",
-                    builder =>
-                    {
-                        builder
-                            .WithOrigins("domain2.com", "http://localhost:4200")
+                        builder.WithOrigins("domain.com", "http://localhost:4200")
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
