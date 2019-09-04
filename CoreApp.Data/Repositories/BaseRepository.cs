@@ -1,6 +1,11 @@
 ﻿using CoreApp.Data.Mappings;
 using CoreApp.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace CoreApp.Data.Repositories
 {
