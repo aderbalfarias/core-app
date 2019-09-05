@@ -1,7 +1,8 @@
-﻿using CoreApp.Domain.Entities;
+﻿using CoreApp.Data.Mappings;
+using CoreApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace CoreApp.Data.Mappings
+namespace CoreApp.Data.Config
 {
     public class PrimaryContext : DbContext
     {
