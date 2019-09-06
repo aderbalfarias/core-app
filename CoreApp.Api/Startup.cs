@@ -34,7 +34,7 @@ namespace CoreApp.Api
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("domain.com", "http://localhost:4200")
+                        builder.WithOrigins("domain.com", "http://localhost:4200", "https://localhost:44383", "https://localhost:5001")
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
