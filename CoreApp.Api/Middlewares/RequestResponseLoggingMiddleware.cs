@@ -5,7 +5,9 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-public class RequestResponseLoggingMiddleware
+namespace CoreApp.Api.Middlewares
+{
+    public class RequestResponseLoggingMiddleware
     {
         private readonly RequestDelegate _next;
 
@@ -21,7 +23,7 @@ public class RequestResponseLoggingMiddleware
                 var request = httpContext.Request;
 
                 //var requestResponseLog = new RequestResponseLog();
-                
+
                 if (request.Path.StartsWithSegments(new PathString("/api")))
                 {
                     //requestResponseLog.RequestMessage = await ReadRequestBody(request);
@@ -38,6 +40,7 @@ public class RequestResponseLoggingMiddleware
 
                         //requestResponseLog.ResponseDateTime = DateTime.Now;
                         //requestResponseLog.ResponseMessage = await ReadResponseBody(response);
+
 
                         await responseBody.CopyToAsync(originalBodyStream);
                     }
@@ -83,3 +86,4 @@ public class RequestResponseLoggingMiddleware
             return bodyAsText;
         }
     }
+}
