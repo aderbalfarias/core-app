@@ -26,7 +26,10 @@ namespace CoreApp.Api.Controllers
         [HttpGet]
         [EnableCors]
         [Route("getall")]
-        public IActionResult GetAll() => Ok(_testService.GetAll());
+        public IActionResult GetAll()
+        {
+            return Ok(new { Teste = "Test", Code = 2, Message = "Success"});
+        }
 
         // GET api/demo/getbyid/{id}
         [HttpGet]
