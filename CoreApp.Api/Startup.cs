@@ -69,7 +69,8 @@ namespace CoreApp.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-
+            _logger.LogInformation($"In {env.EnviromentName} environment");
+            
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
@@ -79,7 +80,6 @@ namespace CoreApp.Api
 
             if (env.IsDevelopment())
             {
-                _logger.LogInformation("In Development environment");
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
                 app.UseMiddleware<ExceptionMiddleware>();

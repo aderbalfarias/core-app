@@ -12,6 +12,14 @@ namespace CoreApp.Api
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
+            .ConfigureLogging(logging => 
+            {
+                logging.ClearProvides();
+                logging.AddConsole();
+                logging.AddDebug();
+                logging.AddEventHandler();
+            })
+            .UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration)
+            .UseStartup<Startup>();
     }
 }

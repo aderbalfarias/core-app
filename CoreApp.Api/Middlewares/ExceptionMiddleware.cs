@@ -36,14 +36,15 @@ namespace CoreApp.Api.Middlewares
         private Task HandleExceptionAsync(HttpContext context, IOptions<ConfigKeys> appConfigKeys)
         {
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-
-            var newResponse = new
+            context.Response.ContentType = "application/json";
+            
+            var json = JsonConvert.SerializeObject(new
             {
                 context.Response.StatusCode,
                 Message = appConfigKeys.Value.ResponseErrorMessage
-            };
+            });
 
-            return context.Response.WriteAsync(newResponse.ToString());
+            return context.Response.WriteAsync(json);
         }
     }
 }
