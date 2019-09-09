@@ -12,19 +12,15 @@ namespace CoreApp.Api.Middlewares
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IOptions<ConfigKeys> _appConfigKeys;
-        private readonly ILogger _logger;
 
-        public ExceptionMiddleware(RequestDelegate next,
-            ILogger<ExceptionMiddleware> logger,
-            IOptions<ConfigKeys> appConfigKeys)
+        public ExceptionMiddleware(RequestDelegate next)
         {
-            _logger = logger;
             _next = next;
-            _appConfigKeys = appConfigKeys;
         }
 
-        public async Task Invoke(HttpContext httpContext, IHostingEnvironment hostingEnvironment)
+        public async Task Invoke(HttpContext httpContext, 
+            ILogger<ExceptionMiddleware> logger,
+            IOptions<ConfigKeys> appConfigKeys)
         {
             try
             {
@@ -32,19 +28,19 @@ namespace CoreApp.Api.Middlewares
             }
             catch (Exception e)
             {
-                _logger.LogError($"Exception logged in {context?.Request?.Path}");
+                logger.LogError($"Exception logged in {context?.Request?.Path}, Error: {e}");
                 await HandleExceptionAsync(httpContext);
             }
         }
 
-        private Task HandleExceptionAsync(HttpContext context)
+        private Task HandleExceptionAsync(HttpContext context, IOptions<ConfigKeys> appConfigKeys)
         {
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
             var newResponse = new
             {
                 context.Response.StatusCode,
-                Message = "Internal Server Error Test"
+                Message = appConfigKeys.Value.ResponseErrorMessage
             };
 
             return context.Response.WriteAsync(newResponse.ToString());
