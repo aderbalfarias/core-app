@@ -32,29 +32,22 @@ namespace CoreApp.Api.Middlewares
             }
             catch (Exception e)
             {
-                Log(httpContext, e, hostingEnvironment);
-                throw;
+                _logger.LogError($"Exception logged in {context?.Request?.Path}");
+                await HandleExceptionAsync(httpContext);
             }
         }
 
-        private void Log(HttpContext context, Exception exception, IHostingEnvironment hostingEnvironment)
+        private Task HandleExceptionAsync(HttpContext context)
         {
-            var logsPath = _appConfigKeys.Value.LogPath;
-            var now = DateTime.UtcNow;
-            var fileName = $"{now.ToString("yyyyMMdd")}.log";
-            var filePath = Path.Combine(logsPath, hostingEnvironment.EnvironmentName, fileName);
+            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-            _logger.LogError($"Exception logged: {now}");
-
-            // ensure that directory exists
-            new FileInfo(filePath).Directory.Create();
-
-            using (StreamWriter outputFile = new StreamWriter(filePath, true))
+            var newResponse = new
             {
-                outputFile.WriteLine($"{now.ToString("HH:mm:ss")} => {context.Request.Path}");
-                outputFile.WriteLine(exception.Message);
-                outputFile.WriteLine(Environment.NewLine);
-            }
+                context.Response.StatusCode,
+                Message = "Internal Server Error Test"
+            };
+
+            return context.Response.WriteAsync(newResponse.ToString());
         }
     }
 }
