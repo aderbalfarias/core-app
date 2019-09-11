@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Internal;
+using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using System.Text;
@@ -16,7 +17,7 @@ namespace CoreApp.Api.Middlewares
             _next = next;
         }
 
-        public async Task Invoke(HttpContext httpContext)
+        public async Task Invoke(HttpContext httpContext, ILogger<RequestResponseLoggingMiddleware> logger)
         {
             try
             {
@@ -60,6 +61,7 @@ namespace CoreApp.Api.Middlewares
             }
             catch (Exception e)
             {
+                logger.LogError($"Exception at {httpContext?.Request?.Path}, Error: {e}");
                 await _next(httpContext);
             }
         }

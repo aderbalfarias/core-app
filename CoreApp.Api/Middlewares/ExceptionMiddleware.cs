@@ -1,10 +1,11 @@
 ﻿using CoreApp.Api.Extesions;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace CoreApp.Api.Middlewares
@@ -28,8 +29,8 @@ namespace CoreApp.Api.Middlewares
             }
             catch (Exception e)
             {
-                logger.LogError($"Exception logged in {context?.Request?.Path}, Error: {e}");
-                await HandleExceptionAsync(httpContext);
+                logger.LogError($"Exception logged in {httpContext?.Request?.Path}, Error: {e}");
+                await HandleExceptionAsync(httpContext, appConfigKeys);
             }
         }
 

@@ -9,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.IO;
 
 namespace CoreApp.Api
 {
@@ -69,7 +68,7 @@ namespace CoreApp.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            _logger.LogInformation($"In {env.EnviromentName} environment");
+            _logger.LogInformation($"In {env.EnvironmentName} environment");
             
             app.UseMiddleware<RequestResponseLoggingMiddleware>();
 
