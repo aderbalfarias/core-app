@@ -2,6 +2,6 @@
 {
     public class ConfigKeys
     {
-        public string LogPath { get; set; }
+        public string ResponseErrorMessage { get; set; }
     }
 }

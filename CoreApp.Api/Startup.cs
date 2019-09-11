@@ -69,7 +69,8 @@ namespace CoreApp.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseMiddleware<ExceptionMiddleware>();
+            _logger.LogInformation($"In {env.EnviromentName} environment");
+            
             app.UseMiddleware<RequestResponseLoggingMiddleware>();
 
             app.UseSwagger();
@@ -81,14 +82,13 @@ namespace CoreApp.Api
 
             if (env.IsDevelopment())
             {
-                _logger.LogInformation("In Development environment");
-                //app.UseDeveloperExceptionPage();
-                //app.UseDatabaseErrorPage();
-                app.UseExceptionHandler("/Error");
-                app.UseStatusCodePagesWithReExecute("/Error/{0}");
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+                app.UseMiddleware<ExceptionMiddleware>();
             }
             else
             {
+                app.UseMiddleware<ExceptionMiddleware>();
                 app.UseExceptionHandler("/Error");
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");
                 app.UseHsts(); // Available for 30 days
