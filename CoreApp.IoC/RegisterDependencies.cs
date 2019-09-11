@@ -1,4 +1,5 @@
-﻿using CoreApp.Data.Mappings;
+﻿using CoreApp.Data.Config;
+using CoreApp.Data.Mappings;
 using CoreApp.Data.Repositories;
 using CoreApp.Domain.Interfaces.Repositories;
 using CoreApp.Domain.Interfaces.Services;
@@ -29,8 +30,8 @@ namespace CoreApp.IoC
         {
             // Add configuration for DbContext
             // Use connection string from appsettings.json file
-            //services.AddDbContext<PrimaryContext>(options => options.UseSqlServer(connectionString));
-            //services.AddScoped<ILogger, Logger<PrimaryContext>>();
+            services.AddDbContext<PrimaryContext>(options => options.UseSqlServer(connectionString));
+            services.AddScoped<ILogger, Logger<PrimaryContext>>();
 
             return services;
         }

@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace CoreApp.Api
 {
@@ -12,14 +14,14 @@ namespace CoreApp.Api
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-            .ConfigureLogging(logging => 
+            .UseStartup<Startup>()
+            .ConfigureLogging(logging =>
             {
-                logging.ClearProvides();
+                logging.ClearProviders();
                 logging.AddConsole();
                 logging.AddDebug();
-                logging.AddEventHandler();
+                logging.AddEventSourceLogger();
             })
-            .UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration)
-            .UseStartup<Startup>();
+            .UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration));
     }
 }

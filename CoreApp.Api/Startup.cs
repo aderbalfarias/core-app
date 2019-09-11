@@ -9,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.IO;
 
 namespace CoreApp.Api
 {
@@ -34,7 +33,7 @@ namespace CoreApp.Api
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("domain.com", "http://localhost:4200")
+                        builder.WithOrigins("domain.com", "http://localhost:4200", "https://localhost:44383", "https://localhost:5001")
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
@@ -69,8 +68,10 @@ namespace CoreApp.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            _logger.LogInformation($"In {env.EnviromentName} environment");
+            _logger.LogInformation($"In {env.EnvironmentName} environment");
             
+            app.UseMiddleware<RequestResponseLoggingMiddleware>();
+
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
