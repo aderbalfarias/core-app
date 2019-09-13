@@ -1,4 +1,4 @@
-﻿using CoreApp.Api.Extesions;
+﻿using CoreApp.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -21,7 +21,7 @@ namespace CoreApp.Api.Middlewares
 
         public async Task Invoke(HttpContext httpContext, 
             ILogger<ExceptionMiddleware> logger,
-            IOptions<ConfigKeys> appConfigKeys)
+            IOptions<AppSettings> appConfigKeys)
         {
             try
             {
@@ -34,7 +34,7 @@ namespace CoreApp.Api.Middlewares
             }
         }
 
-        private Task HandleExceptionAsync(HttpContext context, IOptions<ConfigKeys> appConfigKeys)
+        private Task HandleExceptionAsync(HttpContext context, IOptions<AppSettings> appConfigKeys)
         {
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             context.Response.ContentType = "application/json";

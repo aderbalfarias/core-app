@@ -1,6 +1,6 @@
-﻿namespace CoreApp.Api.Extesions
+﻿namespace CoreApp.Domain.Entities
 {
-    public class ConfigKeys
+    public class AppSettings
     {
         public string ResponseErrorMessage { get; set; }
     }

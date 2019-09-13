@@ -1,5 +1,5 @@
-﻿using CoreApp.Api.Extesions;
-using CoreApp.Api.Middlewares;
+﻿using CoreApp.Api.Middlewares;
+using CoreApp.Domain.Entities;
 using CoreApp.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -9,12 +9,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Linq;
 
 namespace CoreApp.Api
 {
     public class Startup
     {
-        private const string connectionName = "Connection";
+        private const string primaryConnection = "PrimaryConnection";
+        private const string appSettings = "AppSettings";
+        private const string corsSettings = "CorsOrigin";
+
         private readonly ILogger _logger;
 
         public Startup(IConfiguration configuration, ILogger<Startup> logger)
@@ -28,12 +32,18 @@ namespace CoreApp.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var corsOrigin = Configuration
+                .GetSection(corsSettings)
+                .GetChildren()
+                .Select(s => s.Value)
+                .ToArray();
+
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("domain.com", "http://localhost:4200", "https://localhost:44383", "https://localhost:5001")
+                        builder.WithOrigins()
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
@@ -42,8 +52,8 @@ namespace CoreApp.Api
             // DI
             services.Services();
             services.Repositories();
-            services.Databases(Configuration.GetConnectionString(connectionName));
-            services.Configure<ConfigKeys>(Configuration.GetSection("ConfigKeys"));
+            services.Databases(Configuration.GetConnectionString(primaryConnection));
+            services.Configure<AppSettings>(Configuration.GetSection(appSettings));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             
