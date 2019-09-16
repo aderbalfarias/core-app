@@ -23,36 +23,32 @@ namespace CoreApp.Api.Middlewares
             {
                 var request = httpContext.Request;
 
-                //var requestResponseLog = new RequestResponseLog();
-
                 if (request.Path.StartsWithSegments(new PathString("/api")))
                 {
-                    //requestResponseLog.RequestMessage = await ReadRequestBody(request);
+                    //var requestBody = await ReadRequestBody(request);
                     var originalBodyStream = httpContext.Response.Body;
 
                     using (var responseBody = new MemoryStream())
                     {
-                        //requestResponseLog.RequestDateTime = DateTime.Now;
+                        //var startAction = DateTime.Now;
 
                         // Execution of the request when call next
                         var response = httpContext.Response;
                         response.Body = responseBody;
                         await _next(httpContext);
 
-                        //requestResponseLog.ResponseDateTime = DateTime.Now;
-                        //requestResponseLog.ResponseMessage = await ReadResponseBody(response);
-
+                        //var endAction = DateTime.Now;
+                        //var ResposeBody = await ReadResponseBody(response);
 
                         await responseBody.CopyToAsync(originalBodyStream);
                     }
 
-                    //requestResponseLog.ResponseCode = httpContext.Response.StatusCode.ToString();
-                    //requestResponseLog.Url = $"{httpContext.Request.Scheme}://" +
+                    //var resposeCode = httpContext.Response.StatusCode.ToString();
+                    //var urlRequest = $"{httpContext.Request.Scheme}://" +
                     //    $"{httpContext.Request.Host}{httpContext.Request.Path}{httpContext.Request.QueryString}";
-                    //requestResponseLog.Method = httpContext.Request.Method;
-                    //requestResponseLog.IpAddress = httpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+                    //var methodCalled = httpContext.Request.Method;
 
-                    //testeService.Save(data);
+                    //testeService.Save(objects);
                 }
                 else
                 {
@@ -66,7 +62,6 @@ namespace CoreApp.Api.Middlewares
             }
         }
 
-        // Simplify this
         private async Task<string> ReadRequestBody(HttpRequest request)
         {
             request.EnableRewind();
