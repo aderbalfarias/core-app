@@ -43,7 +43,7 @@ namespace CoreApp.Api
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins()
+                        builder.WithOrigins(corsOrigin)
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
@@ -103,7 +103,7 @@ namespace CoreApp.Api
                 app.UseHsts(); // Available for 30 days
             }
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCors();
             app.UseMvc();
