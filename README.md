@@ -1,2 +1,3 @@
 # CoreApp
-Repository base for web apis
+
+Repository base for api using .net core and entity framework core
