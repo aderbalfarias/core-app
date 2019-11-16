@@ -4,7 +4,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
-using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -19,7 +18,7 @@ namespace CoreApp.Api.Middlewares
             _next = next;
         }
 
-        public async Task Invoke(HttpContext httpContext, 
+        public async Task Invoke(HttpContext httpContext,
             ILogger<ExceptionMiddleware> logger,
             IOptions<AppSettings> appConfigKeys)
         {
@@ -38,7 +37,7 @@ namespace CoreApp.Api.Middlewares
         {
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             context.Response.ContentType = "application/json";
-            
+
             var json = JsonConvert.SerializeObject(new
             {
                 context.Response.StatusCode,

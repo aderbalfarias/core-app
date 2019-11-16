@@ -1,6 +1,7 @@
 ﻿using CoreApp.Api.Models;
 using CoreApp.Domain.Entities;
 using CoreApp.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CoreApp.Api.Controllers
 {
-    //[Route("api/[controller]")]
+    [Authorize]
     [Route("api/demo")]
     [ApiController]
     public class DemoController : ControllerBase
@@ -28,7 +29,7 @@ namespace CoreApp.Api.Controllers
         [Route("getall")]
         public IActionResult GetAll()
         {
-            return Ok(new { Teste = "Test", Code = 2, Message = "Success"});
+            return Ok(new { Teste = "Test", Code = 2, Message = "Success" });
         }
 
         // GET api/demo/getbyid/{id}
@@ -41,7 +42,7 @@ namespace CoreApp.Api.Controllers
         [HttpGet]
         [EnableCors]
         [Route("getdetails/{id:int:min(1)}/{modelId:int:min(1)}")]
-        public async Task<IActionResult> GetDetails(int id, int modelId) 
+        public async Task<IActionResult> GetDetails(int id, int modelId)
             => Ok(await _testService.GetDetails(id, modelId));
 
         // POST api/demo/save

@@ -55,8 +55,8 @@ namespace CoreApp.Api
             services.Databases(Configuration.GetConnectionString(primaryConnection));
             services.Configure<AppSettings>(Configuration.GetSection(appSettings));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -79,7 +79,7 @@ namespace CoreApp.Api
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             _logger.LogInformation($"In {env.EnvironmentName} environment");
-            
+
             app.UseMiddleware<RequestResponseLoggingMiddleware>();
 
             app.UseSwagger();
@@ -92,7 +92,6 @@ namespace CoreApp.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
                 app.UseMiddleware<ExceptionMiddleware>();
             }
             else
@@ -106,7 +105,12 @@ namespace CoreApp.Api
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCors();
-            app.UseMvc();
+            //app.UseMvc();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }
