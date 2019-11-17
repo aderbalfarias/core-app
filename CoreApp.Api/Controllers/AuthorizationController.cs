@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace CoreApp.Api.Controllers
 {
-    //[ApiExplorerSettings(IgnoreApi = true)]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class AuthorizationController : ControllerBase
     {
         private readonly OIDCAuthorizationServerOptions _serverOptions;

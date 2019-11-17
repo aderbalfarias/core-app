@@ -1,4 +1,5 @@
-﻿using CoreApp.Api.Filters;
+﻿using CoreApp.Api.Extensions;
+using CoreApp.Api.Filters;
 using CoreApp.Api.Middlewares;
 using CoreApp.Api.Options.Authorization;
 using CoreApp.Domain.Entities;
@@ -19,6 +20,7 @@ namespace CoreApp.Api
     {
         private const string primaryConnection = "PrimaryConnection";
         private const string corsSettings = "CorsOrigin";
+        private const string roleAdmin = "Admin";
 
         private readonly ILogger _logger;
 
@@ -57,9 +59,9 @@ namespace CoreApp.Api
             services.Configure<AppSettings>(Configuration.GetSection(nameof(AppSettings)));
 
             var authenticationOption = Configuration
-                .GetSection(nameof(ApplicationOptions.Authentication));
+                .GetSection(nameof(ApplicationOptions.Authentication)).Get<AuthenticationOptions>();
 
-            services.Configure<AuthenticationOptions>(authenticationOption);
+            services.AddSingleton(authenticationOption);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
@@ -88,14 +90,21 @@ namespace CoreApp.Api
                 c.OperationFilter<SwaggerAssignOAuth2SecurityFilter>();
             });
 
-            services.Configure<OIDCAuthorizationServerOptions>(
-                Configuration.GetSection(nameof(ApplicationOptions.OIDCAuthorizationServer)));
+            //services.Configure<OIDCAuthorizationServerOptions>(
+            //    Configuration.GetSection(nameof(ApplicationOptions.OIDCAuthorizationServer)));
+          
+            var oidc = Configuration
+                .GetSection(nameof(ApplicationOptions.OIDCAuthorizationServer))
+                .Get<OIDCAuthorizationServerOptions>();
 
-
+            services.AddSingleton(oidc);
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+                options.AddPolicy(roleAdmin, policy => policy.RequireRole(roleAdmin));
             });
+
+            services.OpenIddict();
+            services.OpenIdInitialize(Environment);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -125,6 +134,8 @@ namespace CoreApp.Api
                 app.UseHsts(); // Available for 30 days
             }
 
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCors();
