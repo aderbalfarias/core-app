@@ -7,6 +7,9 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="OpenIddict" Version="2.0.1" />
+    <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="2.0.1" />
+    <PackageReference Include="OpenIddict.Mvc" Version="2.0.1" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc2" />
   </ItemGroup>
@@ -14,6 +17,11 @@
   <ItemGroup>
     <ProjectReference Include="..\CoreApp.Domain\CoreApp.Domain.csproj" />
     <ProjectReference Include="..\CoreApp.IoC\CoreApp.IoC.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Contants\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
 
 </Project>
