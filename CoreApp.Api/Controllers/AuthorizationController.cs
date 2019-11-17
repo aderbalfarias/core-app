@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using AspNet.Security.OpenIdConnect.Extensions;
+﻿using AspNet.Security.OpenIdConnect.Extensions;
 using AspNet.Security.OpenIdConnect.Primitives;
 using CoreApp.Api.Options.Authorization;
 using Microsoft.AspNetCore.Authentication;
@@ -11,6 +8,9 @@ using OpenIddict.Core;
 using OpenIddict.EntityFrameworkCore.Models;
 using OpenIddict.Mvc.Internal;
 using OpenIddict.Server;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace CoreApp.Api.Controllers
 {

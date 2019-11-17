@@ -11,8 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using OpenIddict.Abstractions;
-using OpenIddict.Core;
 using System;
 using System.Linq;
 
@@ -60,9 +58,9 @@ namespace CoreApp.Api
             services.Repositories();
             services.Databases(Configuration.GetConnectionString(primaryConnection));
             services.Configure<AppSettings>(Configuration.GetSection(nameof(AppSettings)));
-   
-             services.Configure<OIDCAuthorizationServerOptions>(
-                Configuration.GetSection(nameof(ApplicationOptions.OIDCAuthorizationServer)));
+
+            services.Configure<OIDCAuthorizationServerOptions>(
+               Configuration.GetSection(nameof(ApplicationOptions.OIDCAuthorizationServer)));
 
             var authenticationOption = Configuration
                 .GetSection(nameof(ApplicationOptions.Authentication));
