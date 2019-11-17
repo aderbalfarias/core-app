@@ -12,7 +12,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Linq;
 
 namespace CoreApp.Api
 {
@@ -38,9 +37,7 @@ namespace CoreApp.Api
         {
             var corsOrigin = Configuration
                 .GetSection(corsSettings)
-                .GetChildren()
-                .Select(s => s.Value)
-                .ToArray();
+                .Get<string[]>();
 
             services.AddCors(options =>
             {
@@ -58,9 +55,6 @@ namespace CoreApp.Api
             services.Repositories();
             services.Databases(Configuration.GetConnectionString(primaryConnection));
             services.Configure<AppSettings>(Configuration.GetSection(nameof(AppSettings)));
-
-            services.Configure<OIDCAuthorizationServerOptions>(
-               Configuration.GetSection(nameof(ApplicationOptions.OIDCAuthorizationServer)));
 
             var authenticationOption = Configuration
                 .GetSection(nameof(ApplicationOptions.Authentication));
@@ -93,6 +87,10 @@ namespace CoreApp.Api
 
                 c.OperationFilter<SwaggerAssignOAuth2SecurityFilter>();
             });
+
+            services.Configure<OIDCAuthorizationServerOptions>(
+                Configuration.GetSection(nameof(ApplicationOptions.OIDCAuthorizationServer)));
+
 
             services.AddAuthorization(options =>
             {
