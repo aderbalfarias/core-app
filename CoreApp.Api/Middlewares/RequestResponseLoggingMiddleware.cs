@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
@@ -64,7 +63,7 @@ namespace CoreApp.Api.Middlewares
 
         private async Task<string> ReadRequestBody(HttpRequest request)
         {
-            request.EnableRewind();
+            request.EnableBuffering(); //EnableRewind()
 
             var buffer = new byte[Convert.ToInt32(request.ContentLength)];
             await request.Body.ReadAsync(buffer, 0, buffer.Length);

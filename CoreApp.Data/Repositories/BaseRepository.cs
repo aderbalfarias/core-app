@@ -17,9 +17,9 @@ namespace CoreApp.Data.Repositories
         {
             _context = context;
         }
-        
+
         public IQueryable<TEntity> Get<TEntity>() where TEntity : class => _context.Set<TEntity>();
-        
+
         public async Task<IEnumerable<TEntity>> GetAsync<TEntity>() where TEntity : class
             => await _context.Set<TEntity>().ToListAsync();
 
@@ -27,15 +27,15 @@ namespace CoreApp.Data.Repositories
             => _context.Set<TEntity>().Where(predicate);
 
         public IQueryable<TEntity> Get<TEntity>(Expression<Func<TEntity, bool>> predicate, string include) where TEntity : class
-            => _context.Set<TEntity>().Include(include).Where(predicate);        
+            => _context.Set<TEntity>().Include(include).Where(predicate);
 
         public async Task<IEnumerable<TEntity>> GetAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
             => await _context.Set<TEntity>().Where(predicate).ToListAsync();
-        
+
         public TEntity GetObject<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
             => _context.Set<TEntity>().FirstOrDefault(predicate);
 
-        public async Task<TEntity> GetObjectAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class 
+        public async Task<TEntity> GetObjectAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
             => await _context.Set<TEntity>().FirstOrDefaultAsync(predicate);
 
         public async Task<int> Add<TEntity>(TEntity entity)

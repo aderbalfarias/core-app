@@ -1,5 +1,4 @@
 ﻿using CoreApp.Data.Config;
-using CoreApp.Data.Mappings;
 using CoreApp.Data.Repositories;
 using CoreApp.Domain.Interfaces.Repositories;
 using CoreApp.Domain.Interfaces.Services;

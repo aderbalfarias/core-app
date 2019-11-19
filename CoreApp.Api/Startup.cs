@@ -1,4 +1,7 @@
-﻿using CoreApp.Api.Middlewares;
+﻿using CoreApp.Api.Extensions;
+using CoreApp.Api.Filters;
+using CoreApp.Api.Middlewares;
+using CoreApp.Api.Options.Authorization;
 using CoreApp.Domain.Entities;
 using CoreApp.IoC;
 using Microsoft.AspNetCore.Builder;
@@ -6,37 +9,37 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
-using System.Linq;
 
 namespace CoreApp.Api
 {
     public class Startup
     {
         private const string primaryConnection = "PrimaryConnection";
-        private const string appSettings = "AppSettings";
         private const string corsSettings = "CorsOrigin";
+        private const string roleAdmin = "Admin";
 
         private readonly ILogger _logger;
 
-        public Startup(IConfiguration configuration, ILogger<Startup> logger)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment, ILogger<Startup> logger)
         {
             Configuration = configuration;
+            Environment = environment;
             _logger = logger;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             var corsOrigin = Configuration
                 .GetSection(corsSettings)
-                .GetChildren()
-                .Select(s => s.Value)
-                .ToArray();
+                .Get<string[]>();
 
             services.AddCors(options =>
             {
@@ -53,10 +56,15 @@ namespace CoreApp.Api
             services.Services();
             services.Repositories();
             services.Databases(Configuration.GetConnectionString(primaryConnection));
-            services.Configure<AppSettings>(Configuration.GetSection(appSettings));
+            services.Configure<AppSettings>(Configuration.GetSection(nameof(AppSettings)));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            
+            var authenticationOption = Configuration
+                .GetSection(nameof(ApplicationOptions.Authentication)).Get<AuthenticationOptions>();
+
+            services.AddSingleton(authenticationOption);
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -72,14 +80,38 @@ namespace CoreApp.Api
                         Url = new Uri("https://aderbalfarias.com")
                     }
                 });
+
+                //c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                //{
+                //     Flows = new OpenApiOAuthFlows { }, //"application"
+                //     OpenIdConnectUrl = new Uri(authenticationOption.Get<ApplicationOptions>().Authentication.TokenEndpoint)
+                //});
+
+                c.OperationFilter<SwaggerAssignOAuth2SecurityFilter>();
             });
+
+            //services.Configure<OIDCAuthorizationServerOptions>(
+            //    Configuration.GetSection(nameof(ApplicationOptions.OIDCAuthorizationServer)));
+          
+            var oidc = Configuration
+                .GetSection(nameof(ApplicationOptions.OIDCAuthorizationServer))
+                .Get<OIDCAuthorizationServerOptions>();
+
+            services.AddSingleton(oidc);
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(roleAdmin, policy => policy.RequireRole(roleAdmin));
+            });
+
+            services.OpenIddict();
+            services.OpenIdInitialize(Environment);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             _logger.LogInformation($"In {env.EnvironmentName} environment");
-            
+
             app.UseMiddleware<RequestResponseLoggingMiddleware>();
 
             app.UseSwagger();
@@ -92,7 +124,6 @@ namespace CoreApp.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
                 app.UseMiddleware<ExceptionMiddleware>();
             }
             else
@@ -103,10 +134,16 @@ namespace CoreApp.Api
                 app.UseHsts(); // Available for 30 days
             }
 
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCors();
-            app.UseMvc();
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }
