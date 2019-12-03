@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CoreApp.Data.Mappings
 {
-    public class TestMap : IEntityTypeConfiguration<TestEntity>
+    public class SampleMap : IEntityTypeConfiguration<TestEntity>
     {
         public void Configure(EntityTypeBuilder<TestEntity> builder)
         {
