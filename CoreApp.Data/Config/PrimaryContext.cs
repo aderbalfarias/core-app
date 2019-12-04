@@ -18,9 +18,9 @@ namespace CoreApp.Data.Config
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new TestMap());
+            modelBuilder.ApplyConfiguration(new SampleMap());
         }
 
-        public DbSet<TestEntity> Test { get; set; }
+        public DbSet<SampleEntity> Test { get; set; }
     }
 }

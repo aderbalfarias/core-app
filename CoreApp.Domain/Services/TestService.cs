@@ -16,22 +16,22 @@ namespace CoreApp.Domain.Services
             _baseRepository = baseRepository;
         }
 
-        public Task<IEnumerable<TestEntity>> GetAll()
+        public Task<IEnumerable<SampleEntity>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<TestEntity> GetById(int id)
+        public Task<SampleEntity> GetById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<TestEntity> GetDetails(int id, int entityId)
+        public Task<SampleEntity> GetDetails(int id, int entityId)
         {
             throw new NotImplementedException();
         }
 
-        public void Save(TestEntity model)
+        public void Save(SampleEntity model)
         {
             throw new NotImplementedException();
         }

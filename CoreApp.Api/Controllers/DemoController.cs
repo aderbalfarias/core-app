@@ -54,7 +54,7 @@ namespace CoreApp.Api.Controllers
             if (model == null)
                 return NoContent();
 
-            _testService.Save(new TestEntity
+            _testService.Save(new SampleEntity
             {
                 Id = model.Id,
                 Description = model.Description,
