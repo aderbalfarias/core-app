@@ -1,15 +1,12 @@
-﻿using MessageQueue.Domain.Entities;
-using MessageQueue.Domain.Interfaces.Repositories;
-using MessageQueue.Server2Event;
+﻿using CoreApp.Domain.Entities;
+using CoreApp.Domain.Interfaces.Repositories;
+using CoreApp.Domain.Services;
 using Moq;
-using NServiceBus.Logging;
 using NServiceBus.Testing;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -20,24 +17,17 @@ namespace CoreApp.UnitTest.Domain
         #region Fields 
 
         private readonly Mock<IBaseRepository> _mockBaseRepository;
-        private readonly ServerHandler _serverHandler;
-        private readonly TestableMessageHandlerContext _context;
-
-        static StringBuilder logStatements = new StringBuilder();
+        private readonly TestService _testServcice;
 
         #endregion End Fields 
 
         #region Constructor
 
-        public ServerHandlerTest()
+        public SampleTest()
         {
-            InitializeLogManager();
-
             _mockBaseRepository = new Mock<IBaseRepository>();
 
-            _serverHandler = new ServerHandler(_mockBaseRepository.Object);
-
-            _context = new TestableMessageHandlerContext();
+            _testServcice = new TestService(_mockBaseRepository.Object);
         }
 
         #endregion End Constructor
@@ -46,24 +36,24 @@ namespace CoreApp.UnitTest.Domain
 
         private Task RepositorySetup()
         {
-            _mockBaseRepository.Setup(s => s.Add(It.IsAny<TrackerEntity>()))
+            _mockBaseRepository.Setup(s => s.Add(It.IsAny<SampleEntity>()))
                 .Returns(Task.FromResult(1));
 
-            IQueryable<TrackerEntity> mocks = MockTrackerEntity.AsQueryable();
+            IQueryable<SampleEntity> mocks = MockSampleEntity.AsQueryable();
+
+            //_mockBaseRepository.Setup(s
+            //        => s.GetObjectWithInclude(It.IsAny<Expression<Func<SampleEntity, bool>>>(), It.IsAny<string>()))
+            //    .Returns<Expression<Func<SampleEntity, bool>>, string>((predicate, include)
+            //            => Task.FromResult(mocks.FirstOrDefault(predicate)));
 
             _mockBaseRepository.Setup(s
-                    => s.GetObjectWithInclude(It.IsAny<Expression<Func<TrackerEntity, bool>>>(), It.IsAny<string>()))
-                .Returns<Expression<Func<TrackerEntity, bool>>, string>((predicate, include)
-                        => Task.FromResult(mocks.FirstOrDefault(predicate)));
-
-            _mockBaseRepository.Setup(s
-                    => s.Get(It.IsAny<Expression<Func<TrackerEntity, bool>>>(), It.IsAny<string>()))
-                .Returns<Expression<Func<TrackerEntity, bool>>, string>((predicate, include)
+                    => s.Get(It.IsAny<Expression<Func<SampleEntity, bool>>>(), It.IsAny<string>()))
+                .Returns<Expression<Func<SampleEntity, bool>>, string>((predicate, include)
                         => mocks.Where(predicate));
 
             _mockBaseRepository.Setup(s
-                    => s.GetObjectAsync(It.IsAny<Expression<Func<TrackerEntity, bool>>>()))
-                .Returns<Expression<Func<TrackerEntity, bool>>>(predicate
+                    => s.GetObjectAsync(It.IsAny<Expression<Func<SampleEntity, bool>>>()))
+                .Returns<Expression<Func<SampleEntity, bool>>>(predicate
                         => Task.FromResult(mocks.FirstOrDefault(predicate)));
 
             return Task.CompletedTask;
@@ -72,25 +62,20 @@ namespace CoreApp.UnitTest.Domain
         #endregion End Setups 
 
         #region Mocks
-
-        private MessageEventEntity MockMessage => new MessageEventEntity
-        {
-            Id = 1,
-            Description = "123"
-        };
-
-        private IEnumerable<TrackerEntity> MockTrackerEntity
-            => new List<TrackerEntity>
+        
+        private IEnumerable<SampleEntity> MockSampleEntity
+            => new List<SampleEntity>
             {
-                new TrackerEntity
+                new SampleEntity
                 {
                     Id = 1,
-                    ProjectName = "Server1Handler"
+                    Description = "Test 1"
                 },
-                new TrackerEntity
+                new SampleEntity
                 {
                     Id = 2,
-                    ProjectName = "Server2Handler"
+                    Description = "Test 2",
+                    Text = "test"
                 },
             };
 
@@ -107,45 +92,12 @@ namespace CoreApp.UnitTest.Domain
 
         #endregion End Mocks
 
-        #region LogManager
-
-        private Task InitializeLogManager()
-        {
-            logStatements.Clear();
-
-            LogManager.Use<TestingLoggerFactory>()
-                .WriteTo(new StringWriter(logStatements));
-
-            return Task.CompletedTask;
-        }
-
-        public static string LogStatements => logStatements.ToString();
-
-        #endregion End LogManager
-
         #region Tests
 
         [Fact]
-        public async Task When_Handle_Receive_Message_Should_Log_Correctly()
+        public async Task When_Call_Method_x()
         {
-            await RepositorySetup();
-
-            await _serverHandler.Handle(MockMessage, _context).ConfigureAwait(false);
-
-            var expectedLog = $"Message {MockMessage.Id} received at MessageQueue.Server2Event.ServerHandler";
-
-            Assert.Contains(expectedLog, LogStatements);
-        }
-
-        [Fact]
-        public async Task When_Handle_Should_Execute_Without_Exception()
-        {
-            await RepositorySetup();
-
-            var exception = await Record.ExceptionAsync(()
-                => _serverHandler.Handle(MockMessage, _context));
-
-            Assert.Null(exception);
+            //write tests            
         }
 
         #endregion End Tests
