@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CoreApp.Api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/demo")]
     [ApiController]
     public class DemoController : ControllerBase
