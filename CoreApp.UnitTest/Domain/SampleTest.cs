@@ -93,13 +93,7 @@ namespace CoreApp.UnitTest.Domain
         #endregion End Mocks
 
         #region Tests
-
-        [Fact]
-        public async Task When_Call_Method_x()
-        {
-            //write tests            
-        }
-
+        
         #endregion End Tests
     }
 }
