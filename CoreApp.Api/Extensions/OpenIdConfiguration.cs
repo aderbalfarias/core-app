@@ -13,7 +13,7 @@ namespace CoreApp.Api.Extensions
     public static class OpenIdConfiguration
     {
         /// <summary>
-        ///     Setup OpenId Configuration
+        ///     Setup OpenIddict Configuration
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
