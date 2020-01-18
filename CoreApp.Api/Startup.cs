@@ -134,8 +134,8 @@ namespace CoreApp.Api
                 app.UseHsts(); // Available for 30 days
             }
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            //app.UseAuthentication();
+            //app.UseAuthorization();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCors();
