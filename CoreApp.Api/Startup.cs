@@ -81,11 +81,12 @@ namespace CoreApp.Api
                     }
                 });
 
-                //c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-                //{
-                //     Flows = new OpenApiOAuthFlows { }, //"application"
-                //     OpenIdConnectUrl = new Uri(authenticationOption.Get<ApplicationOptions>().Authentication.TokenEndpoint)
-                //});
+                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Flows = new OpenApiOAuthFlows { }, //"application"
+                    //OpenIdConnectUrl = new Uri(authenticationOption.Get<ApplicationOptions>().Authentication.TokenEndpoint)
+                    OpenIdConnectUrl = new Uri("https://localhost:2222/")
+                });
 
                 c.OperationFilter<SwaggerAssignOAuth2SecurityFilter>();
             });
@@ -134,8 +135,8 @@ namespace CoreApp.Api
                 app.UseHsts(); // Available for 30 days
             }
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            //app.UseAuthentication();
+            //app.UseAuthorization();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCors();
