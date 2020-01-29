@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace CoreApp.Domain.Interfaces.Services
 {
-    public interface ITestService
+    public interface ISampleService
     {
         Task<IEnumerable<SampleEntity>> GetAll();
         Task<SampleEntity> GetById(int id);

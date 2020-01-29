@@ -13,7 +13,7 @@ namespace CoreApp.IoC
     {
         public static IServiceCollection Services(this IServiceCollection services)
         {
-            services.AddScoped<ITestService, SampleService>();
+            services.AddScoped<ISampleService, SampleService>();
 
             return services;
         }
