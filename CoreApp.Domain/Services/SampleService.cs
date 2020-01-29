@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace CoreApp.Domain.Services
 {
-    public class TestService : ITestService
+    public class SampleService : ISampleService
     {
         private readonly IBaseRepository _baseRepository;
 
-        public TestService(IBaseRepository baseRepository)
+        public SampleService(IBaseRepository baseRepository)
         {
             _baseRepository = baseRepository;
         }

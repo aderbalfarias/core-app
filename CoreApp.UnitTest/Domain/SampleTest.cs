@@ -17,7 +17,7 @@ namespace CoreApp.UnitTest.Domain
         #region Fields 
 
         private readonly Mock<IBaseRepository> _mockBaseRepository;
-        private readonly TestService _testServcice;
+        private readonly SampleService _sampleServcice;
 
         #endregion End Fields 
 
@@ -27,7 +27,7 @@ namespace CoreApp.UnitTest.Domain
         {
             _mockBaseRepository = new Mock<IBaseRepository>();
 
-            _testServcice = new TestService(_mockBaseRepository.Object);
+            _sampleServcice = new SampleService(_mockBaseRepository.Object);
         }
 
         #endregion End Constructor
