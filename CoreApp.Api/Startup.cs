@@ -132,7 +132,7 @@ namespace CoreApp.Api
                 app.UseMiddleware<ExceptionMiddleware>();
                 app.UseExceptionHandler("/Error");
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");
-                app.UseHsts(); // Available for 30 days
+                app.UseHsts(); 
             }
 
             //app.UseAuthentication();
