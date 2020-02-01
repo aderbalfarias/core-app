@@ -64,10 +64,8 @@ namespace CoreApp.Api.Controllers
         {
             // Create a new ClaimsIdentity containing the claims that
             // will be used to create an id_token, a token or a code.
-            var identity = new ClaimsIdentity(
-                OpenIddictServerDefaults.AuthenticationScheme,
-                OpenIdConnectConstants.Claims.Name,
-                OpenIdConnectConstants.Claims.Role);
+            var identity = new ClaimsIdentity(OpenIddictServerDefaults.AuthenticationScheme,
+                OpenIdConnectConstants.Claims.Name, OpenIdConnectConstants.Claims.Role);
 
             // Use the client_id as the subject identifier.
             identity.AddClaim(OpenIdConnectConstants.Claims.Subject, application.ClientId,
@@ -84,16 +82,14 @@ namespace CoreApp.Api.Controllers
 
                 if (roles != null)
                     foreach (var role in roles)
-                        identity.AddClaim(OpenIdConnectConstants.Claims.Role, role,
-                            OpenIdConnectConstants.Destinations.AccessToken,
+                        identity.AddClaim(OpenIdConnectConstants.Claims.Role, 
+                            role, OpenIdConnectConstants.Destinations.AccessToken,
                             OpenIdConnectConstants.Destinations.IdentityToken);
             }
 
             // Create a new authentication ticket holding the user identity.
-            var ticket = new AuthenticationTicket(
-                new ClaimsPrincipal(identity),
-                new AuthenticationProperties(),
-                OpenIddictServerDefaults.AuthenticationScheme);
+            var ticket = new AuthenticationTicket(new ClaimsPrincipal(identity),
+                new AuthenticationProperties(), OpenIddictServerDefaults.AuthenticationScheme);
 
             ticket.SetResources(_serverOptions.Audience);
 
