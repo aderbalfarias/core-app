@@ -1,12 +1,9 @@
 ﻿using CoreApp.Api.Options.Authorization;
 using CoreApp.Data.Config;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using OpenIddict.Core;
 using OpenIddict.EntityFrameworkCore.Models;
-using System;
-using System.Threading.Tasks;
 
 namespace CoreApp.Api.Extensions
 {
@@ -45,7 +42,7 @@ namespace CoreApp.Api.Extensions
                 }
             }
         }
-    
+
         public static void OpenIddict(this IServiceCollection services)
         {
             // Register the Identity services.

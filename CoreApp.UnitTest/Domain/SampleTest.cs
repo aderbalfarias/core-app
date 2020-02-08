@@ -2,13 +2,11 @@
 using CoreApp.Domain.Interfaces.Repositories;
 using CoreApp.Domain.Services;
 using Moq;
-using NServiceBus.Testing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Xunit;
 
 namespace CoreApp.UnitTest.Domain
 {
@@ -62,7 +60,7 @@ namespace CoreApp.UnitTest.Domain
         #endregion End Setups 
 
         #region Mocks
-        
+
         private IEnumerable<SampleEntity> MockSampleEntity
             => new List<SampleEntity>
             {
@@ -93,7 +91,7 @@ namespace CoreApp.UnitTest.Domain
         #endregion End Mocks
 
         #region Tests
-        
+
         #endregion End Tests
     }
 }

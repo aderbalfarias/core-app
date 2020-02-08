@@ -1,5 +1,4 @@
-﻿using CoreApp.Api.Extensions;
-using CoreApp.Api.Filters;
+﻿using CoreApp.Api.Filters;
 using CoreApp.Api.Middlewares;
 using CoreApp.Api.Options.Authorization;
 using CoreApp.Domain.Entities;
@@ -93,7 +92,7 @@ namespace CoreApp.Api
 
             //services.Configure<OIDCAuthorizationServerOptions>(
             //    Configuration.GetSection(nameof(ApplicationOptions.OIDCAuthorizationServer)));
-          
+
             //var oidc = Configuration
             //    .GetSection(nameof(ApplicationOptions.OIDCAuthorizationServer))
             //    .Get<OIDCAuthorizationServerOptions>();
@@ -132,7 +131,7 @@ namespace CoreApp.Api
                 app.UseMiddleware<ExceptionMiddleware>();
                 app.UseExceptionHandler("/Error");
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");
-                app.UseHsts(); 
+                app.UseHsts();
             }
 
             //app.UseAuthentication();
