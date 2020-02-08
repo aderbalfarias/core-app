@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using CoreApp.Domain.Interfaces.Services;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CoreApp.Domain.Services
 {
-    class TokenService
+    public class TokenService : ITokenService
     {
         public async Task<string> GetTokenAsync(string baseUrl,
             string tokenEndpoint, string clientId, string clientSecret,
