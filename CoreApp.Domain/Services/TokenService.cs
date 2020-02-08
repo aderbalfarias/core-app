@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace CoreApp.Domain.Services
 {
-    class RequestToken
+    class TokenService
     {
-        private async Task<string> GetTokenAsync(string baseUrl,
+        public async Task<string> GetTokenAsync(string baseUrl,
             string tokenEndpoint, string clientId, string clientSecret,
             CancellationToken cancellationToken = default(CancellationToken))
         {
