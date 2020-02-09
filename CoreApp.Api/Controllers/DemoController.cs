@@ -1,7 +1,6 @@
 ﻿using CoreApp.Api.Models;
 using CoreApp.Domain.Entities;
 using CoreApp.Domain.Interfaces.Services;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

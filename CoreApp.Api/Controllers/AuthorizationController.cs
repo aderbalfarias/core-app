@@ -82,7 +82,7 @@ namespace CoreApp.Api.Controllers
 
                 if (roles != null)
                     foreach (var role in roles)
-                        identity.AddClaim(OpenIdConnectConstants.Claims.Role, 
+                        identity.AddClaim(OpenIdConnectConstants.Claims.Role,
                             role, OpenIdConnectConstants.Destinations.AccessToken,
                             OpenIdConnectConstants.Destinations.IdentityToken);
             }
