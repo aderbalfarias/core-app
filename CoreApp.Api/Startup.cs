@@ -64,6 +64,7 @@ namespace CoreApp.Api
             services.AddSingleton(authenticationOption);
 
             services.AddHealthChecks();
+            //System.HealthCheckBuilderExtensions
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
@@ -146,7 +147,7 @@ namespace CoreApp.Api
             app.UseHealthChecks("/ping");
             app.UseHealthChecks("/health", new HealthCheckOptions 
             { 
-                //ResponseWriter = UIResponseWriter
+                //ResponseWriter = HealthChecks.UI.Client.UIResponseWriter.
             });
             app.UseEndpoints(endpoints =>
             {
