@@ -62,6 +62,8 @@ namespace CoreApp.Api
 
             services.AddSingleton(authenticationOption);
 
+            services.AddHealthChecks();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddSwaggerGen(c =>
@@ -140,6 +142,7 @@ namespace CoreApp.Api
             app.UseStaticFiles();
             app.UseCors();
             app.UseRouting();
+            app.UseHealthChecks("/ping");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
