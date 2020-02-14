@@ -4,6 +4,7 @@ using CoreApp.Api.Options.Authorization;
 using CoreApp.Domain.Entities;
 using CoreApp.IoC;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -143,6 +144,10 @@ namespace CoreApp.Api
             app.UseCors();
             app.UseRouting();
             app.UseHealthChecks("/ping");
+            app.UseHealthChecks("/health", new HealthCheckOptions 
+            { 
+                //ResponseWriter = UIResponseWriter
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
