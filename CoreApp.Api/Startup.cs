@@ -4,6 +4,7 @@ using CoreApp.Api.Options.Authorization;
 using CoreApp.Domain.Entities;
 using CoreApp.IoC;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -61,6 +62,9 @@ namespace CoreApp.Api
                 .GetSection(nameof(ApplicationOptions.Authentication)).Get<AuthenticationOptions>();
 
             services.AddSingleton(authenticationOption);
+
+            services.AddHealthChecks();
+            //System.HealthCheckBuilderExtensions
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
@@ -140,6 +144,11 @@ namespace CoreApp.Api
             app.UseStaticFiles();
             app.UseCors();
             app.UseRouting();
+            app.UseHealthChecks("/ping");
+            app.UseHealthChecks("/health", new HealthCheckOptions 
+            { 
+                //ResponseWriter = HealthChecks.UI.Client.UIResponseWriter.
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
