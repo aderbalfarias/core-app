@@ -6,13 +6,18 @@ using CoreApp.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using System;
+using System.Linq;
+using System.Net.Mime;
 
 namespace CoreApp.Api
 {
@@ -146,8 +151,24 @@ namespace CoreApp.Api
             app.UseRouting();
             app.UseHealthChecks("/ping");
             app.UseHealthChecks("/health", new HealthCheckOptions 
-            { 
-                //ResponseWriter = HealthChecks.UI.Client.UIResponseWriter.
+            {
+                ResponseWriter = async (context, report) =>
+                {
+                    var result = JsonConvert.SerializeObject(new
+                    {
+                        status = report.Status.ToString(),
+                        errors = report.Entries
+                            .Select(e => new 
+                            {  
+                                key = e.Key, 
+                                value = Enum.GetName(typeof(HealthStatus), 
+                                e.Value.Status) 
+                            })
+                    });
+
+                    context.Response.ContentType = MediaTypeNames.Application.Json;
+                    await context.Response.WriteAsync(result);
+                }
             });
             app.UseEndpoints(endpoints =>
             {
