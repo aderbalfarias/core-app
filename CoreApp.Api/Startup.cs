@@ -71,7 +71,7 @@ namespace CoreApp.Api
             services.AddHealthChecks();
             //System.HealthCheckBuilderExtensions
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddMvc();
 
             services.AddSwaggerGen(c =>
             {
