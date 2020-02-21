@@ -6,8 +6,6 @@ using CoreApp.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -27,13 +25,10 @@ namespace CoreApp.Api
         private const string corsSettings = "CorsOrigin";
         private const string roleAdmin = "Admin";
 
-        private readonly ILogger _logger;
-
-        public Startup(IConfiguration configuration, IWebHostEnvironment environment, ILogger<Startup> logger)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
             Environment = environment;
-            _logger = logger;
         }
 
         public IConfiguration Configuration { get; }
@@ -71,7 +66,7 @@ namespace CoreApp.Api
             services.AddHealthChecks();
             //System.HealthCheckBuilderExtensions
 
-            services.AddMvc();
+            services.AddControllers();
 
             services.AddSwaggerGen(c =>
             {
@@ -79,7 +74,7 @@ namespace CoreApp.Api
                 {
                     Version = "v1",
                     Title = "Core App",
-                    Description = "Api to be template",
+                    Description = "Api template",
                     TermsOfService = new Uri("https://aderbalfarias.com"),
                     Contact = new OpenApiContact
                     {
@@ -91,12 +86,37 @@ namespace CoreApp.Api
 
                 c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
-                    Flows = new OpenApiOAuthFlows { }, //"application"
-                    //OpenIdConnectUrl = new Uri(authenticationOption.Get<ApplicationOptions>().Authentication.TokenEndpoint)
-                    OpenIdConnectUrl = new Uri("https://localhost:2222/")
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows 
+                    {
+                        ClientCredentials = new OpenApiOAuthFlow
+                        {
+                            //AuthorizationUrl = new Uri("/auth-server/connect/authorize", UriKind.Relative),
+                            //TokenUrl = new Uri("/auth-server/connect/token", UriKind.Relative)
+                            //TokenUrl = new Uri(authenticationOptions.TokenEndpoint),
+                            TokenUrl = new Uri(authenticationOptions.TokenEndpoint),
+                            Scopes = new Dictionary<string, string>
+                            {
+                                //{ "readAccess", "Access read operations" },
+                                //{ "writeAccess", "Access write operations" }
+                            }
+                        }
+                    }
                 });
 
-                c.OperationFilter<SwaggerAssignOAuth2SecurityFilter>();
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "oauth2" }
+                        },
+                        //new[] { "readAccess", "writeAccess" }
+                        new string[] { }
+                    }
+                });
+
+                //c.OperationFilter<SwaggerAssignOAuth2SecurityFilter>();
             });
 
             //services.Configure<OIDCAuthorizationServerOptions>(
@@ -117,9 +137,9 @@ namespace CoreApp.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
-            _logger.LogInformation($"In {env.EnvironmentName} environment");
+            logger.LogInformation($"In {env.EnvironmentName} environment");
 
             app.UseMiddleware<RequestResponseLoggingMiddleware>();
 
@@ -143,12 +163,12 @@ namespace CoreApp.Api
                 app.UseHsts();
             }
 
+            app.UseRouting();
             //app.UseAuthentication();
-            //app.UseAuthorization();
+            app.UseAuthorization();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCors();
-            app.UseRouting();
             app.UseHealthChecks("/ping");
             app.UseHealthChecks("/health", new HealthCheckOptions 
             {
@@ -170,6 +190,7 @@ namespace CoreApp.Api
                     await context.Response.WriteAsync(result);
                 }
             });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
