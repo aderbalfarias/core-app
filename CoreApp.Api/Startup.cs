@@ -66,7 +66,7 @@ namespace CoreApp.Api
             services.AddHealthChecks();
             //System.HealthCheckBuilderExtensions
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddControllers();
 
             services.AddSwaggerGen(c =>
             {
@@ -74,7 +74,7 @@ namespace CoreApp.Api
                 {
                     Version = "v1",
                     Title = "Core App",
-                    Description = "Api to be template",
+                    Description = "Api template",
                     TermsOfService = new Uri("https://aderbalfarias.com"),
                     Contact = new OpenApiContact
                     {
@@ -86,12 +86,10 @@ namespace CoreApp.Api
 
                 c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
-                    Flows = new OpenApiOAuthFlows { }, //"application"
-                    //OpenIdConnectUrl = new Uri(authenticationOption.Get<ApplicationOptions>().Authentication.TokenEndpoint)
-                    OpenIdConnectUrl = new Uri("https://localhost:2222/")
+                    
                 });
 
-                c.OperationFilter<SwaggerAssignOAuth2SecurityFilter>();
+                //c.OperationFilter<SwaggerAssignOAuth2SecurityFilter>();
             });
 
             //services.Configure<OIDCAuthorizationServerOptions>(
@@ -138,17 +136,18 @@ namespace CoreApp.Api
                 app.UseHsts();
             }
 
+            app.UseRouting();
             //app.UseAuthentication();
-            //app.UseAuthorization();
+            app.UseAuthorization();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCors();
-            app.UseRouting();
             app.UseHealthChecks("/ping");
             app.UseHealthChecks("/health", new HealthCheckOptions 
             { 
                 //ResponseWriter = HealthChecks.UI.Client.UIResponseWriter.
             });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
