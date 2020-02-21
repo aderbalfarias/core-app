@@ -6,7 +6,6 @@ using CoreApp.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,13 +21,10 @@ namespace CoreApp.Api
         private const string corsSettings = "CorsOrigin";
         private const string roleAdmin = "Admin";
 
-        private readonly ILogger _logger;
-
-        public Startup(IConfiguration configuration, IWebHostEnvironment environment, ILogger<Startup> logger)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
             Environment = environment;
-            _logger = logger;
         }
 
         public IConfiguration Configuration { get; }
@@ -110,9 +106,9 @@ namespace CoreApp.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
-            _logger.LogInformation($"In {env.EnvironmentName} environment");
+            logger.LogInformation($"In {env.EnvironmentName} environment");
 
             app.UseMiddleware<RequestResponseLoggingMiddleware>();
 
