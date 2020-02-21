@@ -86,7 +86,34 @@ namespace CoreApp.Api
 
                 c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
-                    
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows 
+                    {
+                        ClientCredentials = new OpenApiOAuthFlow
+                        {
+                            //AuthorizationUrl = new Uri("/auth-server/connect/authorize", UriKind.Relative),
+                            //TokenUrl = new Uri("/auth-server/connect/token", UriKind.Relative)
+                            //TokenUrl = new Uri(authenticationOptions.TokenEndpoint),
+                            TokenUrl = new Uri(authenticationOptions.TokenEndpoint),
+                            Scopes = new Dictionary<string, string>
+                            {
+                                //{ "readAccess", "Access read operations" },
+                                //{ "writeAccess", "Access write operations" }
+                            }
+                        }
+                    }
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "oauth2" }
+                        },
+                        //new[] { "readAccess", "writeAccess" }
+                        new string[] { }
+                    }
                 });
 
                 //c.OperationFilter<SwaggerAssignOAuth2SecurityFilter>();
