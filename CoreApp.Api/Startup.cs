@@ -1,11 +1,11 @@
-﻿using CoreApp.Api.Filters;
-using CoreApp.Api.Middlewares;
+﻿using CoreApp.Api.Middlewares;
 using CoreApp.Api.Options.Authorization;
 using CoreApp.Domain.Entities;
 using CoreApp.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 
@@ -87,14 +88,14 @@ namespace CoreApp.Api
                 c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
                     Type = SecuritySchemeType.OAuth2,
-                    Flows = new OpenApiOAuthFlows 
+                    Flows = new OpenApiOAuthFlows
                     {
                         ClientCredentials = new OpenApiOAuthFlow
                         {
                             //AuthorizationUrl = new Uri("/auth-server/connect/authorize", UriKind.Relative),
                             //TokenUrl = new Uri("/auth-server/connect/token", UriKind.Relative)
                             //TokenUrl = new Uri(authenticationOptions.TokenEndpoint),
-                            TokenUrl = new Uri(authenticationOptions.TokenEndpoint),
+                            TokenUrl = new Uri(authenticationOption.TokenEndpoint),
                             Scopes = new Dictionary<string, string>
                             {
                                 //{ "readAccess", "Access read operations" },
@@ -170,7 +171,7 @@ namespace CoreApp.Api
             app.UseStaticFiles();
             app.UseCors();
             app.UseHealthChecks("/ping");
-            app.UseHealthChecks("/health", new HealthCheckOptions 
+            app.UseHealthChecks("/health", new HealthCheckOptions
             {
                 ResponseWriter = async (context, report) =>
                 {
@@ -178,11 +179,11 @@ namespace CoreApp.Api
                     {
                         status = report.Status.ToString(),
                         errors = report.Entries
-                            .Select(e => new 
-                            {  
-                                key = e.Key, 
-                                value = Enum.GetName(typeof(HealthStatus), 
-                                e.Value.Status) 
+                            .Select(e => new
+                            {
+                                key = e.Key,
+                                value = Enum.GetName(typeof(HealthStatus),
+                                e.Value.Status)
                             })
                     });
 
