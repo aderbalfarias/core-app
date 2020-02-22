@@ -1,5 +1,4 @@
-﻿using CoreApp.Api.Filters;
-using CoreApp.Api.Middlewares;
+﻿using CoreApp.Api.Middlewares;
 using CoreApp.Api.Options.Authorization;
 using CoreApp.Domain.Entities;
 using CoreApp.IoC;
@@ -89,7 +88,7 @@ namespace CoreApp.Api
                 c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
                     Type = SecuritySchemeType.OAuth2,
-                    Flows = new OpenApiOAuthFlows 
+                    Flows = new OpenApiOAuthFlows
                     {
                         ClientCredentials = new OpenApiOAuthFlow
                         {
@@ -172,7 +171,7 @@ namespace CoreApp.Api
             app.UseStaticFiles();
             app.UseCors();
             app.UseHealthChecks("/ping");
-            app.UseHealthChecks("/health", new HealthCheckOptions 
+            app.UseHealthChecks("/health", new HealthCheckOptions
             {
                 ResponseWriter = async (context, report) =>
                 {
@@ -180,11 +179,11 @@ namespace CoreApp.Api
                     {
                         status = report.Status.ToString(),
                         errors = report.Entries
-                            .Select(e => new 
-                            {  
-                                key = e.Key, 
-                                value = Enum.GetName(typeof(HealthStatus), 
-                                e.Value.Status) 
+                            .Select(e => new
+                            {
+                                key = e.Key,
+                                value = Enum.GetName(typeof(HealthStatus),
+                                e.Value.Status)
                             })
                     });
 
