@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 
@@ -94,7 +95,7 @@ namespace CoreApp.Api
                             //AuthorizationUrl = new Uri("/auth-server/connect/authorize", UriKind.Relative),
                             //TokenUrl = new Uri("/auth-server/connect/token", UriKind.Relative)
                             //TokenUrl = new Uri(authenticationOptions.TokenEndpoint),
-                            TokenUrl = new Uri(authenticationOptions.TokenEndpoint),
+                            TokenUrl = new Uri(authenticationOption.TokenEndpoint),
                             Scopes = new Dictionary<string, string>
                             {
                                 //{ "readAccess", "Access read operations" },
