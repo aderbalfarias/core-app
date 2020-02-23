@@ -24,7 +24,6 @@ namespace CoreApp.Api
     {
         private const string primaryConnection = "PrimaryConnection";
         private const string corsSettings = "CorsOrigin";
-        private const string roleAdmin = "Admin";
 
         public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
@@ -116,25 +115,7 @@ namespace CoreApp.Api
                         new string[] { }
                     }
                 });
-
-                //c.OperationFilter<SwaggerAssignOAuth2SecurityFilter>();
             });
-
-            //services.Configure<OIDCAuthorizationServerOptions>(
-            //    Configuration.GetSection(nameof(ApplicationOptions.OIDCAuthorizationServer)));
-
-            //var oidc = Configuration
-            //    .GetSection(nameof(ApplicationOptions.OIDCAuthorizationServer))
-            //    .Get<OIDCAuthorizationServerOptions>();
-
-            //services.AddSingleton(oidc);
-            //services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy(roleAdmin, policy => policy.RequireRole(roleAdmin));
-            //});
-
-            //services.OpenIddict();
-            //services.OpenIdInitialize(Environment);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
