@@ -73,7 +73,7 @@ namespace CoreApp.Api
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Core App",
+                    Title = "Core App Template",
                     Description = "Api template",
                     TermsOfService = new Uri("https://aderbalfarias.com"),
                     Contact = new OpenApiContact
