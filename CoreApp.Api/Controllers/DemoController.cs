@@ -28,6 +28,7 @@ namespace CoreApp.Api.Controllers
         [Route("getall")]
         public IActionResult GetAll()
         {
+            _logger.LogInformation("GetAll called");
             return Ok(new { Teste = "Test", Code = 2, Message = "Success" });
         }
 
