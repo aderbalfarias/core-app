@@ -64,7 +64,6 @@ namespace CoreApp.Api
             services.AddSingleton(authenticationOption);
 
             services.AddHealthChecks();
-            //System.HealthCheckBuilderExtensions
 
             services.AddControllers();
 
@@ -111,8 +110,8 @@ namespace CoreApp.Api
                         {
                             Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "oauth2" }
                         },
-                        //new[] { "readAccess", "writeAccess" }
                         new string[] { }
+                        //new[] { "readAccess", "writeAccess" }
                     }
                 });
             });
