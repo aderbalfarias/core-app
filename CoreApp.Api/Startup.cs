@@ -1,5 +1,4 @@
-﻿using CoreApp.Api.Filters;
-using CoreApp.Api.Middlewares;
+﻿using CoreApp.Api.Middlewares;
 using CoreApp.Api.Options.Authorization;
 using CoreApp.Domain.Entities;
 using CoreApp.IoC;
@@ -15,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 
@@ -24,7 +24,6 @@ namespace CoreApp.Api
     {
         private const string primaryConnection = "PrimaryConnection";
         private const string corsSettings = "CorsOrigin";
-        private const string roleAdmin = "Admin";
 
         public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
@@ -65,7 +64,6 @@ namespace CoreApp.Api
             services.AddSingleton(authenticationOption);
 
             services.AddHealthChecks();
-            //System.HealthCheckBuilderExtensions
 
             services.AddControllers();
 
@@ -74,7 +72,7 @@ namespace CoreApp.Api
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Core App",
+                    Title = "Core App Template",
                     Description = "Api template",
                     TermsOfService = new Uri("https://aderbalfarias.com"),
                     Contact = new OpenApiContact
@@ -87,27 +85,36 @@ namespace CoreApp.Api
 
                 c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
-                    
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        ClientCredentials = new OpenApiOAuthFlow
+                        {
+                            //AuthorizationUrl = new Uri("/auth-server/connect/authorize", UriKind.Relative),
+                            //TokenUrl = new Uri("/auth-server/connect/token", UriKind.Relative)
+                            //TokenUrl = new Uri(authenticationOptions.TokenEndpoint),
+                            TokenUrl = new Uri(authenticationOption.TokenEndpoint),
+                            Scopes = new Dictionary<string, string>
+                            {
+                                //{ "readAccess", "Access read operations" },
+                                //{ "writeAccess", "Access write operations" }
+                            }
+                        }
+                    }
                 });
 
-                //c.OperationFilter<SwaggerAssignOAuth2SecurityFilter>();
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "oauth2" }
+                        },
+                        new string[] { }
+                        //new[] { "readAccess", "writeAccess" }
+                    }
+                });
             });
-
-            //services.Configure<OIDCAuthorizationServerOptions>(
-            //    Configuration.GetSection(nameof(ApplicationOptions.OIDCAuthorizationServer)));
-
-            //var oidc = Configuration
-            //    .GetSection(nameof(ApplicationOptions.OIDCAuthorizationServer))
-            //    .Get<OIDCAuthorizationServerOptions>();
-
-            //services.AddSingleton(oidc);
-            //services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy(roleAdmin, policy => policy.RequireRole(roleAdmin));
-            //});
-
-            //services.OpenIddict();
-            //services.OpenIdInitialize(Environment);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -144,7 +151,7 @@ namespace CoreApp.Api
             app.UseStaticFiles();
             app.UseCors();
             app.UseHealthChecks("/ping");
-            app.UseHealthChecks("/health", new HealthCheckOptions 
+            app.UseHealthChecks("/health", new HealthCheckOptions
             {
                 ResponseWriter = async (context, report) =>
                 {
@@ -152,11 +159,11 @@ namespace CoreApp.Api
                     {
                         status = report.Status.ToString(),
                         errors = report.Entries
-                            .Select(e => new 
-                            {  
-                                key = e.Key, 
-                                value = Enum.GetName(typeof(HealthStatus), 
-                                e.Value.Status) 
+                            .Select(e => new
+                            {
+                                key = e.Key,
+                                value = Enum.GetName(typeof(HealthStatus),
+                                e.Value.Status)
                             })
                     });
 
