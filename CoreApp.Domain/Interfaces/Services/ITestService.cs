@@ -9,6 +9,6 @@ namespace CoreApp.Domain.Interfaces.Services
         Task<List<SampleEntity>> GetAll();
         Task<SampleEntity> GetById(int id);
         Task<SampleEntity> GetDetails(int id, int entityId);
-        void Save(SampleEntity model);
+        Task Save(SampleEntity model);
     }
 }

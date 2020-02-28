@@ -111,6 +111,19 @@ namespace CoreApp.UnitTest.Domain
                     It.IsAny<Exception>(), (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()), Times.Once);
         }
 
+        [Fact]
+        public async Task Save_Should_Log_Exception()
+        {
+            await RepositorySetup();
+            var entity = MockSampleEntity.First();
+
+            var logException = await Record
+                .ExceptionAsync(async () => await _sampleServcice.Save(entity));
+
+            Assert.Contains("Method not Implemented", logException.Message);
+        }
+
+
         #endregion End Tests
     }
 }

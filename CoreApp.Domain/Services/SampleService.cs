@@ -48,9 +48,11 @@ namespace CoreApp.Domain.Services
             throw new NotImplementedException();
         }
 
-        public void Save(SampleEntity model)
+        public Task Save(SampleEntity model)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException("Method not Implemented");
+
+            //Task.CompletedTask;
         }
     }
 }
