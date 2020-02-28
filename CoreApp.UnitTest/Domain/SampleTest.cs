@@ -129,10 +129,22 @@ namespace CoreApp.UnitTest.Domain
             await RepositorySetup();
             var entity = MockSampleEntity.First();
 
-            await Assert.ThrowsAsync<NotImplementedException>(async () 
+            await Assert.ThrowsAsync<NotImplementedException>(async ()
                 => await _sampleServcice.Save(entity));
         }
+        
+        [Fact]
+        public async Task Save_Should_Throw_And_Check_Exception()
+        {
+            await RepositorySetup();
+            var entity = MockSampleEntity.First();
 
+            var exception = await Assert
+                .ThrowsAsync<NotImplementedException>(async ()
+                    => await _sampleServcice.Save(entity));
+
+            Assert.NotNull(exception);
+        }
 
         #endregion End Tests
     }
