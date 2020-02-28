@@ -25,7 +25,7 @@ namespace CoreApp.UnitTest.Controllers
         {
             _mockBaseRepository = new Mock<IBaseRepository>();
 
-            _sampleServcice = new SampleService(_mockBaseRepository.Object);
+            //_sampleServcice = new SampleService(_mockBaseRepository.Object);
         }
 
         #endregion End Constructor
