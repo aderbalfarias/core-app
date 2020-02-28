@@ -1,6 +1,7 @@
 ﻿using CoreApp.Domain.Entities;
 using CoreApp.Domain.Interfaces.Repositories;
 using CoreApp.Domain.Interfaces.Services;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,15 +11,31 @@ namespace CoreApp.Domain.Services
     public class SampleService : ISampleService
     {
         private readonly IBaseRepository _baseRepository;
+        private readonly ILogger _logger;
 
-        public SampleService(IBaseRepository baseRepository)
+        public SampleService(
+            IBaseRepository baseRepository, 
+            ILogger<SampleService> logger
+        )
         {
             _baseRepository = baseRepository;
+            _logger = logger;
         }
 
-        public Task<IEnumerable<SampleEntity>> GetAll()
+        public Task<List<SampleEntity>> GetAll()
         {
-            throw new NotImplementedException();
+            _logger.LogInformation("Method get all was called");
+
+            var list = new List<SampleEntity>
+                {
+                    new SampleEntity 
+                    {
+                        Id = 1,
+                        Description = "Test"
+                    }
+                };
+
+            return Task.FromResult(list);
         }
 
         public Task<SampleEntity> GetById(int id)

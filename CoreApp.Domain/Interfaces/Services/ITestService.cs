@@ -6,7 +6,7 @@ namespace CoreApp.Domain.Interfaces.Services
 {
     public interface ISampleService
     {
-        Task<IEnumerable<SampleEntity>> GetAll();
+        Task<List<SampleEntity>> GetAll();
         Task<SampleEntity> GetById(int id);
         Task<SampleEntity> GetDetails(int id, int entityId);
         void Save(SampleEntity model);
