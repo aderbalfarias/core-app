@@ -123,6 +123,16 @@ namespace CoreApp.UnitTest.Domain
             Assert.Contains("Method not Implemented", logException.Message);
         }
 
+        [Fact]
+        public async Task Save_Should_Throw_Exception()
+        {
+            await RepositorySetup();
+            var entity = MockSampleEntity.First();
+
+            await Assert.ThrowsAsync<NotImplementedException>(async () 
+                => await _sampleServcice.Save(entity));
+        }
+
 
         #endregion End Tests
     }
