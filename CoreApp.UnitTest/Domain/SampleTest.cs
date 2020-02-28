@@ -1,12 +1,14 @@
 ﻿using CoreApp.Domain.Entities;
 using CoreApp.Domain.Interfaces.Repositories;
 using CoreApp.Domain.Services;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Xunit;
 
 namespace CoreApp.UnitTest.Domain
 {
@@ -15,6 +17,7 @@ namespace CoreApp.UnitTest.Domain
         #region Fields 
 
         private readonly Mock<IBaseRepository> _mockBaseRepository;
+        private readonly Mock<ILogger<SampleService>> _mockLogger;
         private readonly SampleService _sampleServcice;
 
         #endregion End Fields 
@@ -24,8 +27,9 @@ namespace CoreApp.UnitTest.Domain
         public SampleTest()
         {
             _mockBaseRepository = new Mock<IBaseRepository>();
+            _mockLogger = new Mock<ILogger<SampleService>>();
 
-            _sampleServcice = new SampleService(_mockBaseRepository.Object);
+            _sampleServcice = new SampleService(_mockBaseRepository.Object, _mockLogger.Object);
         }
 
         #endregion End Constructor
@@ -91,6 +95,21 @@ namespace CoreApp.UnitTest.Domain
         #endregion End Mocks
 
         #region Tests
+
+        [Fact]
+        public async Task GetAll_Should_Log_Info()
+        {
+            await RepositorySetup();
+
+            await _sampleServcice.GetAll();
+
+            var getAllCalled = "Method get all was called";
+
+            _mockLogger.Verify(x =>
+                x.Log(LogLevel.Information, It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((o, t) => string.Equals(getAllCalled, o.ToString())),
+                    It.IsAny<Exception>(), (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()), Times.Once);
+        }
 
         #endregion End Tests
     }
