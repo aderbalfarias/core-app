@@ -54,6 +54,11 @@ namespace CoreApp.UnitTest.Domain
                         => mocks.Where(predicate));
 
             _mockBaseRepository.Setup(s
+                    => s.GetAsync(It.IsAny<Expression<Func<SampleEntity, bool>>>()))
+                .Returns<Expression<Func<SampleEntity, bool>>>(async (predicate)
+                        => await Task.FromResult(mocks.Where(predicate)));
+
+            _mockBaseRepository.Setup(s
                     => s.GetObjectAsync(It.IsAny<Expression<Func<SampleEntity, bool>>>()))
                 .Returns<Expression<Func<SampleEntity, bool>>>(predicate
                         => Task.FromResult(mocks.FirstOrDefault(predicate)));
