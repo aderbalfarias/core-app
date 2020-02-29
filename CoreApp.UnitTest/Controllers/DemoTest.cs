@@ -1,6 +1,9 @@
-﻿using CoreApp.Domain.Entities;
+﻿using CoreApp.Api.Controllers;
+using CoreApp.Domain.Entities;
 using CoreApp.Domain.Interfaces.Repositories;
+using CoreApp.Domain.Interfaces.Services;
 using CoreApp.Domain.Services;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -14,8 +17,9 @@ namespace CoreApp.UnitTest.Controllers
     {
         #region Fields 
 
-        private readonly Mock<IBaseRepository> _mockBaseRepository;
-        private readonly SampleService _sampleServcice;
+        private readonly Mock<ISampleService> _mockSampleService;
+        private readonly Mock<ILogger<DemoController>> _mockLogger;
+        private readonly DemoController _demoController;
 
         #endregion End Fields 
 
@@ -23,37 +27,18 @@ namespace CoreApp.UnitTest.Controllers
 
         public DemoTest()
         {
-            _mockBaseRepository = new Mock<IBaseRepository>();
+            _mockSampleService = new Mock<ISampleService>();
+            _mockLogger = new Mock<ILogger<DemoController>>();
 
-            //_sampleServcice = new SampleService(_mockBaseRepository.Object);
+            _demoController = new DemoController(_mockSampleService.Object, _mockLogger.Object);
         }
 
         #endregion End Constructor
 
         #region Setups 
 
-        private Task RepositorySetup()
+        private Task ServiceSetup()
         {
-            _mockBaseRepository.Setup(s => s.Add(It.IsAny<SampleEntity>()))
-                .Returns(Task.FromResult(1));
-
-            IQueryable<SampleEntity> mocks = MockSampleEntity.AsQueryable();
-
-            //_mockBaseRepository.Setup(s
-            //        => s.GetObjectWithInclude(It.IsAny<Expression<Func<SampleEntity, bool>>>(), It.IsAny<string>()))
-            //    .Returns<Expression<Func<SampleEntity, bool>>, string>((predicate, include)
-            //            => Task.FromResult(mocks.FirstOrDefault(predicate)));
-
-            _mockBaseRepository.Setup(s
-                    => s.Get(It.IsAny<Expression<Func<SampleEntity, bool>>>(), It.IsAny<string>()))
-                .Returns<Expression<Func<SampleEntity, bool>>, string>((predicate, include)
-                        => mocks.Where(predicate));
-
-            _mockBaseRepository.Setup(s
-                    => s.GetObjectAsync(It.IsAny<Expression<Func<SampleEntity, bool>>>()))
-                .Returns<Expression<Func<SampleEntity, bool>>>(predicate
-                        => Task.FromResult(mocks.FirstOrDefault(predicate)));
-
             return Task.CompletedTask;
         }
 
