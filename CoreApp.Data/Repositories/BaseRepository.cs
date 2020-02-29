@@ -32,6 +32,9 @@ namespace CoreApp.Data.Repositories
         public async Task<IEnumerable<TEntity>> GetAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
             => await _context.Set<TEntity>().Where(predicate).ToListAsync();
 
+        public async Task<IEnumerable<TEntity>> GetAsync<TEntity>(Expression<Func<TEntity, bool>> predicate, string include) where TEntity : class
+            => await _context.Set<TEntity>().Where(predicate).Include(include).ToListAsync();
+
         public TEntity GetObject<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class
             => _context.Set<TEntity>().FirstOrDefault(predicate);
 

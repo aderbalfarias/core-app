@@ -43,15 +43,20 @@ namespace CoreApp.UnitTest.Domain
 
             IQueryable<SampleEntity> mocks = MockSampleEntity.AsQueryable();
 
-            //_mockBaseRepository.Setup(s
-            //        => s.GetObjectWithInclude(It.IsAny<Expression<Func<SampleEntity, bool>>>(), It.IsAny<string>()))
-            //    .Returns<Expression<Func<SampleEntity, bool>>, string>((predicate, include)
-            //            => Task.FromResult(mocks.FirstOrDefault(predicate)));
-
             _mockBaseRepository.Setup(s
                     => s.Get(It.IsAny<Expression<Func<SampleEntity, bool>>>(), It.IsAny<string>()))
                 .Returns<Expression<Func<SampleEntity, bool>>, string>((predicate, include)
                         => mocks.Where(predicate));
+
+            _mockBaseRepository.Setup(s
+                    => s.GetAsync(It.IsAny<Expression<Func<SampleEntity, bool>>>()))
+                .Returns<Expression<Func<SampleEntity, bool>>>(async (predicate)
+                        => await Task.FromResult(mocks.Where(predicate)));
+
+            _mockBaseRepository.Setup(s
+                    => s.GetAsync(It.IsAny<Expression<Func<SampleEntity, bool>>>(), It.IsAny<string>()))
+                .Returns<Expression<Func<SampleEntity, bool>>, string>(async (predicate, include)
+                        => await Task.FromResult(mocks.Where(predicate)));
 
             _mockBaseRepository.Setup(s
                     => s.GetObjectAsync(It.IsAny<Expression<Func<SampleEntity, bool>>>()))

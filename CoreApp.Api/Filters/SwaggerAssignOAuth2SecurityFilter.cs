@@ -15,15 +15,6 @@ namespace CoreApp.Api.Filters
                 .GetCustomAttributes(true)
                 .Union(context.MethodInfo.GetCustomAttributes(true))
                 .OfType<AuthorizeAttribute>();
-
-            //if (authorizeAttributes.Any())
-            //    operation.Security = new List<IDictionary<string, IEnumerable<string>>>()
-            //    {
-            //        new Dictionary<string, IEnumerable<string>>()
-            //        {
-            //            { "oauth2", Enumerable.Empty<string>() }
-            //        }
-            //    };
         }
     }
 }
