@@ -20,8 +20,11 @@ namespace CoreApp.Api.Controllers
         private readonly OIDCAuthorizationServerOptions _serverOptions;
         private readonly OpenIddictApplicationManager<OpenIddictApplication> _applicationManager;
 
-        public AuthorizationController(IOptions<OIDCAuthorizationServerOptions> options,
-            OpenIddictApplicationManager<OpenIddictApplication> applicationManager)
+        public AuthorizationController
+        (
+            IOptions<OIDCAuthorizationServerOptions> options,
+            OpenIddictApplicationManager<OpenIddictApplication> applicationManager
+        )
         {
             _serverOptions = options.Value;
             _applicationManager = applicationManager;

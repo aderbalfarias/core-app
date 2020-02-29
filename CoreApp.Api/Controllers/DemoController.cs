@@ -16,7 +16,11 @@ namespace CoreApp.Api.Controllers
         private readonly ISampleService _testService;
         private readonly ILogger _logger;
 
-        public DemoController(ISampleService testService, ILogger<DemoController> logger)
+        public DemoController
+        (
+            ISampleService testService, 
+            ILogger<DemoController> logger
+        )
         {
             _testService = testService;
             _logger = logger;
