@@ -137,7 +137,7 @@ namespace CoreApp.UnitTest.Domain
             await Assert.ThrowsAsync<NotImplementedException>(async ()
                 => await _sampleServcice.Save(entity));
         }
-        
+
         [Fact]
         public async Task Save_Should_Throw_And_Check_Exception()
         {
