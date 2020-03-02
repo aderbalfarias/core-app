@@ -18,7 +18,7 @@ namespace CoreApp.Api.Controllers
 
         public DemoController
         (
-            ISampleService sampleService, 
+            ISampleService sampleService,
             ILogger<DemoController> logger
         )
         {

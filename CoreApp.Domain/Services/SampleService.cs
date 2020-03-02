@@ -14,7 +14,7 @@ namespace CoreApp.Domain.Services
         private readonly ILogger _logger;
 
         public SampleService(
-            IBaseRepository baseRepository, 
+            IBaseRepository baseRepository,
             ILogger<SampleService> logger
         )
         {
@@ -28,7 +28,7 @@ namespace CoreApp.Domain.Services
 
             var list = new List<SampleEntity>
                 {
-                    new SampleEntity 
+                    new SampleEntity
                     {
                         Id = 1,
                         Description = "Test"

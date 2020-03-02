@@ -46,8 +46,6 @@ namespace CoreApp.Api.Middlewares
                     //var urlRequest = $"{httpContext.Request.Scheme}://" +
                     //    $"{httpContext.Request.Host}{httpContext.Request.Path}{httpContext.Request.QueryString}";
                     //var methodCalled = httpContext.Request.Method;
-
-                    //testeService.Save(objects);
                 }
                 else
                 {

@@ -15,7 +15,6 @@ namespace CoreApp.Data.Config
         {
         }
 
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new SampleMap());
