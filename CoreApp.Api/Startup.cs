@@ -111,7 +111,6 @@ namespace CoreApp.Api
                             Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "oauth2" }
                         },
                         new string[] { }
-                        //new[] { "readAccess", "writeAccess" }
                     }
                 });
             });
