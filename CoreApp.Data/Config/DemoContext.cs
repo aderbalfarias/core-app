@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreApp.Data.Config
 {
-    public class PrimaryContext : DbContext
+    public class DemoContext : DbContext
     {
-        public PrimaryContext(DbContextOptions<PrimaryContext> options)
+        public DemoContext(DbContextOptions<DemoContext> options)
             : base(options)
         {
         }
