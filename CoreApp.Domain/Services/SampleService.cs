@@ -38,21 +38,19 @@ namespace CoreApp.Domain.Services
             return Task.FromResult(list);
         }
 
-        public Task<SampleEntity> GetById(int id)
+        public async Task<SampleEntity> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(new SampleEntity());
         }
 
-        public Task<SampleEntity> GetDetails(int id, int entityId)
+        public async Task<SampleEntity> GetDetails(int id, int entityId)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(new SampleEntity());
         }
 
         public Task Save(SampleEntity model)
         {
-            throw new NotImplementedException("Method not Implemented");
-
-            //Task.CompletedTask;
+            return Task.CompletedTask;
         }
     }
 }
