@@ -13,7 +13,7 @@ namespace CoreApp.Data.Repositories
     {
         private readonly DbContext _context;
 
-        public BaseRepository(PrimaryContext context)
+        public BaseRepository(DemoContext context)
         {
             _context = context;
         }

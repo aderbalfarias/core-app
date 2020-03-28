@@ -19,7 +19,7 @@ namespace CoreApp.Api.Extensions
             // Create a new service scope to ensure the database context is correctly disposed when this methods returns.
             using (var scope = services.BuildServiceProvider().GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                var context = scope.ServiceProvider.GetRequiredService<PrimaryContext>();
+                var context = scope.ServiceProvider.GetRequiredService<DemoContext>();
                 context.Database.EnsureCreatedAsync();
 
                 var manager = scope.ServiceProvider
@@ -56,7 +56,7 @@ namespace CoreApp.Api.Extensions
                 {
                     // Configure OpenIddict to use the Entity Framework Core stores and entities.
                     options.UseEntityFrameworkCore()
-                        .UseDbContext<PrimaryContext>();
+                        .UseDbContext<DemoContext>();
                 })
 
                 .AddServer(options =>

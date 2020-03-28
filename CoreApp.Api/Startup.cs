@@ -22,7 +22,7 @@ namespace CoreApp.Api
 {
     public class Startup
     {
-        private const string primaryConnection = "PrimaryConnection";
+        private const string DemoConnection = "DemoConnection";
         private const string corsSettings = "CorsOrigin";
 
         public Startup(IConfiguration configuration, IWebHostEnvironment environment)
@@ -55,7 +55,7 @@ namespace CoreApp.Api
             // DI
             services.Services();
             services.Repositories();
-            services.Databases(Configuration.GetConnectionString(primaryConnection));
+            services.Databases(Configuration.GetConnectionString(DemoConnection));
             services.Configure<AppSettings>(Configuration.GetSection(nameof(AppSettings)));
 
             var authenticationOption = Configuration
