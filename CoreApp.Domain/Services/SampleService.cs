@@ -12,7 +12,8 @@ namespace CoreApp.Domain.Services
         private readonly IBaseRepository _baseRepository;
         private readonly ILogger _logger;
 
-        public SampleService(
+        public SampleService
+        (
             IBaseRepository baseRepository,
             ILogger<SampleService> logger
         )
