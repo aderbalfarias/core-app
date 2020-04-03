@@ -58,7 +58,11 @@ namespace CoreApp.Api.Controllers
             _logger.LogInformation("Save method started");
 
             if (model == null)
+            {
+                _logger.LogWarning("Save method did not find any value in the model of the request");
+
                 return NoContent();
+            }
 
             _sampleService.Save(new SampleEntity
             {
