@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CoreApp.UnitTest.Controllers
 {
-    public class DemoTest
+    public class DemoControllerTest
     {
         #region Fields 
 
@@ -20,7 +20,7 @@ namespace CoreApp.UnitTest.Controllers
 
         #region Constructor
 
-        public DemoTest()
+        public DemoControllerTest()
         {
             _mockDemoService = new Mock<IDemoService>();
             _mockLogger = new Mock<ILogger<DemoController>>();

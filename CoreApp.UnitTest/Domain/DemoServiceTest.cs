@@ -12,7 +12,7 @@ using Xunit;
 
 namespace CoreApp.UnitTest.Domain
 {
-    public class DemoTest
+    public class DemoServiceTest
     {
         #region Fields 
 
@@ -24,7 +24,7 @@ namespace CoreApp.UnitTest.Domain
 
         #region Constructor
 
-        public DemoTest()
+        public DemoServiceTest()
         {
             _mockBaseRepository = new Mock<IBaseRepository>();
             _mockLogger = new Mock<ILogger<DemoService>>();
