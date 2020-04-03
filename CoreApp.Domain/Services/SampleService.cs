@@ -7,28 +7,28 @@ using System.Threading.Tasks;
 
 namespace CoreApp.Domain.Services
 {
-    public class SampleService : ISampleService
+    public class DemoService : IDemoService
     {
         private readonly IBaseRepository _baseRepository;
         private readonly ILogger _logger;
 
-        public SampleService
+        public DemoService
         (
             IBaseRepository baseRepository,
-            ILogger<SampleService> logger
+            ILogger<DemoService> logger
         )
         {
             _baseRepository = baseRepository;
             _logger = logger;
         }
 
-        public Task<List<SampleEntity>> GetAll()
+        public Task<List<DemoEntity>> GetAll()
         {
             _logger.LogInformation("Method get all was called");
 
-            var list = new List<SampleEntity>
+            var list = new List<DemoEntity>
                 {
-                    new SampleEntity
+                    new DemoEntity
                     {
                         Id = 1,
                         Description = "Test"
@@ -38,17 +38,17 @@ namespace CoreApp.Domain.Services
             return Task.FromResult(list);
         }
 
-        public async Task<SampleEntity> GetById(int id)
+        public async Task<DemoEntity> GetById(int id)
         {
-            return await Task.FromResult(new SampleEntity());
+            return await Task.FromResult(new DemoEntity());
         }
 
-        public async Task<SampleEntity> GetDetails(int id, int entityId)
+        public async Task<DemoEntity> GetDetails(int id, int entityId)
         {
-            return await Task.FromResult(new SampleEntity());
+            return await Task.FromResult(new DemoEntity());
         }
 
-        public Task Save(SampleEntity model)
+        public Task Save(DemoEntity model)
         {
             return Task.CompletedTask;
         }

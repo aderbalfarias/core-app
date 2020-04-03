@@ -13,16 +13,16 @@ namespace CoreApp.Api.Controllers
     [ApiController]
     public class DemoController : ControllerBase
     {
-        private readonly ISampleService _sampleService;
+        private readonly IDemoService _demoService;
         private readonly ILogger _logger;
 
         public DemoController
         (
-            ISampleService sampleService,
+            IDemoService DemoService,
             ILogger<DemoController> logger
         )
         {
-            _sampleService = sampleService;
+            _demoService = DemoService;
             _logger = logger;
         }
 
@@ -40,14 +40,14 @@ namespace CoreApp.Api.Controllers
         [HttpGet]
         [EnableCors]
         [Route("getbyid/{id:int:min(1)}")]
-        public IActionResult GetById(int id) => Ok(_sampleService.GetById(id));
+        public IActionResult GetById(int id) => Ok(_demoService.GetById(id));
 
         // GET api/demo/getdetails/{id}/{modelId}
         [HttpGet]
         [EnableCors]
         [Route("getdetails/{id:int:min(1)}/{modelId:int:min(1)}")]
         public async Task<IActionResult> GetDetails(int id, int modelId)
-            => Ok(await _sampleService.GetDetails(id, modelId));
+            => Ok(await _demoService.GetDetails(id, modelId));
 
         // POST api/demo/save
         [HttpPost]
@@ -64,7 +64,7 @@ namespace CoreApp.Api.Controllers
                 return NoContent();
             }
 
-            _sampleService.Save(new SampleEntity
+            _demoService.Save(new DemoEntity
             {
                 Id = model.Id,
                 Description = model.Description,

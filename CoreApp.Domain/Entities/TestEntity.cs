@@ -1,6 +1,6 @@
 ﻿namespace CoreApp.Domain.Entities
 {
-    public class SampleEntity
+    public class DemoEntity
     {
         public int Id { get; set; }
 

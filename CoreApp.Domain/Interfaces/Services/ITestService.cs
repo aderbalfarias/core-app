@@ -4,11 +4,11 @@ using System.Threading.Tasks;
 
 namespace CoreApp.Domain.Interfaces.Services
 {
-    public interface ISampleService
+    public interface IDemoService
     {
-        Task<List<SampleEntity>> GetAll();
-        Task<SampleEntity> GetById(int id);
-        Task<SampleEntity> GetDetails(int id, int entityId);
-        Task Save(SampleEntity model);
+        Task<List<DemoEntity>> GetAll();
+        Task<DemoEntity> GetById(int id);
+        Task<DemoEntity> GetDetails(int id, int entityId);
+        Task Save(DemoEntity model);
     }
 }
