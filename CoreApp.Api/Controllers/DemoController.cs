@@ -55,6 +55,8 @@ namespace CoreApp.Api.Controllers
         [Route("save")]
         public IActionResult Save(DemoModel model)
         {
+            _logger.LogInformation("Save method started");
+
             if (model == null)
                 return NoContent();
 
@@ -64,6 +66,8 @@ namespace CoreApp.Api.Controllers
                 Description = model.Description,
                 Text = model.Text
             });
+
+            _logger.LogInformation("Save method finished");
 
             return Ok();
         }
