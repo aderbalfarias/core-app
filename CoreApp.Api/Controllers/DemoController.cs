@@ -71,7 +71,7 @@ namespace CoreApp.Api.Controllers
                 Text = model.Text
             });
 
-            _logger.LogInformation("Save method finished");
+            _logger.LogInformation("Save method finished successfully");
 
             return Ok();
         }
