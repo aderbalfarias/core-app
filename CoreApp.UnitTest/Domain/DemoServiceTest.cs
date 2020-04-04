@@ -12,24 +12,24 @@ using Xunit;
 
 namespace CoreApp.UnitTest.Domain
 {
-    public class SampleTest
+    public class DemoServiceTest
     {
         #region Fields 
 
         private readonly Mock<IBaseRepository> _mockBaseRepository;
-        private readonly Mock<ILogger<SampleService>> _mockLogger;
-        private readonly SampleService _sampleServcice;
+        private readonly Mock<ILogger<DemoService>> _mockLogger;
+        private readonly DemoService _demoServcice;
 
         #endregion End Fields 
 
         #region Constructor
 
-        public SampleTest()
+        public DemoServiceTest()
         {
             _mockBaseRepository = new Mock<IBaseRepository>();
-            _mockLogger = new Mock<ILogger<SampleService>>();
+            _mockLogger = new Mock<ILogger<DemoService>>();
 
-            _sampleServcice = new SampleService(_mockBaseRepository.Object, _mockLogger.Object);
+            _demoServcice = new DemoService(_mockBaseRepository.Object, _mockLogger.Object);
         }
 
         #endregion End Constructor
@@ -38,29 +38,29 @@ namespace CoreApp.UnitTest.Domain
 
         private Task RepositorySetup()
         {
-            _mockBaseRepository.Setup(s => s.Add(It.IsAny<SampleEntity>()))
+            _mockBaseRepository.Setup(s => s.Add(It.IsAny<DemoEntity>()))
                 .Returns(Task.FromResult(1));
 
-            IQueryable<SampleEntity> mocks = MockSampleEntity.AsQueryable();
+            IQueryable<DemoEntity> mocks = MockDemoEntity.AsQueryable();
 
             _mockBaseRepository.Setup(s
-                    => s.Get(It.IsAny<Expression<Func<SampleEntity, bool>>>(), It.IsAny<string>()))
-                .Returns<Expression<Func<SampleEntity, bool>>, string>((predicate, include)
+                    => s.Get(It.IsAny<Expression<Func<DemoEntity, bool>>>(), It.IsAny<string>()))
+                .Returns<Expression<Func<DemoEntity, bool>>, string>((predicate, include)
                         => mocks.Where(predicate));
 
             _mockBaseRepository.Setup(s
-                    => s.GetAsync(It.IsAny<Expression<Func<SampleEntity, bool>>>()))
-                .Returns<Expression<Func<SampleEntity, bool>>>(async (predicate)
+                    => s.GetAsync(It.IsAny<Expression<Func<DemoEntity, bool>>>()))
+                .Returns<Expression<Func<DemoEntity, bool>>>(async (predicate)
                         => await Task.FromResult(mocks.Where(predicate)));
 
             _mockBaseRepository.Setup(s
-                    => s.GetAsync(It.IsAny<Expression<Func<SampleEntity, bool>>>(), It.IsAny<string>()))
-                .Returns<Expression<Func<SampleEntity, bool>>, string>(async (predicate, include)
+                    => s.GetAsync(It.IsAny<Expression<Func<DemoEntity, bool>>>(), It.IsAny<string>()))
+                .Returns<Expression<Func<DemoEntity, bool>>, string>(async (predicate, include)
                         => await Task.FromResult(mocks.Where(predicate)));
 
             _mockBaseRepository.Setup(s
-                    => s.GetObjectAsync(It.IsAny<Expression<Func<SampleEntity, bool>>>()))
-                .Returns<Expression<Func<SampleEntity, bool>>>(predicate
+                    => s.GetObjectAsync(It.IsAny<Expression<Func<DemoEntity, bool>>>()))
+                .Returns<Expression<Func<DemoEntity, bool>>>(predicate
                         => Task.FromResult(mocks.FirstOrDefault(predicate)));
 
             return Task.CompletedTask;
@@ -70,15 +70,15 @@ namespace CoreApp.UnitTest.Domain
 
         #region Mocks
 
-        private IEnumerable<SampleEntity> MockSampleEntity
-            => new List<SampleEntity>
+        private IEnumerable<DemoEntity> MockDemoEntity
+            => new List<DemoEntity>
             {
-                new SampleEntity
+                new DemoEntity
                 {
                     Id = 1,
                     Description = "Test 1"
                 },
-                new SampleEntity
+                new DemoEntity
                 {
                     Id = 2,
                     Description = "Test 2",
@@ -106,7 +106,7 @@ namespace CoreApp.UnitTest.Domain
         {
             await RepositorySetup();
 
-            await _sampleServcice.GetAll();
+            await _demoServcice.GetAll();
 
             var getAllCalled = "Method get all was called";
 
@@ -120,10 +120,10 @@ namespace CoreApp.UnitTest.Domain
         public async Task Save_Should_Log_Exception()
         {
             await RepositorySetup();
-            var entity = MockSampleEntity.First();
+            var entity = MockDemoEntity.First();
 
             var logException = await Record
-                .ExceptionAsync(async () => await _sampleServcice.Save(entity));
+                .ExceptionAsync(async () => await _demoServcice.Save(entity));
 
             Assert.Contains("Method not Implemented", logException.Message);
         }
@@ -132,21 +132,21 @@ namespace CoreApp.UnitTest.Domain
         public async Task Save_Should_Throw_Exception()
         {
             await RepositorySetup();
-            var entity = MockSampleEntity.First();
+            var entity = MockDemoEntity.First();
 
             await Assert.ThrowsAsync<NotImplementedException>(async ()
-                => await _sampleServcice.Save(entity));
+                => await _demoServcice.Save(entity));
         }
 
         [Fact]
         public async Task Save_Should_Throw_And_Check_Exception()
         {
             await RepositorySetup();
-            var entity = MockSampleEntity.First();
+            var entity = MockDemoEntity.First();
 
             var exception = await Assert
                 .ThrowsAsync<NotImplementedException>(async ()
-                    => await _sampleServcice.Save(entity));
+                    => await _demoServcice.Save(entity));
 
             Assert.NotNull(exception);
         }
@@ -155,10 +155,10 @@ namespace CoreApp.UnitTest.Domain
         public async Task Save_Should_Check_Exception()
         {
             await RepositorySetup();
-            var entity = MockSampleEntity.First();
+            var entity = MockDemoEntity.First();
 
             await Assert.ThrowsAsync<NotImplementedException>(async ()
-                => await _sampleServcice.Save(entity));
+                => await _demoServcice.Save(entity));
         }
 
         #endregion End Tests

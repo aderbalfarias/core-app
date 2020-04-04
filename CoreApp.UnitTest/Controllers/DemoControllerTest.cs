@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace CoreApp.UnitTest.Controllers
 {
-    public class DemoTest
+    public class DemoControllerTest
     {
         #region Fields 
 
-        private readonly Mock<ISampleService> _mockSampleService;
+        private readonly Mock<IDemoService> _mockDemoService;
         private readonly Mock<ILogger<DemoController>> _mockLogger;
         private readonly DemoController _demoController;
 
@@ -20,12 +20,12 @@ namespace CoreApp.UnitTest.Controllers
 
         #region Constructor
 
-        public DemoTest()
+        public DemoControllerTest()
         {
-            _mockSampleService = new Mock<ISampleService>();
+            _mockDemoService = new Mock<IDemoService>();
             _mockLogger = new Mock<ILogger<DemoController>>();
 
-            _demoController = new DemoController(_mockSampleService.Object, _mockLogger.Object);
+            _demoController = new DemoController(_mockDemoService.Object, _mockLogger.Object);
         }
 
         #endregion End Constructor
@@ -41,15 +41,15 @@ namespace CoreApp.UnitTest.Controllers
 
         #region Mocks
 
-        private IEnumerable<SampleEntity> MockSampleEntity
-            => new List<SampleEntity>
+        private IEnumerable<DemoEntity> MockDemoEntity
+            => new List<DemoEntity>
             {
-                new SampleEntity
+                new DemoEntity
                 {
                     Id = 1,
                     Description = "Test 1"
                 },
-                new SampleEntity
+                new DemoEntity
                 {
                     Id = 2,
                     Description = "Test 2",

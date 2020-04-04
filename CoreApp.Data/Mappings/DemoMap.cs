@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CoreApp.Data.Mappings
 {
-    public class SampleMap : IEntityTypeConfiguration<SampleEntity>
+    public class DemoMap : IEntityTypeConfiguration<DemoEntity>
     {
-        public void Configure(EntityTypeBuilder<SampleEntity> builder)
+        public void Configure(EntityTypeBuilder<DemoEntity> builder)
         {
-            builder.ToTable("Sample", "dbo");
+            builder.ToTable("Demo", "dbo");
 
             builder.HasKey(k => k.Id);
 
