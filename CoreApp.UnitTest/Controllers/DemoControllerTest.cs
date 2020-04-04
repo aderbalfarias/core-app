@@ -53,7 +53,7 @@ namespace CoreApp.UnitTest.Controllers
                 {
                     Id = 2,
                     Description = "Test 2",
-                    Text = "test"
+                    Text = "test controller"
                 },
             };
 
