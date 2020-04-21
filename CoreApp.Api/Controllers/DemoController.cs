@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 namespace CoreApp.Api.Controllers
 {
     //[Authorize]
-    [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/demo")]
+    [ApiVersion("2.0")]
     [ApiController]
     public class DemoController : ControllerBase
     {
