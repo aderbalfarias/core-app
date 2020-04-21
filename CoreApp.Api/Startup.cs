@@ -66,6 +66,11 @@ namespace CoreApp.Api
             services.AddHealthChecks();
 
             services.AddControllers();
+            services.AddApiVersioning(config =>
+            {
+                // Specify the default API Version
+                config.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+            });
 
             services.AddSwaggerGen(c =>
             {
