@@ -130,9 +130,7 @@ namespace CoreApp.Api
                 //options.AddPolicy(roleAdmin, policy => policy.RequireRole(roleAdmin));
             });
 
-            services.OpenIddict();
-            services.AddCustomOpenIddict();
-            services.OpenIdInitialize(Environment);
+            services.OpenIddict(Environment);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -195,6 +193,8 @@ namespace CoreApp.Api
             {
                 endpoints.MapControllers();
             });
+
+            OpenIddictExtension.OpenIdInitializeAsync(app.ApplicationServices, env).GetAwaiter().GetResult();
         }
     }
 }

@@ -8,25 +8,6 @@ namespace CoreApp.Api.Middlewares
 {
     public static class ApplicationBuilderExtension
     {
-        //public static IApplicationBuilder UseIf
-        //(
-        //    this IApplicationBuilder application, 
-        //    bool condition,
-        //    Func<IApplicationBuilder, IApplicationBuilder> action
-        //)
-        //{
-        //    if (application == null)
-        //        throw new ArgumentNullException(nameof(application));
-
-        //    if (action == null)
-        //        throw new ArgumentNullException(nameof(action));
-
-        //    if (condition)
-        //        application = action(application);
-
-        //    return application;
-        //}
-
         /// <summary>
         ///     Executes the specific action if codition parameter is true
         ///     Used to conditionally add actions to the execution pipeline
