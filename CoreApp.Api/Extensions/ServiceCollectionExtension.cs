@@ -8,7 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace CoreApp.Api.Extensions
 {
-    public static class CustomServiceCollectionExtensions
+    public static class ServiceCollectionExtension
     {
         public static IServiceCollection AddCustomOpenIddict(this IServiceCollection services)
         {
@@ -19,7 +19,7 @@ namespace CoreApp.Api.Extensions
                 .AddDbContext<DbContext>(options =>
                 {
                     // Configure the context to use an in-memory store.
-                    //options.UseInMemoryDatabase(nameof(DbContext));
+                    options.UseInMemoryDatabase(nameof(DbContext));
 
                     // Register the entity sets needed by OpenIddict.
                     // Note: use the generic overload if you need
@@ -31,7 +31,7 @@ namespace CoreApp.Api.Extensions
                 {
                     // Configure OpenIddict to use the Entity Framework Core stores and entities.
                     options.UseEntityFrameworkCore()
-                    .UseDbContext<DbContext>();
+                        .UseDbContext<DbContext>();
                 })
                 .AddServer(options =>
                 {
@@ -139,5 +139,22 @@ namespace CoreApp.Api.Extensions
 
             throw new InvalidOperationException("No valid certificate configuration found for the current endpoint.");
         }
+
+        /// <summary>
+        ///     Executes the specific action if codition parameter is true
+        ///     Used to conditionally add actions to the servives
+        /// </summary>
+        /// <param name="services">Service collection</param>
+        /// <param name="condition">If it is true the action is executed</param>
+        /// <param name="action">Action requested to be added to servives</param>
+        /// <returns>Service collection</returns>
+        public static IServiceCollection AddIf
+        (
+            this IServiceCollection services,
+            bool condition,
+            Func<IServiceCollection, IServiceCollection> action
+        ) => services != null && action != null && condition
+            ? action(services)
+            : services;
     }
 }
