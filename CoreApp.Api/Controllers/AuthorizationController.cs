@@ -22,11 +22,11 @@ namespace CoreApp.Api.Controllers
 
         public AuthorizationController
         (
-            IOptions<OIDCAuthorizationServerOptions> options,
+            OIDCAuthorizationServerOptions options,
             OpenIddictApplicationManager<OpenIddictApplication> applicationManager
         )
         {
-            _serverOptions = options.Value;
+            _serverOptions = options;
             _applicationManager = applicationManager;
         }
 

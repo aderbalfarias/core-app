@@ -61,7 +61,7 @@ namespace CoreApp.Api.Middlewares
 
         private async Task<string> ReadRequestBody(HttpRequest request)
         {
-            request.EnableBuffering(); //EnableRewind()
+            request.EnableBuffering();
 
             var buffer = new byte[Convert.ToInt32(request.ContentLength)];
             await request.Body.ReadAsync(buffer, 0, buffer.Length);

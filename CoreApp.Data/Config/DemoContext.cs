@@ -20,6 +20,6 @@ namespace CoreApp.Data.Config
             modelBuilder.ApplyConfiguration(new DemoMap());
         }
 
-        public DbSet<DemoEntity> Test { get; set; }
+        public DbSet<DemoEntity> Demo { get; set; }
     }
 }

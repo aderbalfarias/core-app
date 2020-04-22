@@ -1,25 +1,67 @@
 ﻿using CoreApp.Api.Options.Authorization;
+using CoreApp.Data.Config;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using OpenIddict.Core;
+using OpenIddict.EntityFrameworkCore.Models;
 using System;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading.Tasks;
 
 namespace CoreApp.Api.Extensions
 {
-    public static class CustomServiceCollectionExtensions
+    public static class OpenIddictExtension
     {
-        public static IServiceCollection AddCustomOpenIddict(this IServiceCollection services)
+        /// <summary>
+        ///     Setup OpenIddict Configuration
+        /// </summary>
+        /// <param name="services"></param>
+        /// <returns></returns>
+        public static async Task OpenIdInitializeAsync(IServiceProvider services, IWebHostEnvironment environment)
         {
-            var openIdOptions = services.BuildServiceProvider().GetRequiredService<OIDCAuthorizationServerOptions>();
-            var authenticationOptions = services.BuildServiceProvider().GetRequiredService<AuthenticationOptions>();
+            // Create a new service scope to ensure the database context is correctly disposed when this methods returns.
+            using var scope = services.GetRequiredService<IServiceScopeFactory>().CreateScope();
+
+            var context = scope.ServiceProvider.GetRequiredService<DbContext>();
+            await context.Database.EnsureCreatedAsync();
+
+            var manager = scope.ServiceProvider
+                .GetRequiredService<OpenIddictApplicationManager<OpenIddictApplication>>();
+
+            var openIdOptions = scope.ServiceProvider
+                .GetRequiredService<OIDCAuthorizationServerOptions>();
+
+            foreach (var client in openIdOptions.Clients)
+            {
+                foreach (var descriptor in client.ApplicationDescriptors)
+                {
+                    descriptor.ClientId = client.ClientId;
+                    descriptor.ClientSecret = client.ClientSecret;
+
+                    if (await manager.FindByClientIdAsync(client.ClientId) != null)
+                        continue;
+
+                    await manager.CreateAsync(descriptor);
+                }
+            }
+        }
+
+        public static void OpenIddict(this IServiceCollection services, IWebHostEnvironment environment)
+        {
+            var serviceProvider = services.BuildServiceProvider();
+
+            var openIdOptions = serviceProvider.GetRequiredService<OIDCAuthorizationServerOptions>();
+            var authenticationOptions = serviceProvider.GetRequiredService<AuthenticationOptions>();
 
             services
                 .AddDbContext<DbContext>(options =>
                 {
                     // Configure the context to use an in-memory store.
-                    //options.UseInMemoryDatabase(nameof(DbContext));
+                    options.UseInMemoryDatabase(nameof(DbContext));
 
                     // Register the entity sets needed by OpenIddict.
                     // Note: use the generic overload if you need
@@ -30,8 +72,7 @@ namespace CoreApp.Api.Extensions
                 .AddCore(options =>
                 {
                     // Configure OpenIddict to use the Entity Framework Core stores and entities.
-                    options.UseEntityFrameworkCore()
-                    .UseDbContext<DbContext>();
+                    options.UseEntityFrameworkCore().UseDbContext<DbContext>();
                 })
                 .AddServer(options =>
                 {
@@ -48,8 +89,8 @@ namespace CoreApp.Api.Extensions
                     options.AllowClientCredentialsFlow();
 
                     // During development, you can disable the HTTPS requirement.
-                    //if (hostingEnvironment.IsDevelopment()) 
-                    options.DisableHttpsRequirement();
+                    if (environment.IsDevelopment()) 
+                        options.DisableHttpsRequirement();
 
                     // Accept token requests that don't specify a client_id.
                     // options.AcceptAnonymousClients();
@@ -78,14 +119,15 @@ namespace CoreApp.Api.Extensions
                     // options.IgnoreEndpointPermissions()
                     //        .IgnoreGrantTypePermissions()
                     //        .IgnoreScopePermissions();
-                })
+                });
 
                 // Register the OpenIddict validation handler.
                 // Note: the OpenIddict validation handler is only compatible with the
                 // default token format or with reference tokens and cannot be used with
                 // JWT tokens. For JWT tokens, use the Microsoft JWT bearer handler.
                 //.AddValidation()
-                .Services
+
+            services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
@@ -106,8 +148,6 @@ namespace CoreApp.Api.Extensions
                         IssuerSigningKey = new X509SecurityKey(LoadCertificate(services))
                     };
                 });
-
-            return services;
         }
 
         public static X509Certificate2 LoadCertificate(IServiceCollection services)
@@ -139,5 +179,6 @@ namespace CoreApp.Api.Extensions
 
             throw new InvalidOperationException("No valid certificate configuration found for the current endpoint.");
         }
+
     }
 }
