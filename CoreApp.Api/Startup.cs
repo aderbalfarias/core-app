@@ -1,4 +1,5 @@
-﻿using CoreApp.Api.Middlewares;
+﻿using CoreApp.Api.Extensions;
+using CoreApp.Api.Middlewares;
 using CoreApp.Api.Options.Authorization;
 using CoreApp.Domain.Entities;
 using CoreApp.IoC;
@@ -60,18 +61,16 @@ namespace CoreApp.Api
             services.Configure<AppSettings>(Configuration.GetSection(nameof(AppSettings)));
 
             var authenticationOption = Configuration
-                .GetSection(nameof(ApplicationOptions.Authentication)).Get<AuthenticationOptions>();
+                .GetSection(nameof(ApplicationOptions.Authentication))
+                .Get<AuthenticationOptions>();
 
             services.AddSingleton(authenticationOption);
 
-            services.AddHealthChecks();
+            services.AddHealthChecks()
+                .AddSqlServer(Configuration.GetConnectionString(DemoConnection));
 
             services.AddControllers();
-            services.AddApiVersioning(config =>
-            {
-                // Specify the default API Version
-                config.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
-            });
+            services.AddApiVersioning();
 
             services.AddSwaggerGen(c =>
             {
@@ -79,7 +78,7 @@ namespace CoreApp.Api
                 {
                     Version = "v1",
                     Title = "Core App Template",
-                    Description = "Api template",
+                    Description = "Project developed to be used as a template for new .net core apis",
                     TermsOfService = new Uri("https://aderbalfarias.com"),
                     Contact = new OpenApiContact
                     {
@@ -120,11 +119,27 @@ namespace CoreApp.Api
                     }
                 });
             });
+
+            var oidc = Configuration
+                .GetSection(nameof(ApplicationOptions.OIDCAuthorizationServer))
+                .Get<OIDCAuthorizationServerOptions>();
+
+            services.AddSingleton(oidc);
+            services.AddAuthorization(options =>
+            {
+                //options.AddPolicy(roleAdmin, policy => policy.RequireRole(roleAdmin));
+            });
+
+            services.OpenIddict();
+            services.AddCustomOpenIddict();
+            services.OpenIdInitialize(Environment);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
+            app.UseAuthentication();
+
             logger.LogInformation($"In {env.EnvironmentName} environment");
 
             app.UseMiddleware<RequestResponseLoggingMiddleware>();
@@ -150,7 +165,6 @@ namespace CoreApp.Api
             }
 
             app.UseRouting();
-            //app.UseAuthentication();
             app.UseAuthorization();
             app.UseHttpsRedirection();
             app.UseStaticFiles();

@@ -1,6 +1,7 @@
 ﻿using CoreApp.Api.Models;
 using CoreApp.Domain.Entities;
 using CoreApp.Domain.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -8,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace CoreApp.Api.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/v{version:apiVersion}/demo")]
-    [ApiVersion("2.0")]
+    [ApiVersion("1.0")]
     [ApiController]
     public class DemoController : ControllerBase
     {
@@ -30,6 +31,7 @@ namespace CoreApp.Api.Controllers
         // GET api/demo/getall
         [HttpGet]
         [EnableCors]
+        [ApiVersion("2.0")]
         [Route("getall")]
         public IActionResult GetAll()
         {
