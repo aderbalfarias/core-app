@@ -2,6 +2,7 @@
 using CoreApp.Domain.Interfaces.Repositories;
 using CoreApp.Domain.Interfaces.Services;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -50,7 +51,9 @@ namespace CoreApp.Domain.Services
 
         public Task Save(DemoEntity model)
         {
-            return Task.CompletedTask;
+            //return Task.CompletedTask;
+
+            throw new NotImplementedException("Method not Implemented");
         }
     }
 }
