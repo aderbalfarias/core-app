@@ -36,7 +36,10 @@ namespace CoreApp.Api.Controllers
         public IActionResult GetAll()
         {
             _logger.LogInformation("GetAll called");
-            return Ok(new { Teste = "Test", Code = 2, Message = "Success" });
+
+            var result = new { Teste = "Test", Code = 2, Message = "Success" };
+
+            return Ok(result);
         }
 
         // GET api/demo/getbyid/{id}

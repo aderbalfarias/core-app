@@ -109,7 +109,11 @@ namespace CoreApp.Api
                     {
                         new OpenApiSecurityScheme
                         {
-                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "oauth2" }
+                            Reference = new OpenApiReference 
+                            { 
+                                Type = ReferenceType.SecurityScheme, 
+                                Id = "oauth2" 
+                            }
                         },
                         new string[] { }
                     }
@@ -117,8 +121,8 @@ namespace CoreApp.Api
             });
 
             var oidc = Configuration
-                .GetSection(nameof(ApplicationOptions.OIDCAuthorizationServer))
-                .Get<OIDCAuthorizationServerOptions>();
+                .GetSection(nameof(ApplicationOptions.OidcAuthorizationServer))
+                .Get<OidcAuthorizationServerOptions>();
 
             services.AddSingleton(oidc);
             services.AddAuthorization(options =>
