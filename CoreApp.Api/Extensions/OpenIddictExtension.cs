@@ -21,7 +21,7 @@ namespace CoreApp.Api.Extensions
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static async Task OpenIdInitializeAsync(IServiceProvider services, IWebHostEnvironment environment)
+        public static async Task OpenIdInitializeAsync(IServiceProvider services)
         {
             // Create a new service scope to ensure the database context is correctly disposed when this methods returns.
             using var scope = services.GetRequiredService<IServiceScopeFactory>().CreateScope();
@@ -50,7 +50,7 @@ namespace CoreApp.Api.Extensions
             }
         }
 
-        public static void OpenIddict(this IServiceCollection services, IWebHostEnvironment environment)
+        public static void AddOpenIddict(this IServiceCollection services, IWebHostEnvironment environment)
         {
             var serviceProvider = services.BuildServiceProvider();
 
