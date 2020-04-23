@@ -32,7 +32,7 @@ namespace CoreApp.Api.Extensions
                 .GetRequiredService<OpenIddictApplicationManager<OpenIddictApplication>>();
 
             var openIdOptions = scope.ServiceProvider
-                .GetRequiredService<OIDCAuthorizationServerOptions>();
+                .GetRequiredService<OidcAuthorizationServerOptions>();
 
             foreach (var client in openIdOptions.Clients)
             {
@@ -53,7 +53,7 @@ namespace CoreApp.Api.Extensions
         {
             var serviceProvider = services.BuildServiceProvider();
 
-            var openIdOptions = serviceProvider.GetRequiredService<OIDCAuthorizationServerOptions>();
+            var openIdOptions = serviceProvider.GetRequiredService<OidcAuthorizationServerOptions>();
             var authenticationOptions = serviceProvider.GetRequiredService<AuthenticationOptions>();
 
             services
@@ -151,7 +151,7 @@ namespace CoreApp.Api.Extensions
 
         public static X509Certificate2 LoadCertificate(IServiceCollection services)
         {
-            var openIdOptions = services.BuildServiceProvider().GetRequiredService<OIDCAuthorizationServerOptions>();
+            var openIdOptions = services.BuildServiceProvider().GetRequiredService<OidcAuthorizationServerOptions>();
             CertificateOptions options = openIdOptions.SigningCertificate;
 
             if (options != null)

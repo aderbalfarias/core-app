@@ -1,6 +1,6 @@
 ﻿namespace CoreApp.Api.Options.Authorization
 {
-    public class OIDCAuthorizationServerOptions
+    public class OidcAuthorizationServerOptions
     {
         public Client[] Clients { get; set; }
 

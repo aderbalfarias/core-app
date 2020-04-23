@@ -16,12 +16,12 @@ namespace CoreApp.Api.Controllers
     [ApiExplorerSettings(IgnoreApi = true)]
     public class AuthorizationController : ControllerBase
     {
-        private readonly OIDCAuthorizationServerOptions _serverOptions;
+        private readonly OidcAuthorizationServerOptions _serverOptions;
         private readonly OpenIddictApplicationManager<OpenIddictApplication> _applicationManager;
 
         public AuthorizationController
         (
-            OIDCAuthorizationServerOptions options,
+            OidcAuthorizationServerOptions options,
             OpenIddictApplicationManager<OpenIddictApplication> applicationManager
         )
         {
