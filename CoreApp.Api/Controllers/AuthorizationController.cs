@@ -3,7 +3,6 @@ using AspNet.Security.OpenIdConnect.Primitives;
 using CoreApp.Api.Options.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using OpenIddict.Core;
 using OpenIddict.EntityFrameworkCore.Models;
 using OpenIddict.Mvc.Internal;
@@ -80,15 +79,11 @@ namespace CoreApp.Api.Controllers
                 .ToList();
 
             foreach (var client in clients)
-            {
-                var roles = client.Roles;
-
-                if (roles != null)
-                    foreach (var role in roles)
+                if (client.Roles != null)
+                    foreach (var role in client.Roles)
                         identity.AddClaim(OpenIdConnectConstants.Claims.Role,
                             role, OpenIdConnectConstants.Destinations.AccessToken,
                             OpenIdConnectConstants.Destinations.IdentityToken);
-            }
 
             // Create a new authentication ticket holding the user identity.
             var ticket = new AuthenticationTicket(new ClaimsPrincipal(identity),

@@ -25,6 +25,7 @@ namespace CoreApp.Api
     {
         private const string DemoConnection = "DemoConnection";
         private const string corsSettings = "CorsOrigin";
+        private const string roleAdmin = "Admin";
 
         public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
@@ -39,22 +40,17 @@ namespace CoreApp.Api
         // Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var corsOrigin = Configuration
-                .GetSection(corsSettings)
-                .Get<string[]>();
+            var corsOrigin = Configuration.GetSection(corsSettings).Get<string[]>();
 
             services.AddCors(options =>
             {
-                options.AddDefaultPolicy(
-                    builder =>
-                    {
-                        builder.WithOrigins(corsOrigin)
-                            .AllowAnyHeader()
-                            .AllowAnyMethod();
-                    });
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins(corsOrigin).AllowAnyHeader().AllowAnyMethod();
+                });
             });
 
-            // DI
+            // Dependency Injection
             services.Services();
             services.Repositories();
             services.Databases(Configuration.GetConnectionString(DemoConnection));
@@ -127,10 +123,10 @@ namespace CoreApp.Api
             services.AddSingleton(oidc);
             services.AddAuthorization(options =>
             {
-                //options.AddPolicy(roleAdmin, policy => policy.RequireRole(roleAdmin));
+                options.AddPolicy(roleAdmin, policy => policy.RequireRole(roleAdmin));
             });
 
-            services.OpenIddict(Environment);
+            services.AddOpenIddict(Environment);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -175,13 +171,12 @@ namespace CoreApp.Api
                     var result = JsonConvert.SerializeObject(new
                     {
                         status = report.Status.ToString(),
-                        errors = report.Entries
-                            .Select(e => new
-                            {
-                                key = e.Key,
-                                value = Enum.GetName(typeof(HealthStatus),
-                                e.Value.Status)
-                            })
+                        errors = report.Entries.Select(e => new
+                        {
+                            key = e.Key,
+                            value = Enum.GetName(typeof(HealthStatus),
+                            e.Value.Status)
+                        })
                     });
 
                     context.Response.ContentType = MediaTypeNames.Application.Json;
@@ -194,7 +189,7 @@ namespace CoreApp.Api
                 endpoints.MapControllers();
             });
 
-            OpenIddictExtension.OpenIdInitializeAsync(app.ApplicationServices, env).GetAwaiter().GetResult();
+            OpenIddictExtension.OpenIdInitializeAsync(app.ApplicationServices).GetAwaiter().GetResult();
         }
     }
 }
