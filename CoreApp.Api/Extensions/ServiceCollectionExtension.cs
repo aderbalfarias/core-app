@@ -1,10 +1,5 @@
-﻿using CoreApp.Api.Options.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Security.Cryptography.X509Certificates;
 
 namespace CoreApp.Api.Extensions
 {

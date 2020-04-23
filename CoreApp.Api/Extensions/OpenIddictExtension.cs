@@ -1,5 +1,4 @@
 ﻿using CoreApp.Api.Options.Authorization;
-using CoreApp.Data.Config;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -89,7 +88,7 @@ namespace CoreApp.Api.Extensions
                     options.AllowClientCredentialsFlow();
 
                     // During development, you can disable the HTTPS requirement.
-                    if (environment.IsDevelopment()) 
+                    if (environment.IsDevelopment())
                         options.DisableHttpsRequirement();
 
                     // Accept token requests that don't specify a client_id.
@@ -121,11 +120,11 @@ namespace CoreApp.Api.Extensions
                     //        .IgnoreScopePermissions();
                 });
 
-                // Register the OpenIddict validation handler.
-                // Note: the OpenIddict validation handler is only compatible with the
-                // default token format or with reference tokens and cannot be used with
-                // JWT tokens. For JWT tokens, use the Microsoft JWT bearer handler.
-                //.AddValidation()
+            // Register the OpenIddict validation handler.
+            // Note: the OpenIddict validation handler is only compatible with the
+            // default token format or with reference tokens and cannot be used with
+            // JWT tokens. For JWT tokens, use the Microsoft JWT bearer handler.
+            //.AddValidation()
 
             services
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
