@@ -49,13 +49,14 @@ namespace CoreApp.Api.Extensions
             }
         }
 
-        public static void AddOpenIddict(this IServiceCollection services, IWebHostEnvironment environment)
+        public static void AddOpenIddict
+        (
+            this IServiceCollection services, 
+            IWebHostEnvironment environment, 
+            OidcAuthorizationServerOptions openIdOptions,
+            AuthenticationOptions authenticationOptions
+        )
         {
-            var serviceProvider = services.BuildServiceProvider();
-
-            var openIdOptions = serviceProvider.GetRequiredService<OidcAuthorizationServerOptions>();
-            var authenticationOptions = serviceProvider.GetRequiredService<AuthenticationOptions>();
-
             services
                 .AddDbContext<DbContext>(options =>
                 {

@@ -109,10 +109,10 @@ namespace CoreApp.Api
                     {
                         new OpenApiSecurityScheme
                         {
-                            Reference = new OpenApiReference 
-                            { 
-                                Type = ReferenceType.SecurityScheme, 
-                                Id = "oauth2" 
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "oauth2"
                             }
                         },
                         new string[] { }
@@ -130,7 +130,7 @@ namespace CoreApp.Api
                 options.AddPolicy(roleAdmin, policy => policy.RequireRole(roleAdmin));
             });
 
-            services.AddOpenIddict(Environment);
+            services.AddOpenIddict(Environment, oidc, authenticationOption);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
