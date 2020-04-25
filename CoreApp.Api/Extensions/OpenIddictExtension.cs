@@ -108,7 +108,7 @@ namespace CoreApp.Api.Extensions
                     //options.AddEphemeralSigningKey();
 
                     // On production, using a X.509 certificate stored in the machine store is recommended.
-                    options.AddSigningCertificate(LoadCertificate(services));
+                    options.AddSigningCertificate(LoadCertificate(openIdOptions));
 
                     var expiryInSeconds = openIdOptions.AccessTokenExpiration;
                     options.SetAccessTokenLifetime(TimeSpan.FromSeconds(Convert.ToDouble(expiryInSeconds)));
@@ -145,21 +145,21 @@ namespace CoreApp.Api.Extensions
                         ValidateAudience = true,
                         ValidAudience = authenticationOptions.Audience,
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new X509SecurityKey(LoadCertificate(services))
+                        IssuerSigningKey = new X509SecurityKey(LoadCertificate(openIdOptions))
                     };
                 });
         }
 
-        public static X509Certificate2 LoadCertificate(IServiceCollection services)
+        public static X509Certificate2 LoadCertificate(OidcAuthorizationServerOptions openIdOptions)
         {
-            var openIdOptions = services.BuildServiceProvider().GetRequiredService<OidcAuthorizationServerOptions>();
             CertificateOptions options = openIdOptions.SigningCertificate;
 
             if (options != null)
             {
                 if (options.Store != null && options.Location != null)
                 {
-                    using (var store = new X509Store(options.Store, (StoreLocation)Enum.Parse(typeof(StoreLocation), options.Location)))
+                    using (var store = new X509Store(options.Store, 
+                        (StoreLocation)Enum.Parse(typeof(StoreLocation), options.Location)))
                     {
                         store.Open(OpenFlags.ReadOnly);
                         var certificate = store.Certificates.Find(
@@ -168,9 +168,7 @@ namespace CoreApp.Api.Extensions
                             validOnly: !options.AllowInvalid);
 
                         if (certificate.Count == 0)
-                        {
                             throw new InvalidOperationException($"Certificate not found for {options.Subject}.");
-                        }
 
                         return certificate[0];
                     }
