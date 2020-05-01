@@ -28,7 +28,7 @@ namespace CoreApp.Api.Middlewares
             ? action(application)
             : application;
 
-        public static IApplicationBuilder UseHealthChecks(this IApplicationBuilder application) 
+        public static IApplicationBuilder UseHealthChecks(this IApplicationBuilder application)
         {
             application.UseHealthChecks("/ping");
             application.UseHealthChecks("/health", new HealthCheckOptions

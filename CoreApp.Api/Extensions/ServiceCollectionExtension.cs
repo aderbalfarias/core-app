@@ -29,7 +29,7 @@ namespace CoreApp.Api.Extensions
 
         public static IServiceCollection AddSwagger
         (
-            this IServiceCollection services, 
+            this IServiceCollection services,
             AuthenticationOptions authenticationOption
         )
         {

@@ -51,8 +51,8 @@ namespace CoreApp.Api.Extensions
 
         public static void AddOpenIddict
         (
-            this IServiceCollection services, 
-            IWebHostEnvironment environment, 
+            this IServiceCollection services,
+            IWebHostEnvironment environment,
             OidcAuthorizationServerOptions openIdOptions,
             AuthenticationOptions authenticationOptions
         )
@@ -158,7 +158,7 @@ namespace CoreApp.Api.Extensions
             {
                 if (options.Store != null && options.Location != null)
                 {
-                    using (var store = new X509Store(options.Store, 
+                    using (var store = new X509Store(options.Store,
                         (StoreLocation)Enum.Parse(typeof(StoreLocation), options.Location)))
                     {
                         store.Open(OpenFlags.ReadOnly);
