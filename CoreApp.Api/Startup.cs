@@ -4,20 +4,11 @@ using CoreApp.Api.Options.Authorization;
 using CoreApp.Domain.Entities;
 using CoreApp.IoC;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
 
 namespace CoreApp.Api
 {
@@ -67,58 +58,7 @@ namespace CoreApp.Api
 
             services.AddControllers();
             services.AddApiVersioning();
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Version = "v1",
-                    Title = "Core App Template",
-                    Description = "Project developed to be used as a template for new .net core apis",
-                    TermsOfService = new Uri("https://aderbalfarias.com"),
-                    Contact = new OpenApiContact
-                    {
-                        Name = "Aderbal Farias",
-                        Email = "aderbalfarias@hotmail.com",
-                        Url = new Uri("https://aderbalfarias.com")
-                    }
-                });
-
-                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-                {
-                    Type = SecuritySchemeType.OAuth2,
-                    Flows = new OpenApiOAuthFlows
-                    {
-                        ClientCredentials = new OpenApiOAuthFlow
-                        {
-                            //AuthorizationUrl = new Uri("/auth-server/connect/authorize", UriKind.Relative),
-                            //TokenUrl = new Uri("/auth-server/connect/token", UriKind.Relative)
-                            //TokenUrl = new Uri(authenticationOptions.TokenEndpoint),
-                            TokenUrl = new Uri(authenticationOption.TokenEndpoint),
-                            Scopes = new Dictionary<string, string>
-                            {
-                                //{ "readAccess", "Access read operations" },
-                                //{ "writeAccess", "Access write operations" }
-                            }
-                        }
-                    }
-                });
-
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type = ReferenceType.SecurityScheme,
-                                Id = "oauth2"
-                            }
-                        },
-                        new string[] { }
-                    }
-                });
-            });
+            services.AddSwagger(authenticationOption);
 
             var oidc = Configuration
                 .GetSection(nameof(ApplicationOptions.OidcAuthorizationServer))
@@ -167,26 +107,7 @@ namespace CoreApp.Api
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCors();
-            app.UseHealthChecks("/ping");
-            app.UseHealthChecks("/health", new HealthCheckOptions
-            {
-                ResponseWriter = async (context, report) =>
-                {
-                    var result = JsonConvert.SerializeObject(new
-                    {
-                        status = report.Status.ToString(),
-                        errors = report.Entries.Select(e => new
-                        {
-                            key = e.Key,
-                            value = Enum.GetName(typeof(HealthStatus),
-                            e.Value.Status)
-                        })
-                    });
-
-                    context.Response.ContentType = MediaTypeNames.Application.Json;
-                    await context.Response.WriteAsync(result);
-                }
-            });
+            app.UseHealthChecks();
 
             app.UseEndpoints(endpoints =>
             {
