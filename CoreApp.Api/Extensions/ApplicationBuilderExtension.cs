@@ -1,5 +1,11 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Newtonsoft.Json;
 using System;
+using System.Linq;
+using System.Net.Mime;
 
 namespace CoreApp.Api.Middlewares
 {
@@ -21,5 +27,31 @@ namespace CoreApp.Api.Middlewares
         ) => application != null && action != null && condition
             ? action(application)
             : application;
+
+        public static IApplicationBuilder UseHealthChecks(this IApplicationBuilder application) 
+        {
+            application.UseHealthChecks("/ping");
+            application.UseHealthChecks("/health", new HealthCheckOptions
+            {
+                ResponseWriter = async (context, report) =>
+                {
+                    var result = JsonConvert.SerializeObject(new
+                    {
+                        status = report.Status.ToString(),
+                        errors = report.Entries.Select(e => new
+                        {
+                            key = e.Key,
+                            value = Enum.GetName(typeof(HealthStatus),
+                            e.Value.Status)
+                        })
+                    });
+
+                    context.Response.ContentType = MediaTypeNames.Application.Json;
+                    await context.Response.WriteAsync(result);
+                }
+            });
+
+            return application;
+        }
     }
 }
