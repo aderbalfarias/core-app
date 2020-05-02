@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace CoreApp.Api.Controllers
 {
     [Authorize]
-    [Route("api/v{version:apiVersion}/demo")]
+    [Route("api/v{version:apiVersion}")]
     [ApiVersion("1.0")]
     [ApiController]
     public class DemoController : ControllerBase
@@ -32,7 +32,7 @@ namespace CoreApp.Api.Controllers
         [HttpGet]
         [EnableCors]
         [ApiVersion("2.0")]
-        [Route("getall")]
+        [Route("demos")]
         public IActionResult GetAll()
         {
             _logger.LogInformation("GetAll called");
@@ -45,20 +45,20 @@ namespace CoreApp.Api.Controllers
         // GET api/demo/getbyid/{id}
         [HttpGet]
         [EnableCors]
-        [Route("getbyid/{id:int:min(1)}")]
+        [Route("demos/{id:int:min(1)}")]
         public IActionResult GetById(int id) => Ok(_demoService.GetById(id));
 
         // GET api/demo/getdetails/{id}/{modelId}
         [HttpGet]
         [EnableCors]
-        [Route("getdetails/{id:int:min(1)}/{modelId:int:min(1)}")]
+        [Route("demos/{id:int:min(1)}/{modelId:int:min(1)}")]
         public async Task<IActionResult> GetDetails(int id, int modelId)
             => Ok(await _demoService.GetDetails(id, modelId));
 
         // POST api/demo/save
         [HttpPost]
         [EnableCors]
-        [Route("save")]
+        [Route("demos")]
         public IActionResult Save(DemoModel model)
         {
             _logger.LogInformation("Save method started");
