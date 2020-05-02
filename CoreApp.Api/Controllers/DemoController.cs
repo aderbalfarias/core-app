@@ -28,7 +28,7 @@ namespace CoreApp.Api.Controllers
             _logger = logger;
         }
 
-        // GET api/demo/getall
+        // GET api/demos
         [HttpGet]
         [EnableCors]
         [ApiVersion("2.0")]
@@ -42,20 +42,20 @@ namespace CoreApp.Api.Controllers
             return Ok(result);
         }
 
-        // GET api/demo/getbyid/{id}
+        // GET api/demos/{id}
         [HttpGet]
         [EnableCors]
         [Route("demos/{id:int:min(1)}")]
         public IActionResult GetById(int id) => Ok(_demoService.GetById(id));
 
-        // GET api/demo/getdetails/{id}/{modelId}
+        // GET api/demos/{id}/{modelId}
         [HttpGet]
         [EnableCors]
         [Route("demos/{id:int:min(1)}/{modelId:int:min(1)}")]
         public async Task<IActionResult> GetDetails(int id, int modelId)
             => Ok(await _demoService.GetDetails(id, modelId));
 
-        // POST api/demo/save
+        // POST api/demos
         [HttpPost]
         [EnableCors]
         [Route("demos")]
