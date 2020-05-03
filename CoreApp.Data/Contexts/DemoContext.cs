@@ -2,7 +2,7 @@
 using CoreApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace CoreApp.Data.Config
+namespace CoreApp.Data.Contexts
 {
     public class DemoContext : DbContext
     {

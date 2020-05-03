@@ -1,4 +1,4 @@
-﻿using CoreApp.Data.Config;
+﻿using CoreApp.Data.Contexts;
 using CoreApp.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
