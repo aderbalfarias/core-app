@@ -19,6 +19,10 @@ namespace CoreApp.Data.Mappings
             builder.Property(p => p.Description)
                 .HasMaxLength(500)
                 .IsRequired();
+
+            builder.Property(p => p.Presenter)
+                .HasMaxLength(40)
+                .IsRequired();
         }
     }
 }
