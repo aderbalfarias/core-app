@@ -6,6 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Contants\**" />
+    <Compile Remove="Utils\**" />
+    <Content Remove="Contants\**" />
+    <Content Remove="Utils\**" />
+    <EmbeddedResource Remove="Contants\**" />
+    <EmbeddedResource Remove="Utils\**" />
+    <None Remove="Contants\**" />
+    <None Remove="Utils\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="3.1.1" />
     <PackageReference Include="AspNetCore.HealthChecks.System" Version="3.1.1" />
     <PackageReference Include="AspNetCore.HealthChecks.UI" Version="3.1.0" />
@@ -23,11 +34,6 @@
   <ItemGroup>
     <ProjectReference Include="..\CoreApp.Domain\CoreApp.Domain.csproj" />
     <ProjectReference Include="..\CoreApp.IoC\CoreApp.IoC.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Contants\" />
-    <Folder Include="Utils\" />
   </ItemGroup>
 
 </Project>
