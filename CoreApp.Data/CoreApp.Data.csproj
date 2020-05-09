@@ -13,4 +13,8 @@
     <ProjectReference Include="..\CoreApp.Domain\CoreApp.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="SqlScripts\" />
+  </ItemGroup>
+
 </Project>

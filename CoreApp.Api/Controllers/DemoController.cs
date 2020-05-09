@@ -46,7 +46,7 @@ namespace CoreApp.Api.Controllers
         [HttpGet]
         [EnableCors]
         [Route("demos/{id:int:min(1)}")]
-        public IActionResult GetById(int id) => Ok(_demoService.GetById(id));
+        public async Task<IActionResult> GetById(int id) => Ok(await _demoService.GetById(id));
 
         // GET api/demos/{id}/{modelId}
         [HttpGet]
@@ -59,7 +59,7 @@ namespace CoreApp.Api.Controllers
         [HttpPost]
         [EnableCors]
         [Route("demos")]
-        public IActionResult Save(DemoModel model)
+        public async Task<IActionResult> Save(DemoModel model)
         {
             _logger.LogInformation("Save method started");
 
@@ -70,7 +70,7 @@ namespace CoreApp.Api.Controllers
                 return NoContent();
             }
 
-            _demoService.Save(new DemoEntity
+            await _demoService.Save(new DemoEntity
             {
                 Id = model.Id,
                 Description = model.Description,
