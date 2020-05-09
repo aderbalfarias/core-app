@@ -8,8 +8,6 @@ namespace CoreApp.Api.Extensions
 {
     public static class ServiceCollectionExtension
     {
-        private static object authenticationOption;
-
         /// <summary>
         ///     Executes the specific action if codition parameter is true
         ///     Used to conditionally add actions to the servives
