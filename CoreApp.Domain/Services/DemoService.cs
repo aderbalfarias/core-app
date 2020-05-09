@@ -41,7 +41,7 @@ namespace CoreApp.Domain.Services
 
         public async Task<DemoEntity> GetById(int id)
         {
-            return await Task.FromResult(new DemoEntity());
+            return await _baseRepository.GetObjectAsync<DemoEntity>(p => p.Id == id);
         }
 
         public async Task<DemoEntity> GetDetails(int id, int entityId)
