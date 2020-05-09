@@ -13,15 +13,14 @@ namespace CoreApp.Data.Mappings
             builder.HasKey(k => k.Id);
 
             builder.Property(p => p.Text)
-                .HasMaxLength(5000)
-                .IsRequired();
+                .HasMaxLength(2000);
 
             builder.Property(p => p.Description)
                 .HasMaxLength(500)
                 .IsRequired();
 
             builder.Property(p => p.Presenter)
-                .HasMaxLength(40)
+                .HasMaxLength(60)
                 .IsRequired();
         }
     }
