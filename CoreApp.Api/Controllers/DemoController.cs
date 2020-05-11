@@ -33,11 +33,11 @@ namespace CoreApp.Api.Controllers
         [EnableCors]
         [ApiVersion("2.0")]
         [Route("demos")]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAllAsync()
         {
             _logger.LogInformation("GetAll called");
 
-            var result = new { Teste = "Test", Code = 2, Message = "Success" };
+            var result = await _demoService.GetAll();
 
             return Ok(result);
         }

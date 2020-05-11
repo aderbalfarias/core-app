@@ -23,25 +23,17 @@ namespace CoreApp.Domain.Services
             _logger = logger;
         }
 
-        public Task<List<DemoEntity>> GetAll()
+        public async Task<IEnumerable<DemoEntity>> GetAll()
         {
             _logger.LogInformation("Method get all was called");
 
-            var list = new List<DemoEntity>
-                {
-                    new DemoEntity
-                    {
-                        Id = 1,
-                        Description = "Test"
-                    }
-                };
-
-            return Task.FromResult(list);
+            return await _baseRepository.GetAsync<DemoEntity>();
         }
 
         public async Task<DemoEntity> GetById(int id)
         {
-            return await _baseRepository.GetObjectAsync<DemoEntity>(p => p.Id == id);
+            return await _baseRepository
+                .GetObjectAsync<DemoEntity>(p => p.Id == id);
         }
 
         public async Task<DemoEntity> GetDetails(int id, int entityId)
