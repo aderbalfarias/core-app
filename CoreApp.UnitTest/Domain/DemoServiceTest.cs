@@ -117,48 +117,48 @@ namespace CoreApp.UnitTest.Domain
         }
 
         [Fact]
-        public async Task Save_Should_Log_Exception()
+        public async Task Update_Should_Log_Exception()
         {
             await RepositorySetup();
             var entity = MockDemoEntity.First();
 
             var logException = await Record
-                .ExceptionAsync(async () => await _demoServcice.Save(entity));
+                .ExceptionAsync(async () => await _demoServcice.Update(entity));
 
             Assert.Contains("Method not Implemented", logException.Message);
         }
 
         [Fact]
-        public async Task Save_Should_Throw_Exception()
+        public async Task Update_Should_Throw_Exception()
         {
             await RepositorySetup();
             var entity = MockDemoEntity.First();
 
             await Assert.ThrowsAsync<NotImplementedException>(async ()
-                => await _demoServcice.Save(entity));
+                => await _demoServcice.Update(entity));
         }
 
         [Fact]
-        public async Task Save_Should_Throw_And_Check_Exception()
+        public async Task Update_Should_Throw_And_Check_Exception()
         {
             await RepositorySetup();
             var entity = MockDemoEntity.First();
 
             var exception = await Assert
                 .ThrowsAsync<NotImplementedException>(async ()
-                    => await _demoServcice.Save(entity));
+                    => await _demoServcice.Update(entity));
 
             Assert.NotNull(exception);
         }
 
         [Fact]
-        public async Task Save_Should_Check_Exception()
+        public async Task Update_Should_Check_Exception()
         {
             await RepositorySetup();
             var entity = MockDemoEntity.First();
 
             await Assert.ThrowsAsync<NotImplementedException>(async ()
-                => await _demoServcice.Save(entity));
+                => await _demoServcice.Update(entity));
         }
 
         #endregion End Tests

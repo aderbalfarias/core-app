@@ -48,5 +48,12 @@ namespace CoreApp.Domain.Services
 
             await _baseRepository.Add(entity);
         }
+
+        public Task Update(DemoEntity entity)
+        {
+            //return Task.CompletedTask;
+
+            throw new NotImplementedException("Method not Implemented");
+        }
     }
 }
