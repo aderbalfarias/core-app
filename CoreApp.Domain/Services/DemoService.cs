@@ -42,11 +42,11 @@ namespace CoreApp.Domain.Services
                 .GetObjectAsync<DemoEntity>(p => p.Id == id);
         }
 
-        public Task Save(DemoEntity model)
+        public async Task Save(DemoEntity entity)
         {
-            //return Task.CompletedTask;
+            _logger.LogInformation("Method save called");
 
-            throw new NotImplementedException("Method not Implemented");
+            await _baseRepository.Add(entity);
         }
     }
 }
