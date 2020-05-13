@@ -17,6 +17,7 @@ namespace CoreApp.UnitTest.Domain
         #region Fields 
 
         private readonly Mock<IBaseRepository> _mockBaseRepository;
+        private readonly Mock<OpenService> _mockOpenService;
         private readonly Mock<ILogger<DemoService>> _mockLogger;
         private readonly DemoService _demoServcice;
 
@@ -28,8 +29,16 @@ namespace CoreApp.UnitTest.Domain
         {
             _mockBaseRepository = new Mock<IBaseRepository>();
             _mockLogger = new Mock<ILogger<DemoService>>();
+            RepositorySetup();
 
-            _demoServcice = new DemoService(_mockBaseRepository.Object, _mockLogger.Object);
+            // Calling base implementation and injecting it 
+            _mockOpenService = new Mock<OpenService>(_mockBaseRepository.Object, _mockLogger.Object)
+            { 
+                CallBase = true
+            };
+
+            _demoServcice = new DemoService(_mockBaseRepository.Object, 
+                _mockOpenService.Object, _mockLogger.Object);
         }
 
         #endregion End Constructor
@@ -62,6 +71,10 @@ namespace CoreApp.UnitTest.Domain
                     => s.GetObjectAsync(It.IsAny<Expression<Func<DemoEntity, bool>>>()))
                 .Returns<Expression<Func<DemoEntity, bool>>>(predicate
                         => Task.FromResult(mocks.FirstOrDefault(predicate)));
+
+            //_mockBaseRepository.Setup(s =>
+            //        s.MyMethod(It.IsAny<int>(), It.IsAny<int>()))
+            //    .Returns<int, int>((a, b) => a < b);
 
             return Task.CompletedTask;
         }
@@ -159,6 +172,17 @@ namespace CoreApp.UnitTest.Domain
 
             await Assert.ThrowsAsync<NotImplementedException>(async ()
                 => await _demoServcice.Update(entity));
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        public async Task Test_GetById(int id)
+        {
+            await RepositorySetup();
+            var entity = await _demoServcice.GetById(id);
+
+            Assert.NotNull(entity);
         }
 
         #endregion End Tests
