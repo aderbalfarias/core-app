@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Threading.Tasks;
 
 namespace CoreApp.Api.Controllers
@@ -74,7 +75,8 @@ namespace CoreApp.Api.Controllers
             {
                 Id = model.Id,
                 Description = model.Description,
-                Text = model.Text
+                Text = model.Text,
+                Date = DateTime.UtcNow
             });
 
             _logger.LogInformation("Save method finished successfully");

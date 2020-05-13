@@ -42,7 +42,14 @@ namespace CoreApp.Domain.Services
                 .GetObjectAsync<DemoEntity>(p => p.Id == id);
         }
 
-        public Task Save(DemoEntity model)
+        public async Task Save(DemoEntity entity)
+        {
+            _logger.LogInformation("Method save called");
+
+            await _baseRepository.Add(entity);
+        }
+
+        public Task Update(DemoEntity entity)
         {
             //return Task.CompletedTask;
 
