@@ -14,6 +14,7 @@ namespace CoreApp.IoC
         public static IServiceCollection Services(this IServiceCollection services)
         {
             services.AddScoped<IDemoService, DemoService>();
+            services.AddScoped<IOpenService, OpenService>();
 
             return services;
         }
