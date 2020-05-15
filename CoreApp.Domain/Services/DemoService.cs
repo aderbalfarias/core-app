@@ -11,15 +11,18 @@ namespace CoreApp.Domain.Services
     public class DemoService : IDemoService
     {
         private readonly IBaseRepository _baseRepository;
+        private readonly IOpenService _openService;
         private readonly ILogger _logger;
 
         public DemoService
         (
             IBaseRepository baseRepository,
+            IOpenService openService,
             ILogger<DemoService> logger
         )
         {
             _baseRepository = baseRepository;
+            _openService = openService;
             _logger = logger;
         }
 
@@ -52,6 +55,7 @@ namespace CoreApp.Domain.Services
         public Task Update(DemoEntity entity)
         {
             //return Task.CompletedTask;
+            var openData = _openService.GetById(1);
 
             throw new NotImplementedException("Method not Implemented");
         }
