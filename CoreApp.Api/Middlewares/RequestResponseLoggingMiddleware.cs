@@ -24,23 +24,25 @@ namespace CoreApp.Api.Middlewares
 
                 if (request.Path.StartsWithSegments(new PathString("/api")))
                 {
+                    await _next(httpContext);
+
                     //var requestBody = await ReadRequestBody(request);
-                    var originalBodyStream = httpContext.Response.Body;
+                    //var originalBodyStream = httpContext.Response.Body;
 
-                    using (var responseBody = new MemoryStream())
-                    {
-                        //var startAction = DateTime.Now;
+                    //using (var responseBody = new MemoryStream())
+                    //{
+                    //    //var startAction = DateTime.Now;
 
-                        // Execution of the request when call next
-                        var response = httpContext.Response;
-                        response.Body = responseBody;
-                        await _next(httpContext);
+                    //    // Execution of the request when call next
+                    //    var response = httpContext.Response;
+                    //    response.Body = responseBody;
+                    //    await _next(httpContext);
 
-                        //var endAction = DateTime.Now;
-                        //var ResposeBody = await ReadResponseBody(response);
+                    //    //var endAction = DateTime.Now;
+                    //    //var ResposeBody = await ReadResponseBody(response);
 
-                        await responseBody.CopyToAsync(originalBodyStream);
-                    }
+                    //    await responseBody.CopyToAsync(originalBodyStream);
+                    //}
 
                     //var resposeCode = httpContext.Response.StatusCode.ToString();
                     //var urlRequest = $"{httpContext.Request.Scheme}://" +
