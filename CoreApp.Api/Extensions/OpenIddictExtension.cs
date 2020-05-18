@@ -82,7 +82,8 @@ namespace CoreApp.Api.Extensions
                     options.UseMvc();
 
                     // Enable the authorization/token endpoints (required to use the code flow).
-                    options.EnableTokenEndpoint("/connect/token");
+                    options.EnableTokenEndpoint(@$"/{authenticationOptions.TokenEndpoint
+                            .Replace(authenticationOptions.Issuer, string.Empty)}");
                     //.EnableAuthorizationEndpoint("/connect/authorize");
 
                     // Allow client applications to use the grant_type=client_credentials flow.
