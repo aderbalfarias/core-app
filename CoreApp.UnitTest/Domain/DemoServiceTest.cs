@@ -183,6 +183,7 @@ namespace CoreApp.UnitTest.Domain
             var entity = await _demoServcice.GetById(id);
 
             Assert.NotNull(entity);
+            Assert.Equal(id, entity.Id);
         }
 
         #endregion End Tests
