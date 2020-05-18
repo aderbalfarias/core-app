@@ -41,8 +41,7 @@ namespace CoreApp.Api.Middlewares
                         errors = report.Entries.Select(e => new
                         {
                             key = e.Key,
-                            value = Enum.GetName(typeof(HealthStatus),
-                            e.Value.Status)
+                            value = Enum.GetName(typeof(HealthStatus), e.Value.Status)
                         })
                     });
 
