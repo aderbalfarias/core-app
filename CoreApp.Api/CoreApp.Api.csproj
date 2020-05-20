@@ -6,24 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Contants\**" />
-    <Compile Remove="Utils\**" />
-    <Content Remove="Contants\**" />
-    <Content Remove="Utils\**" />
-    <EmbeddedResource Remove="Contants\**" />
-    <EmbeddedResource Remove="Utils\**" />
-    <None Remove="Contants\**" />
-    <None Remove="Utils\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="3.1.1" />
     <PackageReference Include="AspNetCore.HealthChecks.System" Version="3.1.1" />
     <PackageReference Include="AspNetCore.HealthChecks.UI" Version="3.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.4" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
     <PackageReference Include="OpenIddict" Version="2.0.1" />
     <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="2.0.1" />
     <PackageReference Include="OpenIddict.Mvc" Version="2.0.1" />
