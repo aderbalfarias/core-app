@@ -33,11 +33,11 @@ namespace CoreApp.UnitTest.Domain
 
             // Calling base implementation and injecting it 
             _mockOpenService = new Mock<OpenService>(_mockBaseRepository.Object, _mockLogger.Object)
-            { 
+            {
                 CallBase = true
             };
 
-            _demoServcice = new DemoService(_mockBaseRepository.Object, 
+            _demoServcice = new DemoService(_mockBaseRepository.Object,
                 _mockOpenService.Object, _mockLogger.Object);
         }
 
