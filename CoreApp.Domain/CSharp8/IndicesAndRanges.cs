@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CoreApp.Domain.CSharp8
+﻿namespace CoreApp.Domain.CSharp8
 {
     public class IndicesAndRanges
     {

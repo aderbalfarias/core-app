@@ -8,7 +8,7 @@
         // likely more often than address format changes. The amount of sales tax depends on the 
         // State property of the address.The following method uses the property pattern 
         // to compute the sales tax from the address and the price:
-        public static decimal ComputeSalesTax(Address location, decimal salePrice) 
+        public static decimal ComputeSalesTax(Address location, decimal salePrice)
             => location switch
             {
                 { State: "WA" } => salePrice * 0.06M,

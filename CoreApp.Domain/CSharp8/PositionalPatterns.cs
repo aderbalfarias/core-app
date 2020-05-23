@@ -1,8 +1,8 @@
 ﻿namespace CoreApp.Domain.CSharp8
 {
-    public static class PositionalPatterns 
+    public static class PositionalPatterns
     {
-        public static Quadrant GetQuadrant(Point point) 
+        public static Quadrant GetQuadrant(Point point)
             => point switch
             {
                 (0, 0) => Quadrant.Origin,
