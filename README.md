@@ -1,3 +1,3 @@
 # Core App
 
-Repository base for api using .net core and entity framework core
+Template for apis using the latest features of .net core
