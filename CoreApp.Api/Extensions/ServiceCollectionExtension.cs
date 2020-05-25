@@ -37,7 +37,7 @@ namespace CoreApp.Api.Extensions
                 {
                     Version = "v1",
                     Title = "Core App Template",
-                    Description = "Project developed to be used as a template for new .net core apis",
+                    Description = "Solution to be used as a template for new .net core 3.1 apis",
                     TermsOfService = new Uri("https://aderbalfarias.com"),
                     Contact = new OpenApiContact
                     {
