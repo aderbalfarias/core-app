@@ -39,7 +39,8 @@ namespace CoreApp.Domain.CSharp8
                 Rainbow.Blue => new RGBColor(0x00, 0x00, 0xFF),
                 Rainbow.Indigo => new RGBColor(0x4B, 0x00, 0x82),
                 Rainbow.Violet => new RGBColor(0x94, 0x00, 0xD3),
-                _ => throw new ArgumentException(message: "invalid enum value", paramName: nameof(colorBand)),
+                _ => throw new ArgumentException(message:
+                        "invalid enum value", paramName: nameof(colorBand)),
             };
     }
 }
