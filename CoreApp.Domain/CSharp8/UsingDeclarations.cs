@@ -37,7 +37,7 @@ namespace CoreApp.Domain.CSharp8
                         file.WriteLine(line);
                     else
                         skippedLines++;
-                 
+
             // file is disposed here
 
             return skippedLines;
