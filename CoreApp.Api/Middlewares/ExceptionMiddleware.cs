@@ -29,11 +29,11 @@ namespace CoreApp.Api.Middlewares
             catch (Exception e)
             {
                 logger.LogError($"Exception logged in {httpContext?.Request?.Path}, Error: {e}");
-                await HandleExceptionAsync(httpContext, appConfigKeys.Value);
+                await HandleExceptionAsync(e, httpContext, appConfigKeys.Value);
             }
         }
 
-        private Task HandleExceptionAsync(HttpContext context, AppSettings appConfigKeys)
+        private Task HandleExceptionAsync(Exception e, HttpContext context, AppSettings appConfigKeys)
         {
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
             context.Response.ContentType = "application/json";
@@ -41,7 +41,8 @@ namespace CoreApp.Api.Middlewares
             var json = JsonConvert.SerializeObject(new
             {
                 context.Response.StatusCode,
-                Message = appConfigKeys.ResponseErrorMessage
+                DefaultMessage = appConfigKeys.ResponseErrorMessage,
+                Message = e,
             });
 
             return context.Response.WriteAsync(json);
