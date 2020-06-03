@@ -62,11 +62,13 @@ namespace CoreApp.Api.Controllers
         [Route("demos")]
         public async Task<IActionResult> Save(DemoModel model)
         {
-            _logger.LogInformation("Save method started");
+            var controller = typeof(DemoController).Name;
+
+            _logger.LogInformation($"Save method on {controller} started");
 
             if (model == null)
             {
-                _logger.LogWarning("Save method did not find any value in the model of the request");
+                _logger.LogWarning($"Save method on {controller} did not find any value in the model of the request");
 
                 return NoContent();
             }
@@ -79,7 +81,7 @@ namespace CoreApp.Api.Controllers
                 Date = DateTime.UtcNow
             });
 
-            _logger.LogInformation("Save method finished successfully");
+            _logger.LogInformation($"Save method on {controller} finished successfully");
 
             return Ok();
         }
