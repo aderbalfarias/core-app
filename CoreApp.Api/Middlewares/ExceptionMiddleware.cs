@@ -28,7 +28,7 @@ namespace CoreApp.Api.Middlewares
             }
             catch (Exception e)
             {
-                logger.LogError($"Exception logged in {httpContext?.Request?.Path}, Error: {e}");
+                logger.LogError(e, $"Exception logged at {httpContext?.Request?.Path}");
                 await HandleExceptionAsync(e, httpContext, appConfigKeys.Value);
             }
         }
@@ -41,8 +41,7 @@ namespace CoreApp.Api.Middlewares
             var json = JsonConvert.SerializeObject(new
             {
                 context.Response.StatusCode,
-                DefaultMessage = appConfigKeys.ResponseErrorMessage,
-                Message = e,
+                Message = appConfigKeys.ResponseErrorMessage
             });
 
             return context.Response.WriteAsync(json);
