@@ -33,18 +33,16 @@ namespace CoreApp.Api.Middlewares
             }
         }
 
-        private Task HandleExceptionAsync(Exception e, HttpContext context, AppSettings appConfigKeys)
+        private async Task HandleExceptionAsync(Exception e, HttpContext context, AppSettings appConfigKeys)
         {
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            context.Response.ContentType = "application/json";
+            var response = context.Response;
+            response.ContentType = "application/json";
+            response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-            var json = JsonConvert.SerializeObject(new
+            await response.WriteAsync(JsonConvert.SerializeObject(new 
             {
-                context.Response.StatusCode,
                 Message = appConfigKeys.ResponseErrorMessage
-            });
-
-            return context.Response.WriteAsync(json);
+            }));
         }
     }
 }
