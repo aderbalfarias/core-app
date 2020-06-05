@@ -132,10 +132,10 @@ namespace CoreApp.Api.Extensions
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    //options.Authority = authenticationOptions.Issuer;
-                    //options.Audience = authenticationOptions.Audience;
-                    //options.RequireHttpsMetadata = !hostingEnvironment.IsDevelopment();
-                    //options.IncludeErrorDetails = hostingEnvironment.IsDevelopment(); // sets to false otherwise
+                    options.Authority = authenticationOptions.Issuer;
+                    options.Audience = authenticationOptions.Audience;
+                    options.RequireHttpsMetadata = !environment.IsDevelopment();
+                    options.IncludeErrorDetails = environment.IsDevelopment(); // if it is not development sets to false
                     options.SaveToken = true;
 
                     options.TokenValidationParameters = new TokenValidationParameters

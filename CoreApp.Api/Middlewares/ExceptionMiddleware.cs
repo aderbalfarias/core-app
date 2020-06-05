@@ -29,11 +29,11 @@ namespace CoreApp.Api.Middlewares
             catch (Exception e)
             {
                 logger.LogError(e, $"Exception logged at {httpContext?.Request?.Path}");
-                await HandleExceptionAsync(e, httpContext, appConfigKeys.Value);
+                await HandleExceptionAsync(httpContext, appConfigKeys.Value);
             }
         }
 
-        private async Task HandleExceptionAsync(Exception e, HttpContext context, AppSettings appConfigKeys)
+        private async Task HandleExceptionAsync(HttpContext context, AppSettings appConfigKeys)
         {
             var response = context.Response;
             response.ContentType = "application/json";
