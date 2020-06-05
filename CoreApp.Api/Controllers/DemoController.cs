@@ -55,7 +55,7 @@ namespace CoreApp.Api.Controllers
         [Route("demos/{id:int:min(1)}/{modelId:int:min(1)}")]
         public async Task<IActionResult> GetDetails(int id, int modelId)
             => Ok(await _demoService.GetDetails(id, modelId));
-
+        
         // POST api/demos
         [HttpPost]
         [EnableCors]
@@ -82,6 +82,47 @@ namespace CoreApp.Api.Controllers
             });
 
             _logger.LogInformation($"Save method on {controller} finished successfully");
+
+            return Ok();
+        }
+
+        // PUT api/demos
+        [HttpPut]
+        [EnableCors]
+        [Route("demos/{id:int:min(1)}")]
+        public async Task<IActionResult> Update(int id, DemoModel model)
+        {
+            var controller = typeof(DemoController).Name;
+
+            _logger.LogInformation($"Update method on {controller} started");
+
+            if (model == null)
+            {
+                _logger.LogWarning($"Update method on {controller} did not find any value in the model of the request");
+
+                return NoContent();
+            }
+
+            // To implement later
+
+            _logger.LogInformation($"Update method on {controller} finished successfully");
+
+            return Ok();
+        }
+
+        // DELETE api/demos
+        [HttpDelete]
+        [EnableCors]
+        [Route("demos/{id:int:min(1)}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var controller = typeof(DemoController).Name;
+
+            _logger.LogInformation($"Delete method on {controller} started");
+
+            // To implement later
+
+            _logger.LogInformation($"Delete method on {controller} finished successfully");
 
             return Ok();
         }
