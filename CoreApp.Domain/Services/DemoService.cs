@@ -45,11 +45,23 @@ namespace CoreApp.Domain.Services
                 .GetObjectAsync<DemoEntity>(p => p.Id == id);
         }
 
-        public async Task Save(DemoEntity entity)
+        public async Task Save(DemoEntity entity, int id = 0)
         {
             _logger.LogInformation("Method save called");
 
-            await _baseRepository.Add(entity);
+            if (id == 0)
+                await _baseRepository.Add(entity);
+            else
+            {
+                var demo = await _baseRepository
+                    .GetObjectAsync<DemoEntity>(x => x.Id == id);
+
+                demo.Presenter = entity.Presenter;
+                demo.Text = entity.Text;
+                demo.Description = entity.Description;
+
+                await _baseRepository.Update(demo);
+            }
         }
 
         public Task Update(DemoEntity entity)

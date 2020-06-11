@@ -103,7 +103,12 @@ namespace CoreApp.Api.Controllers
                 return NoContent();
             }
 
-            // To implement later
+            await _demoService.Save(new DemoEntity
+            {
+                Id = model.Id,
+                Description = model.Description,
+                Text = model.Text
+            }, id);
 
             _logger.LogInformation($"Update method on {controller} finished successfully");
 
