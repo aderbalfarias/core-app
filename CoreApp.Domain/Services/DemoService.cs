@@ -64,12 +64,20 @@ namespace CoreApp.Domain.Services
             }
         }
 
-        public Task Update(DemoEntity entity)
+        public Task Test(DemoEntity entity)
         {
             //return Task.CompletedTask;
             var openData = _openService.GetById(1);
 
             throw new NotImplementedException("Method not Implemented");
+        }
+
+        public async Task Delete(int id)
+        {
+            var demo = await _baseRepository
+                .GetObjectAsync<DemoEntity>(x => x.Id == id);
+
+            await _baseRepository.Delete(demo);
         }
     }
 }

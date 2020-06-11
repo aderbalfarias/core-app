@@ -125,7 +125,7 @@ namespace CoreApp.Api.Controllers
 
             _logger.LogInformation($"Delete method on {controller} started");
 
-            // To implement later
+            await _demoService.Delete(id);
 
             _logger.LogInformation($"Delete method on {controller} finished successfully");
 

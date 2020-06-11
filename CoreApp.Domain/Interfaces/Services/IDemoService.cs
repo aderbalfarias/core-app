@@ -10,6 +10,7 @@ namespace CoreApp.Domain.Interfaces.Services
         Task<DemoEntity> GetById(int id);
         Task<DemoEntity> GetDetails(int id, int entityId);
         Task Save(DemoEntity entity, int id = 0);
-        Task Update(DemoEntity entity);
+        Task Test(DemoEntity entity);
+        Task Delete(int id);
     }
 }

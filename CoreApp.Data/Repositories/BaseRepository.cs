@@ -52,5 +52,11 @@ namespace CoreApp.Data.Repositories
             _context.Update(entity);
             return await _context.SaveChangesAsync();
         }
+
+        public async Task<int> Delete<TEntity>(TEntity entity)
+        {
+            _context.Remove(entity);
+            return await _context.SaveChangesAsync();
+        }
     }
 }
