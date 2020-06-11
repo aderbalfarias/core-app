@@ -136,7 +136,7 @@ namespace CoreApp.UnitTest.Domain
             var entity = MockDemoEntity.First();
 
             var logException = await Record
-                .ExceptionAsync(async () => await _demoServcice.Update(entity));
+                .ExceptionAsync(async () => await _demoServcice.Test(entity));
 
             Assert.Contains("Method not Implemented", logException.Message);
         }
@@ -148,7 +148,7 @@ namespace CoreApp.UnitTest.Domain
             var entity = MockDemoEntity.First();
 
             await Assert.ThrowsAsync<NotImplementedException>(async ()
-                => await _demoServcice.Update(entity));
+                => await _demoServcice.Test(entity));
         }
 
         [Fact]
@@ -159,7 +159,7 @@ namespace CoreApp.UnitTest.Domain
 
             var exception = await Assert
                 .ThrowsAsync<NotImplementedException>(async ()
-                    => await _demoServcice.Update(entity));
+                    => await _demoServcice.Test(entity));
 
             Assert.NotNull(exception);
         }
@@ -171,7 +171,7 @@ namespace CoreApp.UnitTest.Domain
             var entity = MockDemoEntity.First();
 
             await Assert.ThrowsAsync<NotImplementedException>(async ()
-                => await _demoServcice.Update(entity));
+                => await _demoServcice.Test(entity));
         }
 
         [Theory]

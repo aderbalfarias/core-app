@@ -103,7 +103,12 @@ namespace CoreApp.Api.Controllers
                 return NoContent();
             }
 
-            // To implement later
+            await _demoService.Save(new DemoEntity
+            {
+                Id = model.Id,
+                Description = model.Description,
+                Text = model.Text
+            }, id);
 
             _logger.LogInformation($"Update method on {controller} finished successfully");
 
@@ -120,7 +125,7 @@ namespace CoreApp.Api.Controllers
 
             _logger.LogInformation($"Delete method on {controller} started");
 
-            // To implement later
+            await _demoService.Delete(id);
 
             _logger.LogInformation($"Delete method on {controller} finished successfully");
 

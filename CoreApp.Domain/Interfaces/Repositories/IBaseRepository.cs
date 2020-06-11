@@ -18,5 +18,6 @@ namespace CoreApp.Domain.Interfaces.Repositories
         Task<TEntity> GetObjectAsync<TEntity>(Expression<Func<TEntity, bool>> predicate) where TEntity : class;
         Task<int> Add<TEntity>(TEntity entity);
         Task<int> Update<TEntity>(TEntity entity);
+        Task<int> Delete<TEntity>(TEntity entity);
     }
 }
