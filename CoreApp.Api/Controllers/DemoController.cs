@@ -55,7 +55,7 @@ namespace CoreApp.Api.Controllers
         [Route("demos/{id:int:min(1)}/{modelId:int:min(1)}")]
         public async Task<IActionResult> GetDetails(int id, int modelId)
             => Ok(await _demoService.GetDetails(id, modelId));
-        
+
         // POST api/demos
         [HttpPost]
         [EnableCors]

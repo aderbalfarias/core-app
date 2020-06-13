@@ -80,8 +80,6 @@ namespace CoreApp.Api
 
             logger.LogInformation($"In {env.EnvironmentName} environment");
 
-            app.UseMiddleware<RequestResponseLoggingMiddleware>();
-
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

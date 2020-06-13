@@ -39,7 +39,7 @@ namespace CoreApp.Api.Middlewares
             response.ContentType = "application/json";
             response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-            await response.WriteAsync(JsonConvert.SerializeObject(new 
+            await response.WriteAsync(JsonConvert.SerializeObject(new
             {
                 Message = appConfigKeys.ResponseErrorMessage
             }));
