@@ -1,4 +1,5 @@
-﻿using CoreApp.Api.Options.Authorization;
+﻿using CoreApp.Api.Filters;
+using CoreApp.Api.Options.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using System;
@@ -35,7 +36,7 @@ namespace CoreApp.Api.Extensions
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Version = "v1",
+                    Version = "1.1",
                     Title = "Core App Template",
                     Description = "Solution to be used as a template for new .net core 3.1 apis",
                     TermsOfService = new Uri("https://aderbalfarias.com"),
@@ -81,6 +82,8 @@ namespace CoreApp.Api.Extensions
                         new string[] { }
                     }
                 });
+
+                c.DocumentFilter<SwaggerDocumentFilter>();
             });
 
             return services;
