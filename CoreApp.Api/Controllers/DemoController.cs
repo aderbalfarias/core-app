@@ -61,8 +61,9 @@ namespace CoreApp.Api.Controllers
         ///     ]
         ///     
         /// </remarks>
-        /// <returns></returns>
         /// <response code="200">Returns a collection of demos entity</response>
+        /// <returns></returns>
+        /// <param></param>
         [HttpGet]
         [EnableCors]
         [ApiVersion("2.0")]
