@@ -3,6 +3,7 @@ using CoreApp.Domain.Entities;
 using CoreApp.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,6 +11,9 @@ using System.Threading.Tasks;
 
 namespace CoreApp.Api.Controllers
 {
+    /// <summary>
+    /// Controller to allow demos management 
+    /// </summary>
     [Authorize]
     [Route("api/v{version:apiVersion}")]
     [ApiVersion("1.0")]
@@ -29,11 +33,36 @@ namespace CoreApp.Api.Controllers
             _logger = logger;
         }
 
-        // GET api/demos
+        /// <summary>
+        /// Get all demo records
+        /// </summary>
+        /// <remarks>
+        /// Sample Request: GET api/demos
+        /// Sample Response:
+        /// [
+        ///     {
+        ///         Id: 1,
+        ///         Text: "x1",
+        ///         Description: "x2",
+        ///         Presenter: "x3",
+        ///         Date: "2020-01-01"
+        ///     },
+        ///     {
+        ///         Id: 2,
+        ///         Text: "x x1",
+        ///         Description: "x x2",
+        ///         Presenter: "x x3",
+        ///         Date: "2020-01-01"
+        ///     }
+        /// ]
+        /// </remarks>
+        /// <returns></returns>
+        /// <response code="200">Returns a collection of demos entity</response>
         [HttpGet]
         [EnableCors]
         [ApiVersion("2.0")]
         [Route("demos")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync()
         {
             _logger.LogInformation("GetAll called");
