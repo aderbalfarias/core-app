@@ -37,24 +37,29 @@ namespace CoreApp.Api.Controllers
         /// Get all demo records
         /// </summary>
         /// <remarks>
-        /// Sample Request: GET api/demos
+        /// Sample Request: 
+        /// 
+        ///     GET api/demos
+        /// 
         /// Sample Response:
-        /// [
-        ///     {
-        ///         Id: 1,
-        ///         Text: "x1",
-        ///         Description: "x2",
-        ///         Presenter: "x3",
-        ///         Date: "2020-01-01"
-        ///     },
-        ///     {
-        ///         Id: 2,
-        ///         Text: "x x1",
-        ///         Description: "x x2",
-        ///         Presenter: "x x3",
-        ///         Date: "2020-01-01"
-        ///     }
-        /// ]
+        /// 
+        ///     [
+        ///         {
+        ///             Id: 1,
+        ///             Text: "x1",
+        ///             Description: "x2",
+        ///             Presenter: "x3",
+        ///             Date: "2020-01-01"
+        ///         },
+        ///         {
+        ///             Id: 2,
+        ///             Text: "x x1",
+        ///             Description: "x x2",
+        ///             Presenter: "x x3",
+        ///             Date: "2020-01-01"
+        ///         }
+        ///     ]
+        ///     
         /// </remarks>
         /// <returns></returns>
         /// <response code="200">Returns a collection of demos entity</response>
