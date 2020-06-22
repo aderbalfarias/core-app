@@ -34,7 +34,7 @@ namespace CoreApp.Api.Controllers
         }
 
         /// <summary>
-        /// Get all demo records
+        /// Get all demo records from database
         /// </summary>
         /// <remarks>
         /// Sample Request: 
