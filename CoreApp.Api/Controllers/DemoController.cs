@@ -39,7 +39,7 @@ namespace CoreApp.Api.Controllers
         /// <remarks>
         /// Sample Request: 
         /// 
-        ///     GET api/demos
+        ///     GET api/v2/demos
         /// 
         /// Sample Response:
         /// 
