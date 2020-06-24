@@ -39,7 +39,7 @@ namespace CoreApp.Api.Controllers
         /// <remarks>
         /// Sample Request: 
         /// 
-        ///     GET api/demos
+        ///     GET api/v2/demos
         /// 
         /// Sample Response:
         /// 
@@ -62,7 +62,7 @@ namespace CoreApp.Api.Controllers
         ///     
         /// </remarks>
         /// <response code="200">Returns a collection of demos entity</response>
-        /// <returns></returns>
+        /// <returns>Returns a collection of demos entity</returns>
         /// <param></param>
         [HttpGet]
         [EnableCors]
@@ -78,20 +78,43 @@ namespace CoreApp.Api.Controllers
             return Ok(result);
         }
 
-        // GET api/demos/{id}
+        /// <summary>
+        /// Get a specific demo data based on its id
+        /// </summary>
+        /// <remarks>
+        /// Sample Request: 
+        /// 
+        ///     GET api/v2/demos/{id}
+        /// 
+        /// Sample Response:
+        /// 
+        ///     [
+        ///         {
+        ///             Id: 1,
+        ///             Text: "x1",
+        ///             Description: "x2",
+        ///             Presenter: "x3",
+        ///             Date: "2020-01-01"
+        ///         }
+        ///     ]
+        ///     
+        /// </remarks>
+        /// <response code="200">Returns a demo json object</response>
+        /// <returns>Returns a demo json object</returns>
+        /// <param name="id">demo identifier</param>
         [HttpGet]
         [EnableCors]
         [Route("demos/{id:int:min(1)}")]
         public async Task<IActionResult> GetById(int id) => Ok(await _demoService.GetById(id));
 
-        // GET api/demos/{id}/{modelId}
+        // GET api/v1/demos/{id}/{modelId}
         [HttpGet]
         [EnableCors]
         [Route("demos/{id:int:min(1)}/{modelId:int:min(1)}")]
         public async Task<IActionResult> GetDetails(int id, int modelId)
             => Ok(await _demoService.GetDetails(id, modelId));
 
-        // POST api/demos
+        // POST api/v1/demos
         [HttpPost]
         [EnableCors]
         [Route("demos")]
@@ -121,7 +144,7 @@ namespace CoreApp.Api.Controllers
             return Ok();
         }
 
-        // PUT api/demos
+        // PUT api/v1/demos
         [HttpPut]
         [EnableCors]
         [Route("demos/{id:int:min(1)}")]
@@ -150,7 +173,7 @@ namespace CoreApp.Api.Controllers
             return Ok();
         }
 
-        // DELETE api/demos
+        // DELETE api/v1/demos
         [HttpDelete]
         [EnableCors]
         [Route("demos/{id:int:min(1)}")]
