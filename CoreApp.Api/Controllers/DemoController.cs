@@ -107,14 +107,14 @@ namespace CoreApp.Api.Controllers
         [Route("demos/{id:int:min(1)}")]
         public async Task<IActionResult> GetById(int id) => Ok(await _demoService.GetById(id));
 
-        // GET api/demos/{id}/{modelId}
+        // GET api/v1/demos/{id}/{modelId}
         [HttpGet]
         [EnableCors]
         [Route("demos/{id:int:min(1)}/{modelId:int:min(1)}")]
         public async Task<IActionResult> GetDetails(int id, int modelId)
             => Ok(await _demoService.GetDetails(id, modelId));
 
-        // POST api/demos
+        // POST api/v1/demos
         [HttpPost]
         [EnableCors]
         [Route("demos")]
@@ -144,7 +144,7 @@ namespace CoreApp.Api.Controllers
             return Ok();
         }
 
-        // PUT api/demos
+        // PUT api/v1/demos
         [HttpPut]
         [EnableCors]
         [Route("demos/{id:int:min(1)}")]
@@ -173,7 +173,7 @@ namespace CoreApp.Api.Controllers
             return Ok();
         }
 
-        // DELETE api/demos
+        // DELETE api/v1/demos
         [HttpDelete]
         [EnableCors]
         [Route("demos/{id:int:min(1)}")]
