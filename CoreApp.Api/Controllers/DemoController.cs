@@ -62,7 +62,7 @@ namespace CoreApp.Api.Controllers
         ///     
         /// </remarks>
         /// <response code="200">Returns a collection of demos entity</response>
-        /// <returns></returns>
+        /// <returns>Returns a collection of demos entity</returns>
         /// <param></param>
         [HttpGet]
         [EnableCors]
@@ -78,7 +78,30 @@ namespace CoreApp.Api.Controllers
             return Ok(result);
         }
 
-        // GET api/demos/{id}
+        /// <summary>
+        /// Get a specific demo data based on its id
+        /// </summary>
+        /// <remarks>
+        /// Sample Request: 
+        /// 
+        ///     GET api/v2/demos/{id}
+        /// 
+        /// Sample Response:
+        /// 
+        ///     [
+        ///         {
+        ///             Id: 1,
+        ///             Text: "x1",
+        ///             Description: "x2",
+        ///             Presenter: "x3",
+        ///             Date: "2020-01-01"
+        ///         }
+        ///     ]
+        ///     
+        /// </remarks>
+        /// <response code="200">Returns a demo json object</response>
+        /// <returns>Returns a demo json object</returns>
+        /// <param name="id">demo identifier</param>
         [HttpGet]
         [EnableCors]
         [Route("demos/{id:int:min(1)}")]
