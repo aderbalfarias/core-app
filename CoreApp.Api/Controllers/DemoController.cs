@@ -107,7 +107,31 @@ namespace CoreApp.Api.Controllers
         [Route("demos/{id:int:min(1)}")]
         public async Task<IActionResult> GetById(int id) => Ok(await _demoService.GetById(id));
 
-        // GET api/v1/demos/{id}/{modelId}
+        /// <summary>
+        /// Get a specific demo data based on its id and modelId
+        /// </summary>
+        /// <remarks>
+        /// Sample Request: 
+        /// 
+        ///     GET api/v1/demos/{id}/{modelId}
+        /// 
+        /// Sample Response:
+        /// 
+        ///     [
+        ///         {
+        ///             Id: 1,
+        ///             Text: "x1",
+        ///             Description: "x2",
+        ///             Presenter: "x3",
+        ///             Date: "2020-01-01"
+        ///         }
+        ///     ]
+        ///     
+        /// </remarks>
+        /// <response code="200">Returns a demo json object</response>
+        /// <returns>Returns a demo json object</returns>
+        /// <param name="id">demo identifier</param>
+        /// <param name="modelId">model identifier</param>
         [HttpGet]
         [EnableCors]
         [Route("demos/{id:int:min(1)}/{modelId:int:min(1)}")]
