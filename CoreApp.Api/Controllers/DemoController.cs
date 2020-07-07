@@ -190,7 +190,31 @@ namespace CoreApp.Api.Controllers
             return Ok();
         }
 
-        // PUT api/v1/demos
+        /// <summary>
+        /// Update demo object
+        /// </summary>
+        /// <remarks>
+        /// Sample Request: 
+        /// 
+        ///     PUT api/v1/demos
+        ///     
+        ///     [
+        ///         {
+        ///             Id: 1,
+        ///             Text: "x1",
+        ///             Description: "x2",
+        ///             Presenter: "x3",
+        ///             Date: "2020-01-01"
+        ///         }
+        ///     ]
+        ///     
+        /// </remarks>
+        /// <response code="200">Returns Ok</response>
+        /// <response code="204">Returns NoContent</response>
+        /// <response code="500">Returns Internal Error</response>
+        /// <returns>Returns Ok or NoContent</returns>
+        /// <param name="id">demo identifier</param>
+        /// <param name="model">demo model</param>
         [HttpPut]
         [EnableCors]
         [Route("demos/{id:int:min(1)}")]
@@ -219,7 +243,29 @@ namespace CoreApp.Api.Controllers
             return Ok();
         }
 
-        // DELETE api/v1/demos
+        /// <summary>
+        /// Remove demo object
+        /// </summary>
+        /// <remarks>
+        /// Sample Request: 
+        /// 
+        ///     DELETE api/v1/demos
+        ///     
+        ///     [
+        ///         {
+        ///             Id: 1,
+        ///             Text: "x1",
+        ///             Description: "x2",
+        ///             Presenter: "x3",
+        ///             Date: "2020-01-01"
+        ///         }
+        ///     ]
+        ///     
+        /// </remarks>
+        /// <response code="200">Returns Ok</response>
+        /// <response code="500">Returns Internal Error</response>
+        /// <returns>Returns Ok or NoContent</returns>
+        /// <param name="id">demo identifier</param>
         [HttpDelete]
         [EnableCors]
         [Route("demos/{id:int:min(1)}")]
