@@ -130,8 +130,8 @@ namespace CoreApp.Api.Controllers
         /// </remarks>
         /// <response code="200">Returns a demo json object</response>
         /// <returns>Returns a demo json object</returns>
-        /// <param name="id">demo identifier</param>
-        /// <param name="modelId">model identifier</param>
+        /// <param name="id">Demo Identifier</param>
+        /// <param name="modelId">Model Identifier</param>
         [HttpGet]
         [EnableCors]
         [Route("demos/{id:int:min(1)}/{modelId:int:min(1)}")]
@@ -146,6 +146,7 @@ namespace CoreApp.Api.Controllers
         /// 
         ///     POST api/v1/demos
         ///     
+        /// Sample model:
         ///     [
         ///         {
         ///             Text: "x1",
@@ -160,7 +161,7 @@ namespace CoreApp.Api.Controllers
         /// <response code="204">Returns NoContent</response>
         /// <response code="500">Returns Internal Error</response>
         /// <returns>Returns Ok or NoContent</returns>
-        /// <param name="model">demo model</param>
+        /// <param name="model">Demo Model</param>
         [HttpPost]
         [EnableCors]
         [Route("demos")]
@@ -196,8 +197,9 @@ namespace CoreApp.Api.Controllers
         /// <remarks>
         /// Sample Request: 
         /// 
-        ///     PUT api/v1/demos
+        ///     PUT api/v1/demos/{id}
         ///     
+        /// Sample model:
         ///     [
         ///         {
         ///             Id: 1,
@@ -213,8 +215,8 @@ namespace CoreApp.Api.Controllers
         /// <response code="204">Returns NoContent</response>
         /// <response code="500">Returns Internal Error</response>
         /// <returns>Returns Ok or NoContent</returns>
-        /// <param name="id">demo identifier</param>
-        /// <param name="model">demo model</param>
+        /// <param name="id">Demo Identifier</param>
+        /// <param name="model">Demo Model</param>
         [HttpPut]
         [EnableCors]
         [Route("demos/{id:int:min(1)}")]
@@ -249,23 +251,13 @@ namespace CoreApp.Api.Controllers
         /// <remarks>
         /// Sample Request: 
         /// 
-        ///     DELETE api/v1/demos
-        ///     
-        ///     [
-        ///         {
-        ///             Id: 1,
-        ///             Text: "x1",
-        ///             Description: "x2",
-        ///             Presenter: "x3",
-        ///             Date: "2020-01-01"
-        ///         }
-        ///     ]
+        ///     DELETE api/v1/demos/{id}
         ///     
         /// </remarks>
         /// <response code="200">Returns Ok</response>
         /// <response code="500">Returns Internal Error</response>
-        /// <returns>Returns Ok or NoContent</returns>
-        /// <param name="id">demo identifier</param>
+        /// <returns>Returns Ok</returns>
+        /// <param name="id">Demo Identifier</param>
         [HttpDelete]
         [EnableCors]
         [Route("demos/{id:int:min(1)}")]
