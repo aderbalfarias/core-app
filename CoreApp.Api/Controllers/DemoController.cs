@@ -138,7 +138,29 @@ namespace CoreApp.Api.Controllers
         public async Task<IActionResult> GetDetails(int id, int modelId)
             => Ok(await _demoService.GetDetails(id, modelId));
 
-        // POST api/v1/demos
+        /// <summary>
+        /// Create demo object
+        /// </summary>
+        /// <remarks>
+        /// Sample Request: 
+        /// 
+        ///     POST api/v1/demos
+        ///     
+        ///     [
+        ///         {
+        ///             Text: "x1",
+        ///             Description: "x2",
+        ///             Presenter: "x3",
+        ///             Date: "2020-01-01"
+        ///         }
+        ///     ]
+        ///     
+        /// </remarks>
+        /// <response code="200">Returns Ok</response>
+        /// <response code="204">Returns NoContent</response>
+        /// <response code="500">Returns Internal Error</response>
+        /// <returns>Returns Ok or NoContent</returns>
+        /// <param name="model">demo model</param>
         [HttpPost]
         [EnableCors]
         [Route("demos")]
