@@ -139,7 +139,7 @@ namespace CoreApp.Api.Controllers
             => Ok(await _demoService.GetDetails(id, modelId));
 
         /// <summary>
-        /// Create demo object
+        /// Create a new demo object
         /// </summary>
         /// <remarks>
         /// Sample Request: 
@@ -160,7 +160,7 @@ namespace CoreApp.Api.Controllers
         /// <response code="200">Returns Ok</response>
         /// <response code="204">Returns NoContent</response>
         /// <response code="500">Returns Internal Error</response>
-        /// <returns>Returns Ok or NoContent</returns>
+        /// <returns>Returns Ok, NoContent or Internal Error</returns>
         /// <param name="model">Demo Model</param>
         [HttpPost]
         [EnableCors]
@@ -214,7 +214,7 @@ namespace CoreApp.Api.Controllers
         /// <response code="200">Returns Ok</response>
         /// <response code="204">Returns NoContent</response>
         /// <response code="500">Returns Internal Error</response>
-        /// <returns>Returns Ok or NoContent</returns>
+        /// <returns>Returns Ok, NoContent or Internal Error</returns>
         /// <param name="id">Demo Identifier</param>
         /// <param name="model">Demo Model</param>
         [HttpPut]
@@ -256,7 +256,7 @@ namespace CoreApp.Api.Controllers
         /// </remarks>
         /// <response code="200">Returns Ok</response>
         /// <response code="500">Returns Internal Error</response>
-        /// <returns>Returns Ok</returns>
+        /// <returns>Returns Ok or Internal Error</returns>
         /// <param name="id">Demo Identifier</param>
         [HttpDelete]
         [EnableCors]
