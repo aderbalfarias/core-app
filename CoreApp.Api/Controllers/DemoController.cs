@@ -146,7 +146,8 @@ namespace CoreApp.Api.Controllers
         /// 
         ///     POST api/v1/demos
         ///     
-        /// Sample model:
+        /// Sample Model:
+        /// 
         ///     [
         ///         {
         ///             Text: "x1",
@@ -199,7 +200,8 @@ namespace CoreApp.Api.Controllers
         /// 
         ///     PUT api/v1/demos/{id}
         ///     
-        /// Sample model:
+        /// Sample Model:
+        /// 
         ///     [
         ///         {
         ///             Id: 1,
