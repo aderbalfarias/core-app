@@ -101,7 +101,7 @@ namespace CoreApp.Api.Controllers
         /// </remarks>
         /// <response code="200">Returns a demo json object</response>
         /// <returns>Returns a demo json object</returns>
-        /// <param name="id">demo identifier</param>
+        /// <param name="id">Demo Identifier</param>
         [HttpGet]
         [EnableCors]
         [Route("demos/{id:int:min(1)}")]
