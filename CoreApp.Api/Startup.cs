@@ -68,6 +68,8 @@ namespace CoreApp.Api
             services.AddAuthorization(options =>
             {
                 options.AddPolicy(roleAdmin, policy => policy.RequireRole(roleAdmin));
+
+
             });
 
             services.AddOpenIddict(Environment, oidc, authenticationOption);

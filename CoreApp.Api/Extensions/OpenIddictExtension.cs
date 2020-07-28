@@ -148,6 +148,24 @@ namespace CoreApp.Api.Extensions
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new X509SecurityKey(LoadCertificate(openIdOptions))
                     };
+                })
+                .AddJwtBearer("AnotherProvider", options =>
+                {
+                    options.Authority = authenticationOptions.Issuer;
+                    options.Audience = authenticationOptions.Audience;
+                    options.RequireHttpsMetadata = !environment.IsDevelopment();
+                    options.IncludeErrorDetails = environment.IsDevelopment(); // if it is not development sets to false
+                    options.SaveToken = true;
+
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateLifetime = true,
+                        ValidateIssuer = true,
+                        ValidIssuer = authenticationOptions.Issuer,
+                        ValidateAudience = true,
+                        ValidAudience = authenticationOptions.Audience,
+                        ValidateIssuerSigningKey = true
+                    };
                 });
         }
 
