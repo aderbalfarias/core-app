@@ -14,7 +14,8 @@ namespace CoreApp.Api.Controllers
     /// <summary>
     /// Controller to allow demos management 
     /// </summary>
-    [Authorize]
+    //[Authorize]
+    [Authorize(Roles = "Admin")]
     [Route("api/v{version:apiVersion}")]
     [ApiVersion("1.0")]
     [ApiController]
