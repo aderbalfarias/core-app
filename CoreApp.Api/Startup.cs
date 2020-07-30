@@ -3,6 +3,8 @@ using CoreApp.Api.Middlewares;
 using CoreApp.Api.Options.Authorization;
 using CoreApp.Domain.Entities;
 using CoreApp.IoC;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -67,9 +69,10 @@ namespace CoreApp.Api
             services.AddSingleton(oidc);
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(roleAdmin, policy => policy.RequireRole(roleAdmin));
-
-
+                options.DefaultPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .AddAuthenticationSchemes("ADFS", JwtBearerDefaults.AuthenticationScheme)
+                    .Build();
             });
 
             services.AddOpenIddict(Environment, oidc, authenticationOption);

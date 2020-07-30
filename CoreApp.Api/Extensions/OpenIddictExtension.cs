@@ -149,21 +149,20 @@ namespace CoreApp.Api.Extensions
                         IssuerSigningKey = new X509SecurityKey(LoadCertificate(openIdOptions))
                     };
                 })
-                .AddJwtBearer("AnotherProvider", options =>
+                .AddJwtBearer("ADFS", options =>
                 {
-                    options.Authority = authenticationOptions.Issuer;
-                    options.Audience = authenticationOptions.Audience;
-                    options.RequireHttpsMetadata = !environment.IsDevelopment();
-                    options.IncludeErrorDetails = environment.IsDevelopment(); // if it is not development sets to false
-                    options.SaveToken = true;
+                    //options.Authority = appSettings.AdfsAuthority;
+                    //options.Audience = appSettings.AdfsAudience;
+                    options.IncludeErrorDetails = true;
+                    //options.MetadataAddress = appSettings.AdfsMetadataAddress;
 
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateLifetime = true,
                         ValidateIssuer = true,
-                        ValidIssuer = authenticationOptions.Issuer,
+                        //ValidIssuer = appSettings.AdfsIssuer,
                         ValidateAudience = true,
-                        ValidAudience = authenticationOptions.Audience,
+                        //ValidAudience = appSettings.AdfsAudience,
                         ValidateIssuerSigningKey = true
                     };
                 });
