@@ -1,5 +1,4 @@
 ﻿using CoreApp.Api.Options.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CoreApp.Api.Extensions
 {
-    public static class OpenIddictExtension
+    public static class BearersExtension
     {
         /// <summary>
         ///     Setup OpenIddict Configuration
@@ -49,12 +48,13 @@ namespace CoreApp.Api.Extensions
             }
         }
 
-        public static void AddOpenIddict
+        public static void AddBearers
         (
             this IServiceCollection services,
             IWebHostEnvironment environment,
             OidcAuthorizationServerOptions openIdOptions,
-            AuthenticationOptions authenticationOptions
+            AuthenticationOptions authenticationOptions,
+            string[] schemes
         )
         {
             services
@@ -122,15 +122,9 @@ namespace CoreApp.Api.Extensions
                     //        .IgnoreScopePermissions();
                 });
 
-            // Register the OpenIddict validation handler.
-            // Note: the OpenIddict validation handler is only compatible with the
-            // default token format or with reference tokens and cannot be used with
-            // JWT tokens. For JWT tokens, use the Microsoft JWT bearer handler.
-            //.AddValidation()
-
             services
-                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+                .AddAuthentication(schemes[0])
+                .AddJwtBearer(schemes[0], options =>
                 {
                     options.Authority = authenticationOptions.Issuer;
                     options.Audience = authenticationOptions.Audience;
@@ -149,7 +143,7 @@ namespace CoreApp.Api.Extensions
                         IssuerSigningKey = new X509SecurityKey(LoadCertificate(openIdOptions))
                     };
                 })
-                .AddJwtBearer("ADFS", options =>
+                .AddJwtBearer(schemes[1], options =>
                 {
                     //options.Authority = appSettings.AdfsAuthority;
                     //options.Audience = appSettings.AdfsAudience;

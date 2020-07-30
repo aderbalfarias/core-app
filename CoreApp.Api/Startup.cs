@@ -19,6 +19,7 @@ namespace CoreApp.Api
         private const string DemoConnection = "DemoConnection";
         private const string corsSettings = "CorsOrigin";
         private const string roleAdmin = "Admin";
+        private string[] Schemes = { JwtBearerDefaults.AuthenticationScheme, "ADFS" };
 
         public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
@@ -71,11 +72,11 @@ namespace CoreApp.Api
             {
                 options.DefaultPolicy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
-                    .AddAuthenticationSchemes("ADFS", JwtBearerDefaults.AuthenticationScheme)
+                    .AddAuthenticationSchemes(Schemes)
                     .Build();
             });
 
-            services.AddOpenIddict(Environment, oidc, authenticationOption);
+            services.AddBearers(Environment, oidc, authenticationOption, Schemes);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -117,7 +118,7 @@ namespace CoreApp.Api
                 endpoints.MapControllers();
             });
 
-            OpenIddictExtension.OpenIdInitializeAsync(app.ApplicationServices).GetAwaiter().GetResult();
+            BearersExtension.OpenIdInitializeAsync(app.ApplicationServices).GetAwaiter().GetResult();
         }
     }
 }
