@@ -72,7 +72,7 @@ namespace CoreApp.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllAsync()
         {
-            _logger.LogInformation("GetAll called");
+            _logger.LogInformation("GetAllAsync called");
 
             var result = await _demoService.GetAll();
 
@@ -175,7 +175,7 @@ namespace CoreApp.Api.Controllers
 
             if (model == null)
             {
-                _logger.LogWarning($"Save method on {controller} did not find any value in the model of the request");
+                _logger.LogWarning($"Save method on {controller} did not find any value in the request");
 
                 return NoContent();
             }
@@ -231,7 +231,7 @@ namespace CoreApp.Api.Controllers
 
             if (model == null)
             {
-                _logger.LogWarning($"Update method on {controller} did not find any value in the model of the request");
+                _logger.LogWarning($"Update method on {controller} did not find any value in the request");
 
                 return NoContent();
             }
