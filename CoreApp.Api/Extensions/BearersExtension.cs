@@ -145,18 +145,18 @@ namespace CoreApp.Api.Extensions
                 })
                 .AddJwtBearer(schemes[1], options =>
                 {
+                    options.IncludeErrorDetails = true;
                     //options.Authority = appSettings.AdfsAuthority;
                     //options.Audience = appSettings.AdfsAudience;
-                    options.IncludeErrorDetails = true;
                     //options.MetadataAddress = appSettings.AdfsMetadataAddress;
 
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
+                        //ValidIssuer = appSettings.AdfsIssuer,
+                        //ValidAudience = appSettings.AdfsAudience,
                         ValidateLifetime = true,
                         ValidateIssuer = true,
-                        //ValidIssuer = appSettings.AdfsIssuer,
                         ValidateAudience = true,
-                        //ValidAudience = appSettings.AdfsAudience,
                         ValidateIssuerSigningKey = true
                     };
                 });
