@@ -104,11 +104,12 @@ namespace CoreApp.Api
                 app.UseExceptionHandler("/Error");
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");
                 app.UseHsts();
+
+                app.UseHttpsRedirection();
             }
 
             app.UseRouting();
             app.UseAuthorization();
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCors();
             app.UseHealthChecks();
