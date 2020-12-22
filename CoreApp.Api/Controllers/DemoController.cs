@@ -64,6 +64,7 @@ namespace CoreApp.Api.Controllers
         ///     
         /// </remarks>
         /// <response code="200">Returns a collection of demos entity</response>
+        /// <response code="401">Returns Not Authorized</response>
         /// <returns>Returns a collection of demos entity</returns>
         /// <param></param>
         [HttpGet]
@@ -102,6 +103,7 @@ namespace CoreApp.Api.Controllers
         ///     
         /// </remarks>
         /// <response code="200">Returns a demo json object</response>
+        /// <response code="401">Returns Not Authorized</response>
         /// <returns>Returns a demo json object</returns>
         /// <param name="id">Demo Identifier</param>
         [HttpGet]
@@ -131,6 +133,7 @@ namespace CoreApp.Api.Controllers
         ///     
         /// </remarks>
         /// <response code="200">Returns a demo json object</response>
+        /// <response code="401">Returns Not Authorized</response>
         /// <returns>Returns a demo json object</returns>
         /// <param name="id">Demo Identifier</param>
         /// <param name="modelId">Model Identifier</param>
@@ -162,6 +165,7 @@ namespace CoreApp.Api.Controllers
         /// </remarks>
         /// <response code="200">Returns Ok</response>
         /// <response code="204">Returns NoContent</response>
+        /// <response code="401">Returns Not Authorized</response>
         /// <response code="500">Returns Internal Error</response>
         /// <returns>Returns Ok, NoContent or Internal Error</returns>
         /// <param name="model">Demo Model</param>
@@ -217,6 +221,7 @@ namespace CoreApp.Api.Controllers
         /// </remarks>
         /// <response code="200">Returns Ok</response>
         /// <response code="204">Returns NoContent</response>
+        /// <response code="401">Returns Not Authorized</response>
         /// <response code="500">Returns Internal Error</response>
         /// <returns>Returns Ok, NoContent or Internal Error</returns>
         /// <param name="id">Demo Identifier</param>
@@ -259,6 +264,7 @@ namespace CoreApp.Api.Controllers
         ///     
         /// </remarks>
         /// <response code="200">Returns Ok</response>
+        /// <response code="401">Returns Not Authorized</response>
         /// <response code="500">Returns Internal Error</response>
         /// <returns>Returns Ok or Internal Error</returns>
         /// <param name="id">Demo Identifier</param>
