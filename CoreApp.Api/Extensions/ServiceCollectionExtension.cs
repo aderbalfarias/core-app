@@ -36,17 +36,17 @@ namespace CoreApp.Api.Extensions
         {
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo
+                c.SwaggerDoc("v3", new OpenApiInfo
                 {
-                    Version = "1.1",
+                    Version = "1.3",
                     Title = "Core App Template",
-                    Description = "Solution to be used as a template for new .net core 3.1 apis",
-                    TermsOfService = new Uri("https://aderbalfarias.com"),
+                    Description = "Solution to be used as a template for new .net 5 apis",
+                    TermsOfService = new Uri("https://aderbalfarias.github.io/"),
                     Contact = new OpenApiContact
                     {
                         Name = "Aderbal Farias",
                         Email = "aderbalfarias@hotmail.com",
-                        Url = new Uri("https://aderbalfarias.com")
+                        Url = new Uri("https://aderbalfarias.github.io/")
                     }
                 });
 
