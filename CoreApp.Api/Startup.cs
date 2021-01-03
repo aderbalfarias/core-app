@@ -97,7 +97,7 @@ namespace CoreApp.Api
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("../swagger/v1/swagger.json", "Core App .NET v5");
+                c.SwaggerEndpoint("../swagger/v3/swagger.json", "Core App .NET v5");
                 c.RoutePrefix = string.Empty;
             });
 
