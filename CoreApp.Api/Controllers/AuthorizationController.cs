@@ -78,12 +78,11 @@ namespace CoreApp.Api.Controllers
                 .Where(x => x.ClientId == application.ClientId)
                 .ToList();
 
-            foreach (var client in clients)
-                if (client.Roles != null)
-                    foreach (var role in client.Roles)
-                        identity.AddClaim(OpenIdConnectConstants.Claims.Role,
-                            role, OpenIdConnectConstants.Destinations.AccessToken,
-                            OpenIdConnectConstants.Destinations.IdentityToken);
+            var roles = clients.Where(client => client.Roles != null).SelectMany(client => client.Roles);
+
+            foreach (var role in roles)
+                _ = identity.AddClaim(OpenIdConnectConstants.Claims.Role, role,
+                    OpenIdConnectConstants.Destinations.AccessToken, OpenIdConnectConstants.Destinations.IdentityToken);
 
             // Create a new authentication ticket holding the user identity.
             var ticket = new AuthenticationTicket(new ClaimsPrincipal(identity),
