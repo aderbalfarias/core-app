@@ -12,7 +12,7 @@ namespace CoreApp.Api.Controllers;
 /// </summary>
 //[Authorize]
 [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-[Authorize(AuthenticationSchemes = "ADFS, Bearer", Roles = "Master, Admin")]
+//[Authorize(AuthenticationSchemes = "ADFS, Bearer", Roles = "Master, Admin")]
 [Route("api/v{version:apiVersion}")]
 [ApiVersion("1.0")]
 [ApiController]

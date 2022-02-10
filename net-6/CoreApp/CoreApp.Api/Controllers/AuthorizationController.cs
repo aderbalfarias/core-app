@@ -17,12 +17,12 @@ namespace CoreApp.Api.Controllers
     public class AuthorizationController : ControllerBase
     {
         private readonly OidcAuthorizationServerOptions _serverOptions;
-        private readonly OpenIddictApplicationManager<OpenIddictApplicationManager> _applicationManager;
+        private readonly OpenIddictApplicationManager<OpenIddictApplication> _applicationManager;
 
         public AuthorizationController
         (
             OidcAuthorizationServerOptions options,
-            OpenIddictApplicationManager<OpenIddictApplicationManager> applicationManager
+            OpenIddictApplicationManager<OpenIddictApplication> applicationManager
         )
         {
             _serverOptions = options;
