@@ -1,11 +1,11 @@
-﻿namespace CoreApp.Api.Models
+﻿namespace CoreApp.Api.Models;
+
+public class DemoModel
 {
-    public class DemoModel
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public string Text { get; set; }
+    public string Text { get; set; }
 
-        public string Description { get; set; }
-    }
+    public string Description { get; set; }
 }
+

@@ -1,8 +1,9 @@
-﻿namespace CoreApp.Domain.Entities
+﻿namespace CoreApp.Domain.Entities;
+
+// Class to load objects in the appsettings json when the program starts
+public class AppSettings
 {
-    // Class to load objects in the appsettings json when the program starts
-    public class AppSettings
-    {
-        public virtual string ResponseErrorMessage { get; set; }
-    }
+    public virtual string? ResponseErrorMessage { get; set; }
 }
+
+

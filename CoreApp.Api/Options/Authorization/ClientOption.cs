@@ -1,7 +1,4 @@
-﻿using OpenIddict.Abstractions;
-using System.Collections.Generic;
-
-namespace CoreApp.Api.Options.Authorization
+﻿namespace CoreApp.Api.Options.Authorization
 {
     public class Client
     {
@@ -19,6 +16,6 @@ namespace CoreApp.Api.Options.Authorization
 
         public List<string> Roles { get; set; }
 
-        public OpenIddictApplicationDescriptor[] ApplicationDescriptors { get; set; }
+        //public OpenIddictApplicationDescriptor[] ApplicationDescriptors { get; set; }
     }
 }
