@@ -1,10 +1,7 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿namespace CoreApp.Domain.Interfaces.Services;
 
-namespace CoreApp.Domain.Interfaces.Services
+public interface ITokenService
 {
-    public interface ITokenService
-    {
-        Task<string> GetTokenAsync(string baseUrl, string tokenEndpoint, string clientId, string clientSecret, CancellationToken cancellationToken = default(CancellationToken));
-    }
+    Task<string> GetTokenAsync(string baseUrl, string tokenEndpoint, string clientId, string clientSecret, CancellationToken cancellationToken = default(CancellationToken));
 }
+

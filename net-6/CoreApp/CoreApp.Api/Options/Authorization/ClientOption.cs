@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CoreApp.Api.Options.Authorization
+﻿namespace CoreApp.Api.Options.Authorization
 {
     public class Client
     {

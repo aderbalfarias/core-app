@@ -12,13 +12,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseSerilog((context, config) => config.ReadFrom.Configuration(context.Configuration));
 
 // Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-
 var corsOrigin = builder.Configuration.GetSection("CorsOrigin").Get<string[]>();
 
 builder.Services.AddCors(options =>
@@ -77,12 +70,12 @@ app.Use(async (context, next) =>
 
 app.UseAuthentication();
 
-//logger.LogInformation($"In {env.EnvironmentName} environment");
+app.Logger.LogInformation($"In {app.Environment.EnvironmentName} environment");
 
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("../swagger/v3/swagger.json", "Core App .NET v5");
+    c.SwaggerEndpoint("../swagger/v3/swagger.json", "Core App .NET v6");
     c.RoutePrefix = string.Empty;
 });
 
