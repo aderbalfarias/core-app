@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CoreApp.Domain.CSharp8
+﻿namespace CoreApp.Domain.CSharp8
 {
     public enum Rainbow
     {

@@ -2,30 +2,27 @@
 using CoreApp.Domain.Interfaces.Repositories;
 using CoreApp.Domain.Interfaces.Services;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace CoreApp.Domain.Services
+namespace CoreApp.Domain.Services;
+
+public class OpenService : IOpenService
 {
-    public class OpenService : IOpenService
+    private readonly IBaseRepository _baseRepository;
+    private readonly ILogger _logger;
+
+    public OpenService
+    (
+        IBaseRepository baseRepository,
+        ILogger<DemoService> logger
+    )
     {
-        private readonly IBaseRepository _baseRepository;
-        private readonly ILogger _logger;
+        _baseRepository = baseRepository;
+        _logger = logger;
+    }
 
-        public OpenService
-        (
-            IBaseRepository baseRepository,
-            ILogger<DemoService> logger
-        )
-        {
-            _baseRepository = baseRepository;
-            _logger = logger;
-        }
-
-        public async Task<IEnumerable<OpenEntity>> GetAll()
-        {
-            return await Task.FromResult(new List<OpenEntity>
+    public async Task<IEnumerable<OpenEntity>> GetAll()
+    {
+        return await Task.FromResult(new List<OpenEntity>
             {
                 new OpenEntity
                 {
@@ -41,20 +38,20 @@ namespace CoreApp.Domain.Services
                 }
             });
 
-            //return await _baseRepository.GetAsync<OpenEntity>();
-        }
+        //return await _baseRepository.GetAsync<OpenEntity>();
+    }
 
-        public async Task<OpenEntity> GetById(int id)
+    public async Task<OpenEntity> GetById(int id)
+    {
+        return await Task.FromResult(new OpenEntity
         {
-            return await Task.FromResult(new OpenEntity
-            {
-                Id = id,
-                Value = "Open check",
-                Date = DateTime.Now
-            });
+            Id = id,
+            Value = "Open check",
+            Date = DateTime.Now
+        });
 
-            //return await _baseRepository
-            //    .GetObjectAsync<OpenEntity>(p => p.Id == id);
-        }
+        //return await _baseRepository
+        //    .GetObjectAsync<OpenEntity>(p => p.Id == id);
     }
 }
+
