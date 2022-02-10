@@ -1,0 +1,15 @@
+C:\git\core-app\net-6\CoreApp\CoreApp.Data\bin\Debug\net6.0\CoreApp.Data.deps.json
+C:\git\core-app\net-6\CoreApp\CoreApp.Data\bin\Debug\net6.0\CoreApp.Data.dll
+C:\git\core-app\net-6\CoreApp\CoreApp.Data\bin\Debug\net6.0\ref\CoreApp.Data.dll
+C:\git\core-app\net-6\CoreApp\CoreApp.Data\bin\Debug\net6.0\CoreApp.Data.pdb
+C:\git\core-app\net-6\CoreApp\CoreApp.Data\bin\Debug\net6.0\CoreApp.Domain.dll
+C:\git\core-app\net-6\CoreApp\CoreApp.Data\bin\Debug\net6.0\CoreApp.Domain.pdb
+C:\git\core-app\net-6\CoreApp\CoreApp.Data\obj\Debug\net6.0\CoreApp.Data.csproj.AssemblyReference.cache
+C:\git\core-app\net-6\CoreApp\CoreApp.Data\obj\Debug\net6.0\CoreApp.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\git\core-app\net-6\CoreApp\CoreApp.Data\obj\Debug\net6.0\CoreApp.Data.AssemblyInfoInputs.cache
+C:\git\core-app\net-6\CoreApp\CoreApp.Data\obj\Debug\net6.0\CoreApp.Data.AssemblyInfo.cs
+C:\git\core-app\net-6\CoreApp\CoreApp.Data\obj\Debug\net6.0\CoreApp.Data.csproj.CoreCompileInputs.cache
+C:\git\core-app\net-6\CoreApp\CoreApp.Data\obj\Debug\net6.0\CoreApp.Data.csproj.CopyComplete
+C:\git\core-app\net-6\CoreApp\CoreApp.Data\obj\Debug\net6.0\CoreApp.Data.dll
+C:\git\core-app\net-6\CoreApp\CoreApp.Data\obj\Debug\net6.0\ref\CoreApp.Data.dll
+C:\git\core-app\net-6\CoreApp\CoreApp.Data\obj\Debug\net6.0\CoreApp.Data.pdb

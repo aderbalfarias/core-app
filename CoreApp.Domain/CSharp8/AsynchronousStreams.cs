@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace CoreApp.Domain.CSharp8
+﻿namespace CoreApp.Domain.CSharp8
 {
     public class AsynchronousStreams
     {

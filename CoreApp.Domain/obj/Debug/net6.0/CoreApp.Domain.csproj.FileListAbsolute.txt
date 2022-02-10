@@ -1,0 +1,12 @@
+C:\git\core-app\net-6\CoreApp\CoreApp.Domain\bin\Debug\net6.0\CoreApp.Domain.deps.json
+C:\git\core-app\net-6\CoreApp\CoreApp.Domain\bin\Debug\net6.0\CoreApp.Domain.dll
+C:\git\core-app\net-6\CoreApp\CoreApp.Domain\bin\Debug\net6.0\ref\CoreApp.Domain.dll
+C:\git\core-app\net-6\CoreApp\CoreApp.Domain\bin\Debug\net6.0\CoreApp.Domain.pdb
+C:\git\core-app\net-6\CoreApp\CoreApp.Domain\obj\Debug\net6.0\CoreApp.Domain.csproj.AssemblyReference.cache
+C:\git\core-app\net-6\CoreApp\CoreApp.Domain\obj\Debug\net6.0\CoreApp.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\git\core-app\net-6\CoreApp\CoreApp.Domain\obj\Debug\net6.0\CoreApp.Domain.AssemblyInfoInputs.cache
+C:\git\core-app\net-6\CoreApp\CoreApp.Domain\obj\Debug\net6.0\CoreApp.Domain.AssemblyInfo.cs
+C:\git\core-app\net-6\CoreApp\CoreApp.Domain\obj\Debug\net6.0\CoreApp.Domain.csproj.CoreCompileInputs.cache
+C:\git\core-app\net-6\CoreApp\CoreApp.Domain\obj\Debug\net6.0\CoreApp.Domain.dll
+C:\git\core-app\net-6\CoreApp\CoreApp.Domain\obj\Debug\net6.0\ref\CoreApp.Domain.dll
+C:\git\core-app\net-6\CoreApp\CoreApp.Domain\obj\Debug\net6.0\CoreApp.Domain.pdb

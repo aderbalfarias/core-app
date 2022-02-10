@@ -1,0 +1,208 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CoreApp.Api</name>
+    </assembly>
+    <members>
+        <member name="T:CoreApp.Api.Controllers.DemoController">
+            <summary>
+            Controller to allow demos management 
+            </summary>
+        </member>
+        <member name="M:CoreApp.Api.Controllers.DemoController.GetAllAsync">
+            <summary>
+            Get all demo records from database
+            </summary>
+            <remarks>
+            Sample Request: 
+            
+                GET api/v2/demos
+            
+            Sample Response:
+            
+                [
+                    {
+                        Id: 1,
+                        Text: "x1",
+                        Description: "x2",
+                        Presenter: "x3",
+                        Date: "2020-01-01"
+                    },
+                    {
+                        Id: 2,
+                        Text: "x x1",
+                        Description: "x x2",
+                        Presenter: "x x3",
+                        Date: "2020-01-01"
+                    }
+                ]
+                
+            </remarks>
+            <response code="200">Returns a collection of demos entity</response>
+            <response code="401">Returns Not Authorized</response>
+            <returns>Returns a collection of demos entity</returns>
+            <param></param>
+        </member>
+        <member name="M:CoreApp.Api.Controllers.DemoController.GetById(System.Int32)">
+            <summary>
+            Get a specific demo data based on its id
+            </summary>
+            <remarks>
+            Sample Request: 
+            
+                GET api/v2/demos/{id}
+            
+            Sample Response:
+            
+                [
+                    {
+                        Id: 1,
+                        Text: "x1",
+                        Description: "x2",
+                        Presenter: "x3",
+                        Date: "2020-01-01"
+                    }
+                ]
+                
+            </remarks>
+            <response code="200">Returns a demo json object</response>
+            <response code="401">Returns Not Authorized</response>
+            <returns>Returns a demo json object</returns>
+            <param name="id">Demo Identifier</param>
+        </member>
+        <member name="M:CoreApp.Api.Controllers.DemoController.GetDetails(System.Int32,System.Int32)">
+            <summary>
+            Get a specific demo data based on its id and modelId
+            </summary>
+            <remarks>
+            Sample Request: 
+            
+                GET api/v1/demos/{id}/{modelId}
+            
+            Sample Response:
+            
+                [
+                    {
+                        Id: 1,
+                        Text: "x1",
+                        Description: "x2",
+                        Presenter: "x3",
+                        Date: "2020-01-01"
+                    }
+                ]
+                
+            </remarks>
+            <response code="200">Returns a demo json object</response>
+            <response code="401">Returns Not Authorized</response>
+            <returns>Returns a demo json object</returns>
+            <param name="id">Demo Identifier</param>
+            <param name="modelId">Model Identifier</param>
+        </member>
+        <member name="M:CoreApp.Api.Controllers.DemoController.Save(CoreApp.Api.Models.DemoModel)">
+            <summary>
+            Create a new demo object
+            </summary>
+            <remarks>
+            Sample Request: 
+            
+                POST api/v1/demos
+                
+            Sample Model:
+            
+                [
+                    {
+                        Text: "x1",
+                        Description: "x2",
+                        Presenter: "x3",
+                        Date: "2020-01-01"
+                    }
+                ]
+                
+            </remarks>
+            <response code="200">Returns Ok</response>
+            <response code="204">Returns NoContent</response>
+            <response code="401">Returns Not Authorized</response>
+            <response code="500">Returns Internal Error</response>
+            <returns>Returns Ok, NoContent or Internal Error</returns>
+            <param name="model">Demo Model</param>
+        </member>
+        <member name="M:CoreApp.Api.Controllers.DemoController.Update(System.Int32,CoreApp.Api.Models.DemoModel)">
+            <summary>
+            Update demo object
+            </summary>
+            <remarks>
+            Sample Request: 
+            
+                PUT api/v1/demos/{id}
+                
+            Sample Model:
+            
+                [
+                    {
+                        Id: 1,
+                        Text: "x1",
+                        Description: "x2",
+                        Presenter: "x3",
+                        Date: "2020-01-01"
+                    }
+                ]
+                
+            </remarks>
+            <response code="200">Returns Ok</response>
+            <response code="204">Returns NoContent</response>
+            <response code="401">Returns Not Authorized</response>
+            <response code="500">Returns Internal Error</response>
+            <returns>Returns Ok, NoContent or Internal Error</returns>
+            <param name="id">Demo Identifier</param>
+            <param name="model">Demo Model</param>
+        </member>
+        <member name="M:CoreApp.Api.Controllers.DemoController.Delete(System.Int32)">
+            <summary>
+            Remove demo object
+            </summary>
+            <remarks>
+            Sample Request: 
+            
+                DELETE api/v1/demos/{id}
+                
+            </remarks>
+            <response code="200">Returns Ok</response>
+            <response code="401">Returns Not Authorized</response>
+            <response code="500">Returns Internal Error</response>
+            <returns>Returns Ok or Internal Error</returns>
+            <param name="id">Demo Identifier</param>
+        </member>
+        <member name="M:CoreApp.Api.Middlewares.ApplicationBuilderExtension.UseIf(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Boolean,System.Func{Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Builder.IApplicationBuilder})">
+            <summary>
+                Executes the specific action if codition parameter is true
+                Used to conditionally add actions to the execution pipeline
+            </summary>
+            <param name="application">Application builder</param>
+            <param name="condition">If it is true the action is executed</param>
+            <param name="action">Action requested to be added to execution pipeline</param>
+            <returns>Application builder</returns>
+        </member>
+        <member name="M:CoreApp.Api.Extensions.ServiceCollectionExtension.AddIf(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Boolean,System.Func{Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.DependencyInjection.IServiceCollection})">
+            <summary>
+                Executes the specific action if codition parameter is true
+                Used to conditionally add actions to the servives
+            </summary>
+            <param name="services">Service collection</param>
+            <param name="condition">If it is true the action is executed</param>
+            <param name="action">Action requested to be added to servives</param>
+            <returns>Service collection</returns>
+        </member>
+        <member name="P:CoreApp.Api.Options.Authorization.Client.ClientId">
+            <summary>
+            Client identifier associated with the application
+            </summary>
+        </member>
+        <member name="P:CoreApp.Api.Options.Authorization.Client.ClientSecret">
+            <summary>
+            Client secret associated with the application
+            Note: Depending on the application manager used when creating it,
+            this property may be hashed or encrypted for security reasons
+            </summary>
+        </member>
+    </members>
+</doc>

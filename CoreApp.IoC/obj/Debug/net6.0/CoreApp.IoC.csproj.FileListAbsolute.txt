@@ -1,0 +1,17 @@
+C:\git\core-app\net-6\CoreApp\CoreApp.IoC\bin\Debug\net6.0\CoreApp.IoC.deps.json
+C:\git\core-app\net-6\CoreApp\CoreApp.IoC\bin\Debug\net6.0\CoreApp.IoC.dll
+C:\git\core-app\net-6\CoreApp\CoreApp.IoC\bin\Debug\net6.0\ref\CoreApp.IoC.dll
+C:\git\core-app\net-6\CoreApp\CoreApp.IoC\bin\Debug\net6.0\CoreApp.IoC.pdb
+C:\git\core-app\net-6\CoreApp\CoreApp.IoC\bin\Debug\net6.0\CoreApp.Data.dll
+C:\git\core-app\net-6\CoreApp\CoreApp.IoC\bin\Debug\net6.0\CoreApp.Domain.dll
+C:\git\core-app\net-6\CoreApp\CoreApp.IoC\bin\Debug\net6.0\CoreApp.Data.pdb
+C:\git\core-app\net-6\CoreApp\CoreApp.IoC\bin\Debug\net6.0\CoreApp.Domain.pdb
+C:\git\core-app\net-6\CoreApp\CoreApp.IoC\obj\Debug\net6.0\CoreApp.IoC.csproj.AssemblyReference.cache
+C:\git\core-app\net-6\CoreApp\CoreApp.IoC\obj\Debug\net6.0\CoreApp.IoC.GeneratedMSBuildEditorConfig.editorconfig
+C:\git\core-app\net-6\CoreApp\CoreApp.IoC\obj\Debug\net6.0\CoreApp.IoC.AssemblyInfoInputs.cache
+C:\git\core-app\net-6\CoreApp\CoreApp.IoC\obj\Debug\net6.0\CoreApp.IoC.AssemblyInfo.cs
+C:\git\core-app\net-6\CoreApp\CoreApp.IoC\obj\Debug\net6.0\CoreApp.IoC.csproj.CoreCompileInputs.cache
+C:\git\core-app\net-6\CoreApp\CoreApp.IoC\obj\Debug\net6.0\CoreApp.IoC.csproj.CopyComplete
+C:\git\core-app\net-6\CoreApp\CoreApp.IoC\obj\Debug\net6.0\CoreApp.IoC.dll
+C:\git\core-app\net-6\CoreApp\CoreApp.IoC\obj\Debug\net6.0\ref\CoreApp.IoC.dll
+C:\git\core-app\net-6\CoreApp\CoreApp.IoC\obj\Debug\net6.0\CoreApp.IoC.pdb
