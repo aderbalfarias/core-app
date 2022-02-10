@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CoreApp.Domain.CSharp8
+﻿namespace CoreApp.Domain.CSharp8
 {
     public static class UsingDeclarations
     {

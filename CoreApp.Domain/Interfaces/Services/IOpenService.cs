@@ -1,6 +1,4 @@
 ﻿using CoreApp.Domain.Entities;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace CoreApp.Domain.Interfaces.Services
 {

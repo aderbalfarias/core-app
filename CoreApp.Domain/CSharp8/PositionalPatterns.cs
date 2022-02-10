@@ -15,8 +15,6 @@
             };
     }
 
-
-
     public class Point
     {
         public int X { get; }
