@@ -54,9 +54,6 @@ builder.Services.AddAuthorization(options =>
         .Build();
 });
 
-//builder.Services.AddBearers(Environment, oidc, authenticationOption, new string[] { JwtBearerDefaults.AuthenticationScheme, "ADFS" });
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
